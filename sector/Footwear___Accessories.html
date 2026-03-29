@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Footwear & Accessories | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="sector-header">
+  <h1>Footwear & Accessories</h1>
+  <div class="subtitle">10 家公司 | 按市值排序</div>
+</div>
+<div class="container">
+  <div style="margin-bottom:12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">← 返回首頁</a>
+  </div>
+  <div class="cards-grid">
+<div class="card" onclick="window.location='../reports/9904.html'">
+  <div class="card-top">
+    <span class="ticker">9904</span>
+    <span class="company-name">寶成</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>84B</strong> 市值</div>
+    <div class="metric"><strong>7.01</strong> P/E</div>
+    <div class="metric"><strong>0.60</strong> P/B</div>
+  </div>
+  <div class="card-summary">寶成工業股份有限公司 (9904) 成立於 1969 年，總部位於台灣台中，為全球最大的品牌運動鞋與休閒鞋製造商。公司透過子公司 裕元工業 為 Nike、Adidas、ASICS、New Balance、Timberland 及 Salomon 等主要國際品牌進行 OEM/ODM 代工製造。其中 N</div>
+</div>
+<div class="card" onclick="window.location='../reports/9910.html'">
+  <div class="card-top">
+    <span class="ticker">9910</span>
+    <span class="company-name">豐泰</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>81B</strong> 市值</div>
+    <div class="metric"><strong>16.08</strong> P/E</div>
+    <div class="metric"><strong>3.14</strong> P/B</div>
+  </div>
+  <div class="card-summary">豐泰企業股份有限公司 (9910) 成立於 1971 年，總部位於台灣雲林斗六，為全球頂尖運動鞋代工大廠暨 Nike 最核心的策略合作夥伴之一。豐泰生產之運動鞋數量佔 Nike 全球銷售量約六分之一，且為 Nike 唯一授權之氣墊 (Air Max) 生產工廠。公司與 Nike 於 1992 年共同</div>
+</div>
+<div class="card" onclick="window.location='../reports/6890.html'">
+  <div class="card-top">
+    <span class="ticker">6890</span>
+    <span class="company-name">來億-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>41B</strong> 市值</div>
+    <div class="metric"><strong>12.85</strong> P/E</div>
+    <div class="metric"><strong>1.70</strong> P/B</div>
+  </div>
+  <div class="card-summary">來億興業股份有限公司 (6890) 是台灣名列前茅的跨國製鞋代工 (OEM/ODM) 大廠，專注為全球頂級運動休閒品牌生產製造運動鞋與戶外機能鞋。來億憑藉在橡膠底材直接射出、自動化噴膠與自動化移載等高度自動化製程領先同業，成功拿下 Adidas 鉅額訂單，甚至包辦其經典 Originals 系列過半</div>
+</div>
+<div class="card" onclick="window.location='../reports/6768.html'">
+  <div class="card-top">
+    <span class="ticker">6768</span>
+    <span class="company-name">志強-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>18B</strong> 市值</div>
+    <div class="metric"><strong>13.80</strong> P/E</div>
+    <div class="metric"><strong>1.22</strong> P/B</div>
+  </div>
+  <div class="card-summary">志強國際企業股份有限公司 (6768) 是一家享譽國際的專業運動鞋代工 (OEM/ODM) 大廠，被業界譽為「足球鞋代工天王」，在全球足球鞋代工市場拿下約兩成市佔率。除深耕各大頂級賽事足球鞋外，公司積極將卓越製鞋工藝延伸至高成長的專業跑鞋、籃球鞋及戶外休閒鞋領域。主要生產基地位於越南 (佔產能約三分</div>
+</div>
+<div class="card" onclick="window.location='../reports/9802.html'">
+  <div class="card-top">
+    <span class="ticker">9802</span>
+    <span class="company-name">鈺齊-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>16B</strong> 市值</div>
+    <div class="metric"><strong>13.68</strong> P/E</div>
+    <div class="metric"><strong>1.17</strong> P/B</div>
+  </div>
+  <div class="card-summary">鈺齊國際股份有限公司 (9802) 成立於 1995 年，總部位於台灣雲林斗六，為台灣戶外鞋代工龍頭。公司以製造專業運動鞋及高功能戶外鞋為主要業務，量產代工品牌客戶已超過 50 家，主要分布於美國與歐洲。產品涵蓋登山鞋、越野跑鞋、雪靴、Gore-Tex 防水鞋、運動涼鞋及休閒鞋等戶外機能鞋款。生產基</div>
+</div>
+<div class="card" onclick="window.location='../reports/6965.html'">
+  <div class="card-top">
+    <span class="ticker">6965</span>
+    <span class="company-name">中傑-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>13B</strong> 市值</div>
+    <div class="metric"><strong>23.85</strong> P/E</div>
+    <div class="metric"><strong>1.09</strong> P/B</div>
+  </div>
+  <div class="card-summary">中傑投資控股股份有限公司 (6965) 深耕製鞋領域超過四十年，是一家跨國頂級鞋類 ODM/OEM 製造大廠。公司為 New Balance 全球三大主力代工廠之一，雙方合作長達四十年，代工份額達 New Balance 全球產量約兩成。中傑不僅提供代工服務，更擁有專屬為各大國際品牌打造的「新鞋研發</div>
+</div>
+<div class="card" onclick="window.location='../reports/8404.html'">
+  <div class="card-top">
+    <span class="ticker">8404</span>
+    <span class="company-name">百和興業-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>8B</strong> 市值</div>
+    <div class="metric"><strong>13.49</strong> P/E</div>
+    <div class="metric"><strong>1.12</strong> P/B</div>
+  </div>
+  <div class="card-summary">百和興業控股股份有限公司 (8404) 為 百和工業 (9938) 旗下子公司，主要經營成衣、鞋類及運動用品之輔料黏扣帶 (魔鬼氈)、織帶 (鞋帶)、鬆緊帶、針織緹花網布及 3C 週邊配件之產製及銷售。百和興業為全球運動鞋產業鏈中不可或缺的輔料供應龍頭，產品廣泛應用於各大國際運動品牌之鞋類與服飾。旗</div>
+</div>
+<div class="card" onclick="window.location='../reports/4303.html'">
+  <div class="card-top">
+    <span class="ticker">4303</span>
+    <span class="company-name">信立</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>4.91</strong> P/E</div>
+    <div class="metric"><strong>1.49</strong> P/B</div>
+  </div>
+  <div class="card-summary">信立化學工業股份有限公司 (4303) 成立於 1973 年，為台灣老牌合成皮與塑膠皮製造商。主要產品包含聚氨酯 (PU) 合成皮、聚氯乙烯 (PVC) 軟皮及透濕防水膠布等。產品廣泛應用於鞋材、家具沙發、皮包、汽車內飾座椅及成衣。信立近年積極導入環保製程 (無溶劑、水性 PU)，並跨足再生能源領域</div>
+</div>
+<div class="card" onclick="window.location='../reports/9950.html'">
+  <div class="card-top">
+    <span class="ticker">9950</span>
+    <span class="company-name">萬國通</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.25</strong> P/B</div>
+  </div>
+  <div class="card-summary">萬國通路股份有限公司 (9950) 成立於 1979 年，總部位於台灣台南，為台灣行李箱產業之領導品牌暨全球知名行李箱設計與製造商。公司以自有品牌「Eminent」行銷全球逾 80 個國家，為極少數成功將自有品牌打入歐洲百貨通路的台灣行李箱企業。目前自有品牌與 OEM/ODM 代工各佔約五成產出。萬</div>
+</div>
+<div class="card" onclick="window.location='../reports/1340.html'">
+  <div class="card-top">
+    <span class="ticker">1340</span>
+    <span class="company-name">勝悅-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.40</strong> P/B</div>
+  </div>
+  <div class="card-summary">勝悅新材料股份有限公司 (1340) 專注於高分子複合材料的研發與應用，主要產品為各類鞋底材料。公司以獨家研發的 EVO 高分子複合材料聞名，並率先研發出 EVO 一次射出雙色雙硬度鞋底，曾為中國最大雙色鞋底生產企業。主要生產基地位於中國福建晉江。除製造業外，公司亦涉足商辦租賃及飯店經營。近年因市場</div>
+</div></div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

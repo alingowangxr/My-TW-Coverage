@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Textile Manufacturing | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="sector-header">
+  <h1>Textile Manufacturing</h1>
+  <div class="subtitle">56 家公司 | 按市值排序</div>
+</div>
+<div class="container">
+  <div style="margin-bottom:12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">← 返回首頁</a>
+  </div>
+  <div class="cards-grid">
+<div class="card" onclick="window.location='../reports/1402.html'">
+  <div class="card-top">
+    <span class="ticker">1402</span>
+    <span class="company-name">遠東新</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>139B</strong> 市值</div>
+    <div class="metric"><strong>16.74</strong> P/E</div>
+    <div class="metric"><strong>0.61</strong> P/B</div>
+  </div>
+  <div class="card-summary">遠東新世紀 (Far Eastern New Century) 是台灣龍頭紡織及石化企業，為遠東集團核心成員。業務涵蓋石化、化纖、紡織、電信 (遠傳電信) 及房地產開發。公司擁有從石化原料 (PTA/MEG) 到下游成衣的垂直整合能力，並積極發展綠色回收聚酯 (rPET) 產品，為全球第二大rPET</div>
+</div>
+<div class="card" onclick="window.location='../reports/1434.html'">
+  <div class="card-top">
+    <span class="ticker">1434</span>
+    <span class="company-name">福懋</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>27B</strong> 市值</div>
+    <div class="metric"><strong>31.96</strong> P/E</div>
+    <div class="metric"><strong>0.65</strong> P/B</div>
+  </div>
+  <div class="card-summary">福懋興業 (Formosa Taffeta) 為台塑集團成員，主要從事紡織 (尼龍/聚酯布)、輪胎簾布及油品經營 (福懋加油站)。紡織事業群為全球知名機能性布料供應商，供應運動及戶外服飾品牌；簾布事業群為台灣最大輪胎簾布製造商，供應國內外輪胎大廠；油品事業群經營加油站連鎖通路。 ## 供應鏈位置 上</div>
+</div>
+<div class="card" onclick="window.location='../reports/5475.html'">
+  <div class="card-top">
+    <span class="ticker">5475</span>
+    <span class="company-name">德宏</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>27B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>32.21</strong> P/B</div>
+  </div>
+  <div class="card-summary">德宏工業 (Glotech) 為台灣第三大電子級玻纖布廠，亦為台灣唯一具備石英纖維布 (Q-Glass) 量產能力之業者。主要產品包括：玻纖布 (PCB關鍵補強材料)、石英纖維布 (Q-Glass，低介電/低損耗，應用於高頻高速AI 伺服器、5G/6G及軍工雷達) 及複合材料氣瓶 (液化瓦斯瓶LPG</div>
+</div>
+<div class="card" onclick="window.location='../reports/1409.html'">
+  <div class="card-top">
+    <span class="ticker">1409</span>
+    <span class="company-name">新纖</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>25B</strong> 市值</div>
+    <div class="metric"><strong>13.19</strong> P/E</div>
+    <div class="metric"><strong>0.61</strong> P/B</div>
+  </div>
+  <div class="card-summary">新光合纖 (Shinkong Synthetic Fibers) 為新光集團成員，主要產品涵蓋化纖 (聚酯粒、長短纖、加工絲)、塑膠 (瓶用酯粒、工程塑膠)及光電材料 (TAC膜、增亮膜)。公司積極布局高附加價值產品，如電動車用工程塑膠、環保回收聚酯及半導體級化學品。生產基地橫跨台灣桃園、中國杭州及</div>
+</div>
+<div class="card" onclick="window.location='../reports/1440.html'">
+  <div class="card-top">
+    <span class="ticker">1440</span>
+    <span class="company-name">南紡</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>21B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.77</strong> P/B</div>
+  </div>
+  <div class="card-summary">南紡 (Tainan Spinning) 是台灣紡織業龍頭之一，為統一集團關係企業，業務涵蓋紡織與流通事業。紡織部門為台灣最大聚酯棉/紡紗廠之一，產品包括棉紗、聚酯粒、聚酯棉、機能性布料，產能布局台灣及越南；流通部門開發經營「南紡購物中心 (T.S. Mall)」，為台南地標型商場。 ## 供應鏈位</div>
+</div>
+<div class="card" onclick="window.location='../reports/5340.html'">
+  <div class="card-top">
+    <span class="ticker">5340</span>
+    <span class="company-name">建榮</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>20B</strong> 市值</div>
+    <div class="metric"><strong>83.33</strong> P/E</div>
+    <div class="metric"><strong>8.92</strong> P/B</div>
+  </div>
+  <div class="card-summary">建榮工業 (Baotek) 成立於1989年，總部位於台灣桃園。公司主要生產電子級玻纖布，為PCB印刷電路板的關鍵補強材料。建榮是日本日東紡 (Nitto Boseki) 集團成員 (日東紡持股約47%)，受益於母公司技術支援，在高階Low-Dk (低介電) 玻纖布領域具競爭優勢。產品廣泛應用於AI</div>
+</div>
+<div class="card" onclick="window.location='../reports/1419.html'">
+  <div class="card-top">
+    <span class="ticker">1419</span>
+    <span class="company-name">新紡</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>19B</strong> 市值</div>
+    <div class="metric"><strong>15.22</strong> P/E</div>
+    <div class="metric"><strong>1.07</strong> P/B</div>
+  </div>
+  <div class="card-summary">新光紡織 (Shinkong Textile) 為新光集團成員，業務涵蓋紡織、零售及營建。紡織部門研發機能性布料，擁有自有品牌PULA；零售部門代理知名品牌 (如ART HAUS、ARTE White) 經營複合式選品店；營建部門進行資產活化與不動產租賃 (如士林舊廠開發案)。集團關聯企業包括新光金</div>
+</div>
+<div class="card" onclick="window.location='../reports/9938.html'">
+  <div class="card-top">
+    <span class="ticker">9938</span>
+    <span class="company-name">百和</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>14B</strong> 市值</div>
+    <div class="metric"><strong>11.03</strong> P/E</div>
+    <div class="metric"><strong>1.06</strong> P/B</div>
+  </div>
+  <div class="card-summary">百和興業 (Taiwan Paiho) 成立於1979年，總部位於台灣彰化，為全球最大之黏扣帶 (Hook & Loop) 與鞋用輔料製造商之一。主要產品包括黏扣帶、織帶/鞋帶、鬆緊帶、射出鈎、緹花數位織物及工程網布鞋面 (Jacquard Engineered Mesh) 等。營收比重鞋類約60%</div>
+</div>
+<div class="card" onclick="window.location='../reports/4441.html'">
+  <div class="card-top">
+    <span class="ticker">4441</span>
+    <span class="company-name">振大環球</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>14B</strong> 市值</div>
+    <div class="metric"><strong>13.82</strong> P/E</div>
+    <div class="metric"><strong>1.98</strong> P/B</div>
+  </div>
+  <div class="card-summary">## 業務簡介 振大環球 (4441) 為資深之 成衣代工 廠，主要生產基地設於 越南 與 马达加斯加。公司採 OEM/ODM 模式，專注於 運動休閒服、居家服 及 工作服 之生產。振大環球擁有穩定之客戶群，特別深耕美國 電商 通路 (如 Amazon 自有品牌供應商) 及大型零售商，具備快速反應與</div>
+</div>
+<div class="card" onclick="window.location='../reports/1307.html'">
+  <div class="card-top">
+    <span class="ticker">1307</span>
+    <span class="company-name">三芳</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>14B</strong> 市值</div>
+    <div class="metric"><strong>11.95</strong> P/E</div>
+    <div class="metric"><strong>1.34</strong> P/B</div>
+  </div>
+  <div class="card-summary">三芳化學工業股份有限公司成立於1973年，總部位於台灣高雄，隸屬寶成集團。三芳為全球最大之運動鞋用PU合成皮與人工皮革製造商，市佔率逾40%。公司以獨特之濕式PU製程技術起家，並持續投入研發超細纖維人工皮革、TPU薄膜及環保水性PU回收材料。營運據點遍佈台灣、中國東莞、越南及印尼，與全球頂尖運動品牌</div>
+</div>
+<div class="card" onclick="window.location='../reports/8916.html'">
+  <div class="card-top">
+    <span class="ticker">8916</span>
+    <span class="company-name">光隆</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>19.07</strong> P/E</div>
+    <div class="metric"><strong>1.32</strong> P/B</div>
+  </div>
+  <div class="card-summary">光隆實業 (Kwong Lung Enterprise) 成立於1966年，總部位於台灣台北，為全球羽絨產業唯一整合上游羽絨原料精洗生產與下游成衣及家居紡織製造的垂直整合供應商。主要業務分為成衣部門(約59%)、羽絨原料部門(約22%)及家居紡織部門(約18%)。生產基地遍佈台灣桃園、中國昆山及越南</div>
+</div>
+<div class="card" onclick="window.location='../reports/1342.html'">
+  <div class="card-top">
+    <span class="ticker">1342</span>
+    <span class="company-name">八貫</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>15.18</strong> P/E</div>
+    <div class="metric"><strong>2.79</strong> P/B</div>
+  </div>
+  <div class="card-summary">八貫企業專注於熱塑性聚氨酯 (TPU) 機能性布料及成品組件的開發與製造。產品應用於高端醫療、救生、航太及戶外用品等領域，如充氣床、救生衣、航空逃生滑梯等。八貫具備TPU布料氣密性的核心技術優勢，營收分為布料/機能材料事業群(65%)及成品組件事業群(35%)。 ## 供應鏈位置 上游 (原料): </div>
+</div>
+<div class="card" onclick="window.location='../reports/1444.html'">
+  <div class="card-top">
+    <span class="ticker">1444</span>
+    <span class="company-name">力麗</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>6B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.64</strong> P/B</div>
+  </div>
+  <div class="card-summary">力麗企業 (Lealea Enterprise) 為力麗集團核心企業，專注於聚酯纖維及加工絲生產。主要產品包括聚酯粒、聚酯原絲、加工絲 (DTY)。公司積極發展環保紗線Ecoya (原液染色聚酯紗) 及機能性纖維，成功打入Apple供應鏈，獨家供應Apple HomePod表布、編織充電線及Appl</div>
+</div>
+<div class="card" onclick="window.location='../reports/1460.html'">
+  <div class="card-top">
+    <span class="ticker">1460</span>
+    <span class="company-name">宏遠</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.80</strong> P/B</div>
+  </div>
+  <div class="card-summary">宏遠興業 (Everest Textile) 為遠東集團旗下之垂直整合紡織大廠。擁有從假撚、織布、染整、貼膜、塗佈到成衣製作的完整一貫化產線。產品以高機能性運動布料 (防風防水、吸濕排汗) 及流行時尚布料為主。全球佈局涵蓋台灣台南、中國上海、泰國、美國北卡及衣索比亞。 ## 供應鏈位置 上游 (原料</div>
+</div>
+<div class="card" onclick="window.location='../reports/1455.html'">
+  <div class="card-top">
+    <span class="ticker">1455</span>
+    <span class="company-name">集盛</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.80</strong> P/B</div>
+  </div>
+  <div class="card-summary">集盛實業 (Zig Sheng Industrial) 為台灣主要化纖大廠，專注於尼龍粒 (Nylon Chips) 與尼龍絲之生產。產品包括尼龍粒 (工程塑膠用、紡絲用)、尼龍絲、聚酯加工絲。擁有改質尼龍技術，積極發展廢漁網回收尼龍等環保產品，並向下游延伸至複合材料領域。 ## 供應鏈位置 上游 </div>
+</div>
+<div class="card" onclick="window.location='../reports/1464.html'">
+  <div class="card-top">
+    <span class="ticker">1464</span>
+    <span class="company-name">得力</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>26.67</strong> P/E</div>
+    <div class="metric"><strong>0.90</strong> P/B</div>
+  </div>
+  <div class="card-summary">得力實業 (De Licacy Industrial) 為全球知名機能性布料供應商，深耕運動、戶外及家飾布料市場。主要產品為高機能性長短纖梭織布，擁有自有品牌「Delin」。產品特色包含吸濕排汗、防風防水、高彈性及環保回收材質。在台灣台南、中國南通及越南設有大型生產基地，具備從織布、染整到後加工的垂</div>
+</div>
+<div class="card" onclick="window.location='../reports/4417.html'">
+  <div class="card-top">
+    <span class="ticker">4417</span>
+    <span class="company-name">金洲</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>8.37</strong> P/E</div>
+    <div class="metric"><strong>1.34</strong> P/B</div>
+  </div>
+  <div class="card-summary">## 業務簡介 金洲海洋科技 (4417) 為全球前三大、台灣第一大 漁網 製造商，以自有品牌 King Net 行銷全球。主要產品涵蓋遠洋漁業之 圍網、拖網、箱網 及各類 陸上用網 (如高爾夫球網、建築安全網)。金洲擁有從 抽絲、撚線、織網 到 熱處理 之一貫化生產優勢，能提供客製化且高品質之網具</div>
+</div>
+<div class="card" onclick="window.location='../reports/1447.html'">
+  <div class="card-top">
+    <span class="ticker">1447</span>
+    <span class="company-name">力鵬</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.59</strong> P/B</div>
+  </div>
+  <div class="card-summary">力鵬企業 (Li Peng Enterprise) 為力麗集團成員，亞洲最大的尼龍粒 (Nylon Chips) 生產商之一。主要業務包括尼龍粒、尼龍絲及織布 (平織布)。擁有從聚合、紡絲到織布、染整的高度垂直整合能力。近年亦跨足風電綠能投資。 ## 供應鏈位置 上游 (原料): - 採購CPL (</div>
+</div>
+<div class="card" onclick="window.location='../reports/1423.html'">
+  <div class="card-top">
+    <span class="ticker">1423</span>
+    <span class="company-name">利華</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>9.28</strong> P/E</div>
+    <div class="metric"><strong>1.09</strong> P/B</div>
+  </div>
+  <div class="card-summary">利華羊毛 (Reward Wool Industry) 是台灣唯一的羊毛防縮處理及毛條製造廠。主要產品包括毛條 (Wool Tops)、防縮毛條 (Superwash Wool)、炭化羊毛 (Carbonized Wool) 及防縮散毛。公司引進Kroy防縮設備及烘乾機，專注於高品質羊毛加工。產品最</div>
+</div>
+<div class="card" onclick="window.location='../reports/1457.html'">
+  <div class="card-top">
+    <span class="ticker">1457</span>
+    <span class="company-name">宜進</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>13.81</strong> P/E</div>
+    <div class="metric"><strong>0.73</strong> P/B</div>
+  </div>
+  <div class="card-summary">宜進實業 (Yi Jinn Industrial) 業務涵蓋紡織與不動產投資。紡織部門生產各類聚酯加工絲 (DTY)，包括車用與工業用紗，近年積極研發環保再生纖維及特殊機能紗；不動產部門為集團獲利重要來源，擁有大量內湖、南港商辦及工業用地資產進行租賃，轉型為「包租公」模式以穩定獲利。旗下關係企業包括</div>
+</div>
+<div class="card" onclick="window.location='../reports/1459.html'">
+  <div class="card-top">
+    <span class="ticker">1459</span>
+    <span class="company-name">聯發</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>8.38</strong> P/E</div>
+    <div class="metric"><strong>1.05</strong> P/B</div>
+  </div>
+  <div class="card-summary">聯發紡織 (Lan Fa Textile) 原主營聚酯加工絲 (DTY) 生產。近年因市場競爭與成本因素，已逐步淡出製造端 (停止竹北廠生產)，轉型為資產租賃與買賣業務。目前營收與獲利來源主要依賴不動產租賃與資產處分利益。公司擁有新竹地區大面積工業用地，極具資產重估價值。 ## 供應鏈位置 資產管理</div>
+</div>
+<div class="card" onclick="window.location='../reports/1451.html'">
+  <div class="card-top">
+    <span class="ticker">1451</span>
+    <span class="company-name">年興</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>10.17</strong> P/E</div>
+    <div class="metric"><strong>0.48</strong> P/B</div>
+  </div>
+  <div class="card-summary">年興紡織 (Nien Hsing Textile) 是全球前五大一貫化牛仔紡織成衣廠之一。業務核心為牛仔布生產及牛仔褲代工。具備從紡紗、織布、染整到成衣製造之高度垂直整合優勢 (One-stop Shop)。生產基地涵蓋台灣、越南、賴索托 (Lesotho) 及墨西哥。 ## 供應鏈位置 上游 (原</div>
+</div>
+<div class="card" onclick="window.location='../reports/4439.html'">
+  <div class="card-top">
+    <span class="ticker">4439</span>
+    <span class="company-name">冠星-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>11.53</strong> P/E</div>
+    <div class="metric"><strong>0.96</strong> P/B</div>
+  </div>
+  <div class="card-summary">## 業務簡介 冠星-KY (4439) 為全球知名之 棉混紡 針織布料供應商，長期深耕 運動休閒 服飾市場。公司專注於短纖布料之研發與生產，主力產品為 棉 與 人造纖維 混紡之針織布 (Knitted Fabric)。冠星為 Adidas 之全球核心供應商 (Key Supplier)，並與 Ga</div>
+</div>
+<div class="card" onclick="window.location='../reports/1414.html'">
+  <div class="card-top">
+    <span class="ticker">1414</span>
+    <span class="company-name">東和</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>135.38</strong> P/E</div>
+    <div class="metric"><strong>1.12</strong> P/B</div>
+  </div>
+  <div class="card-summary">東和紡織 (Tung Ho Textile) 定位為「全方位功能性短纖專家」，主要從事短纖紡紗業務。產品包括一般CVC環錠紡、drirelease親水性紗線、複合機能紗線及SIRO賽洛紡紗線等。公司積極導入自動化及永續認證 (如GRS、GOTS)。 ## 供應鏈位置 上游 (原料): - 棉花: 美</div>
+</div>
+<div class="card" onclick="window.location='../reports/1341.html'">
+  <div class="card-top">
+    <span class="ticker">1341</span>
+    <span class="company-name">富林-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>15.57</strong> P/E</div>
+    <div class="metric"><strong>2.39</strong> P/B</div>
+  </div>
+  <div class="card-summary">富林-KY (Fulin Plastic Industry) 是越南最大的PVC人造皮革製造商，主要生產及銷售PVC皮革、乳膠皮、膠布、柔軟皮及環保PU皮革等產品。產品應用範圍涵蓋家具、皮包、汽車座墊、球類等。生產基地設於越南海防及同奈，產品以越南內銷(47%)及東亞、亞洲外銷為主。 ## 供應鏈位</div>
+</div>
+<div class="card" onclick="window.location='../reports/1463.html'">
+  <div class="card-top">
+    <span class="ticker">1463</span>
+    <span class="company-name">強盛新</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>137.31</strong> P/E</div>
+    <div class="metric"><strong>1.34</strong> P/B</div>
+  </div>
+  <div class="card-summary">強盛新 (Chyang Sheng Texing，原強盛染整) 為台灣專業委託加工染整業者。紡織部門提供天然纖維與人造纖維之專業染整加工服務，具備先進染整設備，能處理高附加價值之機能性布料；營建部門透過轉投資子公司「保強建設」跨足不動產開發，近年營建收入成為公司獲利重要支柱 (如台北市都更案)。公司</div>
+</div>
+<div class="card" onclick="window.location='../reports/1439.html'">
+  <div class="card-top">
+    <span class="ticker">1439</span>
+    <span class="company-name">雋揚</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>8.75</strong> P/E</div>
+    <div class="metric"><strong>0.88</strong> P/B</div>
+  </div>
+  <div class="card-summary">雋揚國際 (Ascent Development，原中和羊毛) 早期為國內主要毛紡廠，2019年加入國揚集團後，於2022年更名並轉型。目前核心業務已轉為不動產開發、租賃與銷售，以及建材買賣。公司逐步退出紡織製造，轉向資產活化與營建開發，與國揚建設資源整合共同開發建案。 ## 供應鏈位置 營建開發事</div>
+</div>
+<div class="card" onclick="window.location='../reports/1446.html'">
+  <div class="card-top">
+    <span class="ticker">1446</span>
+    <span class="company-name">宏和</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>10.56</strong> P/E</div>
+    <div class="metric"><strong>0.85</strong> P/B</div>
+  </div>
+  <div class="card-summary">宏和精密紡織 (Hong Ho Precision Textile) 業務涵蓋精緻布料生產及營建開發。紡織部門生產高品質平織布、長短纖交織布、超細纖維布，主攻高端成衣及戶外運動市場；營建部門於板橋自有土地開發住宅案「君麟」，轉型為成屋銷售與租賃，貢獻顯著獲利。 ## 供應鏈位置 紡織事業: - 位於</div>
+</div>
+<div class="card" onclick="window.location='../reports/1325.html'">
+  <div class="card-top">
+    <span class="ticker">1325</span>
+    <span class="company-name">恆大</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.90</strong> P/B</div>
+  </div>
+  <div class="card-summary">恆大股份有限公司成立於1962年，總部位於台灣台北，工廠設於台南白河及中國廈門。恆大早期以生產手套起家，後轉型為紡結不織布之專業製造商，為台灣「口罩國家隊」重要成員。主要產品涵蓋SMS複合不織布、熔噴不織布及醫用口罩等醫療衛材。近年亦積極開發高附加價值之空氣過濾材 (HEPA)、車用吸音棉及各式複合</div>
+</div>
+<div class="card" onclick="window.location='../reports/4420.html'">
+  <div class="card-top">
+    <span class="ticker">4420</span>
+    <span class="company-name">光明</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>8.90</strong> P/E</div>
+    <div class="metric"><strong>1.30</strong> P/B</div>
+  </div>
+  <div class="card-summary">## 業務簡介 光明絲織 (4420) 為 宜進集團 旗下成員，原專注於織布業務，近年轉型為 聚酯加工絲 製造商。主要產品為 機能性加工絲 (如抗菌、吸濕排汗) 及 環保回收紗。面對紡織業國際競爭，光明積極進行垂直整合與轉型，除本業外，亦跨足 不動產開發 與租賃業務，活化各廠區資產 (如南港、龜山)</div>
+</div>
+<div class="card" onclick="window.location='../reports/1410.html'">
+  <div class="card-top">
+    <span class="ticker">1410</span>
+    <span class="company-name">南染</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>53.97</strong> P/E</div>
+    <div class="metric"><strong>1.86</strong> P/B</div>
+  </div>
+  <div class="card-summary">南染 (Nan Yang Dyeing & Finishing) 早期從事紡織染整業務，近年已轉型為控股公司模式。核心業務涵蓋不動產租賃 (利用桃園及三重土地資產) 及轉投資半導體封測業務 (透過子公司南岩半導體)。南岩半導體專注於半導體封裝測試及編帶業務，受惠於供應鏈去中化趨勢，積極開發美國車用電</div>
+</div>
+<div class="card" onclick="window.location='../reports/1470.html'">
+  <div class="card-top">
+    <span class="ticker">1470</span>
+    <span class="company-name">大統新創</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>28.65</strong> P/E</div>
+    <div class="metric"><strong>1.93</strong> P/B</div>
+  </div>
+  <div class="card-summary">大統新創 (Evertex Fabrinology，原大統染整) 為專業機能性布料供應商，以精湛的染整技術著稱。產品專注於戶外運動、休閒服飾用之機能性針織與平織布料，如吸濕排汗、抗菌防臭、防水透氣等。公司亦積極發展太陽能發電業務，於廠區屋頂建置太陽能板售電，創造穩定業外收益。 ## 供應鏈位置 上游</div>
+</div>
+<div class="card" onclick="window.location='../reports/1468.html'">
+  <div class="card-top">
+    <span class="ticker">1468</span>
+    <span class="company-name">昶和</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>56.67</strong> P/E</div>
+    <div class="metric"><strong>1.36</strong> P/B</div>
+  </div>
+  <div class="card-summary">昶和纖維 (Chang-Ho Fibre) 專注於極細纖維 (Microfiber) 與超極細纖維產品之研發與生產。紡織部門生產高品質、高附加價值之極細纖維布料，應用於高階服飾、家飾及工業擦拭布；營建部門轉投資營建事業，參與土地開發與住宅興建，目前營建收入佔比已相當顯著。 ## 供應鏈位置 紡織事業</div>
+</div>
+<div class="card" onclick="window.location='../reports/1466.html'">
+  <div class="card-top">
+    <span class="ticker">1466</span>
+    <span class="company-name">聚隆</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.23</strong> P/B</div>
+  </div>
+  <div class="card-summary">聚隆纖維 (Acelon Chemicals & Fiber) 為台灣知名尼龍原絲生產商，亦為台灣第二大尼龍加工絲廠。主要產品包括尼龍原絲 (Nylon Filament)、尼龍加工絲 (Nylon DTY)、聚酯加工絲。積極開發環保素材 (如原液染色纖維Dope Dyed、生質尼龍) 及抗菌、涼感</div>
+</div>
+<div class="card" onclick="window.location='../reports/4442.html'">
+  <div class="card-top">
+    <span class="ticker">4442</span>
+    <span class="company-name">竣邦-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>13.12</strong> P/E</div>
+    <div class="metric"><strong>2.27</strong> P/B</div>
+  </div>
+  <div class="card-summary">## 業務簡介 竣邦-KY (4442) 為 輕資產 (Light Asset) 型之紡織研發與貿易商，專注於高階 機能性布料 之開發。公司不設大型工廠，而是整合上游供應鏈進行外包生產，自身聚焦於 R&D 與 接單。竣邦擅長開發 滑雪、衝浪 等極限運動用布料，以及潮流休閒機能布，為 Nike、Can</div>
+</div>
+<div class="card" onclick="window.location='../reports/1475.html'">
+  <div class="card-top">
+    <span class="ticker">1475</span>
+    <span class="company-name">業旺</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>8.28</strong> P/E</div>
+    <div class="metric"><strong>1.28</strong> P/B</div>
+  </div>
+  <div class="card-summary">業旺 (Big Sun Shine，原互億科技) 原為電子股，經歷經營權異動後轉型為紡織染整與貿易公司。主要從事染整加工、織布及紡織品買賣。產品以家飾布 (沙發布、窗簾布)、工業助劑及染整顏料為主。公司透過併購與業務調整，目前營收主力來自紡織相關業務。 ## 供應鏈位置 紡織事業: - 布料染整加工</div>
+</div>
+<div class="card" onclick="window.location='../reports/4401.html'">
+  <div class="card-top">
+    <span class="ticker">4401</span>
+    <span class="company-name">東隆興</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>20.48</strong> P/E</div>
+    <div class="metric"><strong>0.68</strong> P/B</div>
+  </div>
+  <div class="card-summary">## 業務簡介 東隆興業 (4401) 為亞洲最大之 尼龍 66 線紗供應商，亦是台灣 機能性加工絲 領導廠商。公司專注於高階 紡織 原料之研發與製造，產品涵蓋 空氣假撚紗 (ATY)、延伸假撚紗 (DTY)、複合紗 及 色紗。東隆興與國際運動品牌採取 "Design-in" 合作模式，共同開發機能</div>
+</div>
+<div class="card" onclick="window.location='../reports/5450.html'">
+  <div class="card-top">
+    <span class="ticker">5450</span>
+    <span class="company-name">南良</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>111.54</strong> P/E</div>
+    <div class="metric"><strong>0.97</strong> P/B</div>
+  </div>
+  <div class="card-summary">南良國際 (Nam Liong Global) 成立於1972年，總部位於台灣台南，為南良集團核心企業。公司定位為高科技複合材料供應商，主要產品包括高分子彈性體發泡材料 (如Neoprene潛水衣料)、功能性紡織品 (耐磨/防切割/防火布)、黏扣帶及生醫保健產品。產品廣泛應用於運動休閒、戶外活動、安</div>
+</div>
+<div class="card" onclick="window.location='../reports/9944.html'">
+  <div class="card-top">
+    <span class="ticker">9944</span>
+    <span class="company-name">新麗</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.57</strong> P/B</div>
+  </div>
+  <div class="card-summary">新麗企業 (Shinih Enterprise) 成立於1962年，總部位於台灣桃園，為亞太區樹脂棉龍頭及不織布大廠。主要產品分為三大類：成衣保溫隔離材 (如Thermolite、CLOMAX品牌)、汽車用材 (過濾、隔音) 及工業用材 (高速公路、屋頂防漏土工布)。公司在全球8個國家擁有25個生產</div>
+</div>
+<div class="card" onclick="window.location='../reports/1445.html'">
+  <div class="card-top">
+    <span class="ticker">1445</span>
+    <span class="company-name">大宇</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.76</strong> P/B</div>
+  </div>
+  <div class="card-summary">大宇紡織 (Tayou Textile) 專注於各類紗線及機能性布料之生產與加工。產品涵蓋聚酯加工絲、彈性布料、麂皮布及工業用布。近年積極開發環保再生材料及高附加價值之運動機能布料，為國際運動品牌供應鏈之間接供應商。 ## 供應鏈位置 上游 (原料): - 聚酯POY (來自南亞、遠東新) 中游 (</div>
+</div>
+<div class="card" onclick="window.location='../reports/6832.html'">
+  <div class="card-top">
+    <span class="ticker">6832</span>
+    <span class="company-name">金鼎科</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>19.74</strong> P/E</div>
+    <div class="metric"><strong>3.05</strong> P/B</div>
+  </div>
+  <div class="card-summary">金鼎科聯合科技纖維股份有限公司 (King's Metal Fiber Technologies) 是一家專注於研發及生產耐高溫不鏽鋼金屬纖維製品的隱形冠軍。有別於傳統紡織纖維，金鼎科將AISI 316L不鏽鋼與其他特殊合金抽絲、編織成布料或氈墊，以自有品牌「King's Metal Fiber」行</div>
+</div>
+<div class="card" onclick="window.location='../reports/1454.html'">
+  <div class="card-top">
+    <span class="ticker">1454</span>
+    <span class="company-name">台富</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.16</strong> P/B</div>
+  </div>
+  <div class="card-summary">台富食品工業 (Taiwan Taffeta Fabric，雖名為食品工業但主業為紡織) 專注於特多龍 (Tetoron) 梭織布之生產。產品包括彈性布、緹花布及各類機能性布料。公司持續推廣自有品牌「ElasLana」，主打仿毛感的高彈性纖維布料，應用於都會休閒與戶外服飾。生產基地設於桃園及越南。 </div>
+</div>
+<div class="card" onclick="window.location='../reports/4426.html'">
+  <div class="card-top">
+    <span class="ticker">4426</span>
+    <span class="company-name">利勤</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.83</strong> P/B</div>
+  </div>
+  <div class="card-summary">## 業務簡介 利勤實業 (4426) 為全球最大之 3D 立體織物 (Spacer Fabrics) 領導廠商。專注於 三層網布 之研發與製造，該技術整合表層、底層與中間支撐層，具備高透氣、輕量、避震及緩衝特性，廣泛應用於 運動鞋 鞋面 (Upper) 與內裡。利勤擁有從織造、染整到定型之一貫化生</div>
+</div>
+<div class="card" onclick="window.location='../reports/1449.html'">
+  <div class="card-top">
+    <span class="ticker">1449</span>
+    <span class="company-name">佳和</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>97.50</strong> P/E</div>
+    <div class="metric"><strong>0.67</strong> P/B</div>
+  </div>
+  <div class="card-summary">佳和實業 (Chia Her Industrial) 為台灣知名紡織廠，以生產高品質羊毛紡織品起家，近年積極轉型為機能性與複合材料供應商。紡織部門供應成衣布料，涵蓋時尚、戶外、家飾；複合材料部門成功切入電動車及航空航太供應鏈，提供車用及機艙用內裝材料。 ## 供應鏈位置 紡織事業: - 擁有織布、染</div>
+</div>
+<div class="card" onclick="window.location='../reports/1452.html'">
+  <div class="card-top">
+    <span class="ticker">1452</span>
+    <span class="company-name">宏益</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.54</strong> P/B</div>
+  </div>
+  <div class="card-summary">宏益纖維 (Hong Yi Fiber) 專注於生產聚酯加工絲 (Polyester Textured Yarn, DTY)，特別致力於高附加價值的「複合紗」與「機能紗」產品。公司不走量產大宗規格路線，而是主攻少量多樣、客製化的高階加工絲市場，在國內加工絲廠中享有較高的技術門檻與毛利水準。 ## 供</div>
+</div>
+<div class="card" onclick="window.location='../reports/1453.html'">
+  <div class="card-top">
+    <span class="ticker">1453</span>
+    <span class="company-name">大將</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>310.00</strong> P/E</div>
+    <div class="metric"><strong>1.03</strong> P/B</div>
+  </div>
+  <div class="card-summary">大將開發 (Ta Jiang) 早期為紡織染整廠，後轉型為營建開發與紡織雙軌並行。紡織部門保留部分紗線、布料買賣及染整業務，但比重已逐漸降低；營建部門為主要成長動能，於屏東等地區進行透天住宅與大樓開發。公司亦跨足水處理工程業務。 ## 供應鏈位置 紡織事業: - 貿易商與加工角色 營建事業: - 住</div>
+</div>
+<div class="card" onclick="window.location='../reports/1474.html'">
+  <div class="card-top">
+    <span class="ticker">1474</span>
+    <span class="company-name">弘裕</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>30.45</strong> P/E</div>
+    <div class="metric"><strong>0.59</strong> P/B</div>
+  </div>
+  <div class="card-summary">弘裕企業 (Honmyue Enterprise) 為台灣主要工業用布與家飾用布製造商。產品涵蓋工業用布 (箱包材、帳棚)、家飾用布 (窗簾、沙發)、成衣用布及醫療用布 (手術衣、隔離衣)。近年積極切入醫療紡織領域，成為公司轉型亮點。生產基地位於台灣彰化及中國浙江。 ## 供應鏈位置 上游 (原料)</div>
+</div>
+<div class="card" onclick="window.location='../reports/1413.html'">
+  <div class="card-top">
+    <span class="ticker">1413</span>
+    <span class="company-name">宏洲</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>21.51</strong> P/E</div>
+    <div class="metric"><strong>1.17</strong> P/B</div>
+  </div>
+  <div class="card-summary">宏洲纖維 (Hung Chou Fiber) 專注於聚酯長纖維的生產與銷售，並積極開發高附加價值的功能性纖維，如生物可降解纖維、石墨烯纖維、低溫遠紅外線纖維及銅離子抗菌纖維。自有品牌「宏維絲 HUNVIRA」行銷全球。 ## 供應鏈位置 上游 (石化原料): - 原料: EG (乙二醇，主要來自東聯</div>
+</div>
+<div class="card" onclick="window.location='../reports/1465.html'">
+  <div class="card-top">
+    <span class="ticker">1465</span>
+    <span class="company-name">偉全</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.75</strong> P/B</div>
+  </div>
+  <div class="card-summary">偉全實業 (Wisher Industrial) 主要從事紡織品貿易業務。專營長短纖梭織布、針織布及加工絲之進出口買賣。公司定位為專業紡織貿易商，協助國內外客戶採購各式布料與纖維產品。產品高度外銷，以美洲市場為大宗，其次為亞洲。 ## 供應鏈位置 上游 (採購): - 向國內外纖維廠如南亞、遠東新、</div>
+</div>
+<div class="card" onclick="window.location='../reports/4433.html'">
+  <div class="card-top">
+    <span class="ticker">4433</span>
+    <span class="company-name">興采</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>19.81</strong> P/E</div>
+    <div class="metric"><strong>0.63</strong> P/B</div>
+  </div>
+  <div class="card-summary">## 業務簡介 興采實業 (4433) 為全球機能性紡織品領導廠商，以首創之 S.Café (環保科技咖啡紗) 聞名於世。該技術回收廢棄 咖啡渣 添加至紗線中，賦予布料除臭、速乾及抗紫外線等特性，獲多項國際專利驗證。興采專注於環保機能布料之研發，產品廣泛應用於 戶外運動、內衣及休閒服飾，並深受 Pa</div>
+</div>
+<div class="card" onclick="window.location='../reports/4440.html'">
+  <div class="card-top">
+    <span class="ticker">4440</span>
+    <span class="company-name">宜新實業</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>14.96</strong> P/E</div>
+    <div class="metric"><strong>0.88</strong> P/B</div>
+  </div>
+  <div class="card-summary">## 業務簡介 宜新實業 (4440) 為台灣專業之 彈性包覆紗 與 加工絲 製造商。公司以「魔術絲」系列聞名，專注於高附加價值之 複合紗 (Composite Yarn) 與機能性彈性紗之研發。產品結合不同纖維特性 (如吸濕排汗、保暖、抗UV)，廣泛應用於 運動服飾、休閒褲、鞋材 及 汽車內飾。宜</div>
+</div>
+<div class="card" onclick="window.location='../reports/4402.html'">
+  <div class="card-top">
+    <span class="ticker">4402</span>
+    <span class="company-name">郡都開發</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.87</strong> P/B</div>
+  </div>
+  <div class="card-summary">## 業務簡介 郡都開發 (4402) (原名 福大材料科技) 早期從事 紡織 胚布與尼龍材料製造，近年經營權易主後，積極轉型為 不動產開發 與 再生能源 雙核心業務。在紡織本業上，已轉型為貿易商模式；在綠能領域，則從事 太陽能電廠 之投資、興建與維運 (EPC/IPP)，綠電收入佔比顯著。未來營運</div>
+</div>
+<div class="card" onclick="window.location='../reports/1418.html'">
+  <div class="card-top">
+    <span class="ticker">1418</span>
+    <span class="company-name">東華</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.83</strong> P/B</div>
+  </div>
+  <div class="card-summary">東華龍 (TongHwa Corporation，原東華合纖) 主要業務為亞克力棉 (Acrylic Staple) 及聚丙烯腈纖維 (Tow) 的買賣，以及不動產投資、開發與租賃。由於台灣紡織產業結構改變，公司已逐步轉型，將閒置廠房資產活化，轉向資產管理與不動產開發為主。大額借款投入不動產開發，尚</div>
+</div>
+<div class="card" onclick="window.location='../reports/4430.html'">
+  <div class="card-top">
+    <span class="ticker">4430</span>
+    <span class="company-name">耀億</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.63</strong> P/B</div>
+  </div>
+  <div class="card-summary">## 業務簡介 耀億工業 (4430) 為專業之 長纖 紡織品製造商，初期以 球拍線 與 釣魚線 起家，後跨足工業用布、車用紡織品 及 不織布 領域。公司擁有專利抽絲技術，近年積極發展自有品牌 QSHION (即使眠)，運用 3D 空氣纖維 技術開發可水洗、高透氣之 床墊 與 坐墊，搶攻健康樂活市場</div>
+</div>
+<div class="card" onclick="window.location='../reports/1441.html'">
+  <div class="card-top">
+    <span class="ticker">1441</span>
+    <span class="company-name">大東</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>713M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.35</strong> P/B</div>
+  </div>
+  <div class="card-summary">大東紡織 (Tah Tong Textile) 專注於紡紗及機能性布料研發。產品包括純棉紗、混紡紗及各類機能性布料 (吸濕排汗、抗菌、rPET環保再生)。近年受紡織產業競爭影響，積極進行資產調整與轉型，開發高附加價值的功能性紡織品。生產基地位於台灣及越南。 ## 供應鏈位置 上游 (原料): - 棉</div>
+</div>
+<div class="card" onclick="window.location='../reports/4406.html'">
+  <div class="card-top">
+    <span class="ticker">4406</span>
+    <span class="company-name">新昕纖</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>527M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.84</strong> P/B</div>
+  </div>
+  <div class="card-summary">## 業務簡介 新昕纖維 (4406) 為專精於 聚酯加工絲 之紡織廠，以「少量多樣」與「客製化」為競爭利基。主要產品包括 特多龍 (Polyester) 加工絲、複合紗、麻感紗 及 彈性紗，廣泛應用於女裝、褲料、窗簾及汽車內飾。近年面對大宗規格產品之價格競爭，公司積極調整體質，縮減不具效益之產能 </div>
+</div></div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

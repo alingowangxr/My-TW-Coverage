@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Banks - Regional | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="sector-header">
+  <h1>Banks - Regional</h1>
+  <div class="subtitle">16 家公司 | 按市值排序</div>
+</div>
+<div class="container">
+  <div style="margin-bottom:12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">← 返回首頁</a>
+  </div>
+  <div class="cards-grid">
+<div class="card" onclick="window.location='../reports/2891.html'">
+  <div class="card-top">
+    <span class="ticker">2891</span>
+    <span class="company-name">中信金</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1.0T</strong> 市值</div>
+    <div class="metric"><strong>12.82</strong> P/E</div>
+    <div class="metric"><strong>2.11</strong> P/B</div>
+  </div>
+  <div class="card-summary">中國信託金融控股 (2891) 為台灣獲利能力最強之頂級民營金控。核心子公司中國信託商業銀行長期穩坐「銀行獲利王」與「信用卡發卡王」龍頭，全台逾 150 家分行及近七千台 ATM (與統一超商合作佈建)。旗下台灣人壽為集團第二大獲利引擎。其他子公司涵蓋中國信託綜合證券、中國信託投信、台灣彩券等。消費</div>
+</div>
+<div class="card" onclick="window.location='../reports/2887.html'">
+  <div class="card-top">
+    <span class="ticker">2887</span>
+    <span class="company-name">台新新光金</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>608B</strong> 市值</div>
+    <div class="metric"><strong>12.67</strong> P/E</div>
+    <div class="metric"><strong>1.29</strong> P/B</div>
+  </div>
+  <div class="card-summary">台新金控 (2887) 為台灣領先民營金控之一。核心子公司台新銀行在消費金融與數位帳戶 Richart 享有極高市場滲透率。其他重要子公司包括台新證券及台新投信。Richart 為台灣數位帳戶標竿產品，以年輕客群經營見長。台新銀行信用卡發卡量與消費力道位居台灣前段班，與 Visa、Mastercar</div>
+</div>
+<div class="card" onclick="window.location='../reports/2886.html'">
+  <div class="card-top">
+    <span class="ticker">2886</span>
+    <span class="company-name">兆豐金</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>583B</strong> 市值</div>
+    <div class="metric"><strong>16.45</strong> P/E</div>
+    <div class="metric"><strong>1.48</strong> P/B</div>
+  </div>
+  <div class="card-summary">兆豐金融控股 (2886) 成立於 2002 年，為台灣市值最高的公股金控。核心子公司兆豐國際商業銀行為台灣唯一的「美元清算銀行」，在外匯交易與大型企業跨國聯貸領域領先。其他子公司包括兆豐證券、兆豐票券、兆豐產物保險、兆豐國際投信及兆豐資產管理。兆豐金因獲利與配息長期穩定，深受存股族喜愛。財政部透過</div>
+</div>
+<div class="card" onclick="window.location='../reports/2884.html'">
+  <div class="card-top">
+    <span class="ticker">2884</span>
+    <span class="company-name">玉山金</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>519B</strong> 市值</div>
+    <div class="metric"><strong>14.86</strong> P/E</div>
+    <div class="metric"><strong>1.90</strong> P/B</div>
+  </div>
+  <div class="card-summary">玉山金融控股 (2884) 成立於 2002 年，為台灣最具品牌溢價與數位創新之民營金控。核心子公司玉山銀行全台約 140 家分行。其他子公司包括玉山證券及玉山投信 (2025 年收購保德信投信後更名)。國際佈局涵蓋新加坡、越南、日本、柬埔寨等地。信用卡發卡量與消費力道位居前段班，與 Visa 及 </div>
+</div>
+<div class="card" onclick="window.location='../reports/2880.html'">
+  <div class="card-top">
+    <span class="ticker">2880</span>
+    <span class="company-name">華南金</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>475B</strong> 市值</div>
+    <div class="metric"><strong>17.51</strong> P/E</div>
+    <div class="metric"><strong>2.01</strong> P/B</div>
+  </div>
+  <div class="card-summary">華南金融控股 (2880) 成立於 2001 年，為台灣第一家依《金融控股公司法》成立的金控。核心子公司華南銀行創立於 1919 年，全台逾 180 家分行。其他重要子公司包括華南永昌證券、華南產物保險、華南永昌投信及華南金資產管理。財政部透過台灣銀行間接為最大股東。 ## 供應鏈位置 上游 (資金</div>
+</div>
+<div class="card" onclick="window.location='../reports/2890.html'">
+  <div class="card-top">
+    <span class="ticker">2890</span>
+    <span class="company-name">永豐金</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>462B</strong> 市值</div>
+    <div class="metric"><strong>15.93</strong> P/E</div>
+    <div class="metric"><strong>1.81</strong> P/B</div>
+  </div>
+  <div class="card-summary">永豐金融控股 (2890) 擁有雙獲利引擎：永豐銀行及永豐金證券。永豐銀行在太陽能光電融資領域市占率全台第一 (近三成)，為台灣綠色金融標竿銀行。永豐金證券為台灣第一家上櫃券商，45 個營業據點。數位帳戶「DAWHO」整合銀行理財與證券下單，吸引大量年輕客群。其他子公司包括永豐投信、永豐金租賃及永豐</div>
+</div>
+<div class="card" onclick="window.location='../reports/2892.html'">
+  <div class="card-top">
+    <span class="ticker">2892</span>
+    <span class="company-name">第一金</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>413B</strong> 市值</div>
+    <div class="metric"><strong>15.27</strong> P/E</div>
+    <div class="metric"><strong>1.41</strong> P/B</div>
+  </div>
+  <div class="card-summary">第一金融控股 (2892) 成立於 2003 年，為台灣歷史最悠久的泛公股金控之一。核心子公司第一商業銀行創立於 1899 年，全台 182 家分行及 31 家海外分支機構。數位帳戶 iLEO 成功拓展年輕客群。其他子公司包括第一金證券、第一金投信、第一金人壽及明台產物保險。財政部透過台灣銀行間接為</div>
+</div>
+<div class="card" onclick="window.location='../reports/5880.html'">
+  <div class="card-top">
+    <span class="ticker">5880</span>
+    <span class="company-name">合庫金</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>366B</strong> 市值</div>
+    <div class="metric"><strong>16.80</strong> P/E</div>
+    <div class="metric"><strong>1.31</strong> P/B</div>
+  </div>
+  <div class="card-summary">合作金庫金融控股 (5880) 成立於 2011 年，為台灣資產規模與分行據點數極具優勢的泛公股金控。核心子公司合作金庫商業銀行全台分行數逾 270 家、居全體銀行之冠，在中小企業授信及放款餘額長期位居龍頭。其他子公司包括合庫證券、合庫人壽 (與法國 法國巴黎人壽 合資)、合庫票券、合庫投信及合庫資</div>
+</div>
+<div class="card" onclick="window.location='../reports/2801.html'">
+  <div class="card-top">
+    <span class="ticker">2801</span>
+    <span class="company-name">彰銀</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>244B</strong> 市值</div>
+    <div class="metric"><strong>13.62</strong> P/E</div>
+    <div class="metric"><strong>1.11</strong> P/B</div>
+  </div>
+  <div class="card-summary">彰化商業銀行 (2801，簡稱彰銀) 成立於 1905 年，為台灣歷史最悠久的商業銀行之一，屬「八大行庫」成員。財政部為最大股東，全台設有逾 180 家國內分行，海外據點遍及紐約、東京、倫敦、香港、新加坡等地。核心業務涵蓋企業金融、個人消費金融、外匯及財富管理，在中小企業放款領域長期位居前段班。近年</div>
+</div>
+<div class="card" onclick="window.location='../reports/5876.html'">
+  <div class="card-top">
+    <span class="ticker">5876</span>
+    <span class="company-name">上海商銀</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>192B</strong> 市值</div>
+    <div class="metric"><strong>12.84</strong> P/E</div>
+    <div class="metric"><strong>0.94</strong> P/B</div>
+  </div>
+  <div class="card-summary">上海商業儲蓄銀行 (5876) 為台灣極具代表性的優質民營銀行，以保守穩健且獲利純度極高著稱。全台設有約 69 家分行。最重要的營運護城河為獨有的「滬港台策略聯盟」：透過持有香港上海商業銀行 (持股約 57.6%) 之控制權，連結香港 43 家分行、大陸 3 家分行及國外 4 家分行，在兩岸三地跨境</div>
+</div>
+<div class="card" onclick="window.location='../reports/2838.html'">
+  <div class="card-top">
+    <span class="ticker">2838</span>
+    <span class="company-name">聯邦銀</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>89B</strong> 市值</div>
+    <div class="metric"><strong>15.57</strong> P/E</div>
+    <div class="metric"><strong>1.07</strong> P/B</div>
+  </div>
+  <div class="card-summary">聯邦商業銀行 (2838) 成立於 1989 年，隸屬泛聯邦集團。全台設有約 50 家分行。該行在信用卡領域表現突出，與 LINE Bank 聯名發行之信用卡深受市場歡迎。數位帳戶「New New Bank」已突破 50 萬戶。集團關聯瓏山林實業從事不動產開發與飯店經營，為聯邦銀在建築融資領域提供穩</div>
+</div>
+<div class="card" onclick="window.location='../reports/2845.html'">
+  <div class="card-top">
+    <span class="ticker">2845</span>
+    <span class="company-name">遠東銀</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>61B</strong> 市值</div>
+    <div class="metric"><strong>13.39</strong> P/E</div>
+    <div class="metric"><strong>0.87</strong> P/B</div>
+  </div>
+  <div class="card-summary">遠東國際商業銀行 (2845，簡稱遠東銀) 成立於 1992 年，隸屬遠東集團。核心業務亮點包含消費金融、社群銀行品牌 Bankee、財富管理及企業聯貸。Bankee 為台灣首創社群銀行模式，曾獲 Global Finance 多項大獎。在虛擬資產金流服務市場，遠東銀為最早切入之傳統銀行，VASP </div>
+</div>
+<div class="card" onclick="window.location='../reports/2897.html'">
+  <div class="card-top">
+    <span class="ticker">2897</span>
+    <span class="company-name">王道銀行</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>28B</strong> 市值</div>
+    <div class="metric"><strong>17.42</strong> P/E</div>
+    <div class="metric"><strong>0.66</strong> P/B</div>
+  </div>
+  <div class="card-summary">王道商業銀行 (2897) 前身為台灣工業銀行，2017 年改制為商業銀行並更名。為台灣第一家原生數位銀行，亦為全台首家獲得 B型企業 (B Corp) 認證的上市銀行。全台僅設有 6 個營業據點，以精品銀行策略經營。營運主軸聚焦中大型企業授信、六都精華地段土建融資及客製化數位理財服務。核心系統導入</div>
+</div>
+<div class="card" onclick="window.location='../reports/2849.html'">
+  <div class="card-top">
+    <span class="ticker">2849</span>
+    <span class="company-name">安泰銀</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>26B</strong> 市值</div>
+    <div class="metric"><strong>16.38</strong> P/E</div>
+    <div class="metric"><strong>0.71</strong> P/B</div>
+  </div>
+  <div class="card-summary">安泰商業銀行 (2849) 成立於 1992 年。2007 年由私募基金隆力集團 (Lone Star Funds) 入主，另一重要股東為日本歐力士集團 (ORIX)。全台設有約 50 家分行。核心競爭力鎖定於企業聯貸市場，專精客製化結構融資、土地建築融資及大型專案聯貸。 ## 供應鏈位置 上游 (</div>
+</div>
+<div class="card" onclick="window.location='../reports/2836.html'">
+  <div class="card-top">
+    <span class="ticker">2836</span>
+    <span class="company-name">高雄銀</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>22B</strong> 市值</div>
+    <div class="metric"><strong>18.13</strong> P/E</div>
+    <div class="metric"><strong>0.85</strong> P/B</div>
+  </div>
+  <div class="card-summary">高雄銀行 (2836) 成立於 1982 年，為台灣唯一由地方政府主導的市屬商業銀行，最大股東為高雄市政府。全台設有約 30 家分行，集中於大高雄地區。核心業務涵蓋存放款、信託投資、外匯及代理高雄市政府市庫業務。近年推展高資產財富管理、綠能融資及數位金融業務，並配合高雄亞灣區開發推動在地產業升級融資</div>
+</div>
+<div class="card" onclick="window.location='../reports/5863.html'">
+  <div class="card-top">
+    <span class="ticker">5863</span>
+    <span class="company-name">瑞興銀</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>13.80</strong> P/E</div>
+    <div class="metric"><strong>0.58</strong> P/B</div>
+  </div>
+  <div class="card-summary">瑞興商業銀行 (5863) 前身可追溯至 1917 年創設於台北大稻埕之「臺北稻江信用組合」。為台灣規模最小的上市商業銀行，深耕北台灣社區金融。全台僅設有約 22 個營業據點，絕大多數集中於台北市。核心業務以傳統的社區型存放款、中小企業及微型企業融資、票據貼現及外匯服務為主。 ## 供應鏈位置 上游</div>
+</div></div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

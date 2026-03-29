@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Communication Equipment | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="sector-header">
+  <h1>Communication Equipment</h1>
+  <div class="subtitle">70 家公司 | 按市值排序</div>
+</div>
+<div class="container">
+  <div style="margin-bottom:12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">← 返回首頁</a>
+  </div>
+  <div class="cards-grid">
+<div class="card" onclick="window.location='../reports/2345.html'">
+  <div class="card-top">
+    <span class="ticker">2345</span>
+    <span class="company-name">智邦</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>942B</strong> 市值</div>
+    <div class="metric"><strong>32.79</strong> P/E</div>
+    <div class="metric"><strong>16.37</strong> P/B</div>
+  </div>
+  <div class="card-summary">智邦科技 (2345，Accton Technology) 為全球白牌網路交換器 (White-box Switch) 龍頭廠商，市佔率近 49%，同時為開放運算計畫 (OCP) 核心成員。公司成立於 1988 年，總部位於新竹，提供聯合設計製造 (JDM) 服務，涵蓋 400G/800G 至 1.</div>
+</div>
+<div class="card" onclick="window.location='../reports/3491.html'">
+  <div class="card-top">
+    <span class="ticker">3491</span>
+    <span class="company-name">昇達科</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>97B</strong> 市值</div>
+    <div class="metric"><strong>169.47</strong> P/E</div>
+    <div class="metric"><strong>26.41</strong> P/B</div>
+  </div>
+  <div class="card-summary">昇達科技 (3491，UMT) 為台灣唯一專注微波/毫米波通訊元件之領導廠商，成立於 1999 年。主要產品包括微波濾波器 (Filter)、雙工器 (Diplexer)、多工器及追星天線，技術涵蓋微波至毫米波全頻段。公司為全球低軌衛星產業鏈關鍵供應商，低軌衛星營收佔比已突破 80%。 主要客戶涵蓋</div>
+</div>
+<div class="card" onclick="window.location='../reports/6285.html'">
+  <div class="card-top">
+    <span class="ticker">6285</span>
+    <span class="company-name">啟��</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>87B</strong> 市值</div>
+    <div class="metric"><strong>28.75</strong> P/E</div>
+    <div class="metric"><strong>2.51</strong> P/B</div>
+  </div>
+  <div class="card-summary">啟碁科技股份有限公司 (6285，WNC) 隸屬於緯創集團，是台灣頂尖的網路通訊設備設計與製造大廠。啟碁的產品線極具前瞻性，涵蓋5G基礎設施、低軌衛星寬頻(如地面接收站)、企業網路設備(Wi-Fi 6/7)及車用連結模組。憑藉在射頻(RF)天線設計的深厚實力，啟碁成功打入全球一線電信營運商及低軌衛星</div>
+</div>
+<div class="card" onclick="window.location='../reports/3363.html'">
+  <div class="card-top">
+    <span class="ticker">3363</span>
+    <span class="company-name">上詮</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>77B</strong> 市值</div>
+    <div class="metric"><strong>4842.86</strong> P/E</div>
+    <div class="metric"><strong>24.98</strong> P/B</div>
+  </div>
+  <div class="card-summary">上詮光纖通信 (FOCI) 是台灣領先的 光纖被動元件 專業製造商，憑藉高精細的對準技術，已轉型為全球 矽光子 (Silicon Photonics) 與 CPO (共同封裝光學) 的關鍵供應商。 公司是 2330_台積電|台積電 主導的矽光子產業聯盟成員，展現極強的技術卡位優勢。 戰略價值與轉型亮</div>
+</div>
+<div class="card" onclick="window.location='../reports/3163.html'">
+  <div class="card-top">
+    <span class="ticker">3163</span>
+    <span class="company-name">波若威</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>72B</strong> 市值</div>
+    <div class="metric"><strong>135.04</strong> P/E</div>
+    <div class="metric"><strong>23.57</strong> P/B</div>
+  </div>
+  <div class="card-summary">波若威科技 (3163，Browave) 為台灣最大光纖被動元件與模組製造商，專精於 WDM (波分複用器)、PLC 分光器及光纖連接器等高精度光學元件之 OEM/ODM 代工。核心技術涵蓋熔錐雙錐 (FBT)、微光學 (Micro Optics) 及平面光波迴路 (PLC) 三大光纖被動元件平台。</div>
+</div>
+<div class="card" onclick="window.location='../reports/3596.html'">
+  <div class="card-top">
+    <span class="ticker">3596</span>
+    <span class="company-name">智易</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>39B</strong> 市值</div>
+    <div class="metric"><strong>14.41</strong> P/E</div>
+    <div class="metric"><strong>2.31</strong> P/B</div>
+  </div>
+  <div class="card-summary">智易科技 (3596，Arcadyan) 隸屬 仁寶 集團，為全球最大整合式接取設備 (IAD) 製造商暨寬頻網通設備領導廠商。產品涵蓋光纖寬頻 (PON)、5G 固定無線接入 (FWA)、Wi-Fi 7/Mesh 路由器及車聯網雷達等，採用 聯發科 T750 等高階行動通訊晶片平台。 公司成功轉型</div>
+</div>
+<div class="card" onclick="window.location='../reports/2485.html'">
+  <div class="card-top">
+    <span class="ticker">2485</span>
+    <span class="company-name">兆赫</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>25B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>5.01</strong> P/B</div>
+  </div>
+  <div class="card-summary">兆赫電子股份有限公司 (Zinwell Corp.) 成立於 1981 年，總部位於台灣新北。公司為通訊廣播設備製造商，早期以 LNB (低雜訊降頻器) 及 STB (機上盒) 聞名。近年受有線電視衰退影響，積極轉型投入低軌衛星 (LEO) 地面接收設備、G.hn/光纖網通設備及 5G 相關產品。 </div>
+</div>
+<div class="card" onclick="window.location='../reports/5388.html'">
+  <div class="card-top">
+    <span class="ticker">5388</span>
+    <span class="company-name">中磊</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>23B</strong> 市值</div>
+    <div class="metric"><strong>19.27</strong> P/E</div>
+    <div class="metric"><strong>1.44</strong> P/B</div>
+  </div>
+  <div class="card-summary">中磊電子 (5388，Sercomm) 為全球領導級寬頻通訊設備製造商，成立於 1991 年，總部位於台北。公司以「直供模式」(Direct Sales) 直接服務全球電信營運商，跳過品牌中間商以提升毛利率，目前幾乎全數產品均採直供模式出貨。 主力產品涵蓋光纖接取設備 (PON)、有線電視寬頻設備 </div>
+</div>
+<div class="card" onclick="window.location='../reports/6715.html'">
+  <div class="card-top">
+    <span class="ticker">6715</span>
+    <span class="company-name">嘉基</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>20B</strong> 市值</div>
+    <div class="metric"><strong>169.17</strong> P/E</div>
+    <div class="metric"><strong>5.88</strong> P/B</div>
+  </div>
+  <div class="card-summary">嘉基科技股份有限公司 (6715) 隸屬於嘉澤(3533)集團，是一家專精於高速電傳輸線及光纖通訊傳輸線(AOC)的創新領導廠商。嘉基是全球少數獲Intel正式認證的Thunderbolt高速線材主力供應商，並深獲跨國電腦大廠青睞。除了在筆電、擴充基座等IT領域佔據關鍵優勢，嘉基近年強勢切入資料中心</div>
+</div>
+<div class="card" onclick="window.location='../reports/3380.html'">
+  <div class="card-top">
+    <span class="ticker">3380</span>
+    <span class="company-name">明泰</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>20B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.16</strong> P/B</div>
+  </div>
+  <div class="card-summary">明泰科技 (Alpha Networks) 為佳世達 (Qisda) 集團旗下網通旗艦大廠，具備強大的研發與製造垂直整合能力。 公司致力於提供全方位網通解決方案，產品線涵蓋 乙太網路交換器、行動通信設備 (5G/LTE)、無線寬頻網路 及 數位多媒體。 核心戰略與成長動能： 1. AI 資料中心布局</div>
+</div>
+<div class="card" onclick="window.location='../reports/4906.html'">
+  <div class="card-top">
+    <span class="ticker">4906</span>
+    <span class="company-name">正文</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>14B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.34</strong> P/B</div>
+  </div>
+  <div class="card-summary">正文科技 (4906，Gemtek) 為全球前列無線網通設備 ODM 代工廠。主要產品涵蓋 5G FWA (固定無線接入)、PON 光纖設備、xDSL、Cable Modem、Wi-Fi 7 路由器、IP Cam 及智慧家庭裝置。公司為 SpaceX 星鏈計畫 (Starlink) 路由器之主力代工</div>
+</div>
+<div class="card" onclick="window.location='../reports/3704.html'">
+  <div class="card-top">
+    <span class="ticker">3704</span>
+    <span class="company-name">合勤控</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>13B</strong> 市值</div>
+    <div class="metric"><strong>20.69</strong> P/E</div>
+    <div class="metric"><strong>1.16</strong> P/B</div>
+  </div>
+  <div class="card-summary">合勤投資控股 (3704，Zyxel Group) 為台灣歷史最悠久之通訊網路設備集團，旗下三大事業群：合勤科技 (Zyxel Communications，專攻電信營運商標案)、兆勤科技 (Zyxel Networks，主攻企業 SMB 網路資安自有品牌) 及盟創科技 (MitraStar，主攻硬</div>
+</div>
+<div class="card" onclick="window.location='../reports/3209.html'">
+  <div class="card-top">
+    <span class="ticker">3209</span>
+    <span class="company-name">全科</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>10B</strong> 市值</div>
+    <div class="metric"><strong>14.34</strong> P/E</div>
+    <div class="metric"><strong>1.93</strong> P/B</div>
+  </div>
+  <div class="card-summary">全科科技 (Alltek) 是台灣主要的 通訊 IC 通路商。 核心代理線為 Broadcom (博通)，佔營收比重極高 (包含併購後的 Cypress, CAE 等產品線)。 產品涵蓋 網通 IC (Wi-Fi 7, PON, Switch)、車用晶片 與 記憶體。 受惠於 AI 資料中心對高階 </div>
+</div>
+<div class="card" onclick="window.location='../reports/6190.html'">
+  <div class="card-top">
+    <span class="ticker">6190</span>
+    <span class="company-name">萬泰科</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>10B</strong> 市值</div>
+    <div class="metric"><strong>25.18</strong> P/E</div>
+    <div class="metric"><strong>2.54</strong> P/B</div>
+  </div>
+  <div class="card-summary">萬泰科技 (6190，Wonderful Hi-Tech) 為台灣歷史悠久之專業電線電纜製造商，早期以傳統電子線為主，現已成功轉型為網路通訊線、高頻同軸線及車用/伺服器高速線材領導廠。公司具備業界極難跨越的發泡鐵氟龍 (FEP) 絕緣工藝門檻。 公司為 SpaceX 星鏈計畫 (Starlink) </div>
+</div>
+<div class="card" onclick="window.location='../reports/6245.html'">
+  <div class="card-top">
+    <span class="ticker">6245</span>
+    <span class="company-name">立端</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>10B</strong> 市值</div>
+    <div class="metric"><strong>15.72</strong> P/E</div>
+    <div class="metric"><strong>1.61</strong> P/B</div>
+  </div>
+  <div class="card-summary">立端科技 (6245，Lanner Electronics) 為全球最大網路安全硬體平台製造商，全球市佔率逾四成，北美市場市佔更達約五成。公司專注於「網路安全硬體平台」及「電信邊緣運算 (Edge Computing)」兩大領域，總部位於台灣汐止。 公司為全球各大資安軟體巨頭量身打造客製化硬體底座平</div>
+</div>
+<div class="card" onclick="window.location='../reports/2419.html'">
+  <div class="card-top">
+    <span class="ticker">2419</span>
+    <span class="company-name">仲琦</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>10B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.05</strong> P/B</div>
+  </div>
+  <div class="card-summary">仲琦科技 (2419，Hitron Technologies) 為 明泰科技 (Alpha Networks，3380) 旗下子公司，隸屬 明基[[友達集團]]。公司專注於有線電視寬頻核心裝置，為北美 DOCSIS 纜線數據機市場重要供應商，具備深厚的 CableLabs 認證技術根基。 核心產品涵</div>
+</div>
+<div class="card" onclick="window.location='../reports/2332.html'">
+  <div class="card-top">
+    <span class="ticker">2332</span>
+    <span class="company-name">友訊</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>9B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.10</strong> P/B</div>
+  </div>
+  <div class="card-summary">友訊科技 (2332，D-Link) 為全球知名網通品牌廠商，目前為 台鋼集團 旗下核心網通品牌。公司採「純品牌」營運模式，將生產全面委託代工廠製造，自身專注於網通設備設計、軟硬體整合及 D-Link 品牌全球行銷，產品銷售遍布超過 100 個國家。 核心產品涵蓋 Wi-Fi 路由器 (含 Wi-F</div>
+</div>
+<div class="card" onclick="window.location='../reports/4908.html'">
+  <div class="card-top">
+    <span class="ticker">4908</span>
+    <span class="company-name">前鼎</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>9B</strong> 市值</div>
+    <div class="metric"><strong>55.34</strong> P/E</div>
+    <div class="metric"><strong>5.12</strong> P/B</div>
+  </div>
+  <div class="card-summary">前鼎光電 (4908，APAC Opto Electronics) 為台灣專業光收發模組製造商，成立於 1998 年，總部位於新竹。公司具備雷射二極體 (LD) 及檢光二極體 (PD) 完整封裝能力 (TO-CAN/COB)，為台灣少數從光電元件封裝到模組整合垂直一貫的光通訊廠商。 核心產品涵蓋 1</div>
+</div>
+<div class="card" onclick="window.location='../reports/3138.html'">
+  <div class="card-top">
+    <span class="ticker">3138</span>
+    <span class="company-name">耀登</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>9B</strong> 市值</div>
+    <div class="metric"><strong>113.96</strong> P/E</div>
+    <div class="metric"><strong>4.28</strong> P/B</div>
+  </div>
+  <div class="card-summary">耀登科技 (3138，Auden Techno) 為台灣通訊量測與天線技術領導廠商，成立於 1981 年，擁有超過四十年射頻 (RF) 專業。公司業務橫跨天線模組設計、量測設備代理與電磁認證測試服務，形成完整的 RF 解決方案。 三大核心業務：(1) RF 天線與模組 (佔 2024 年營收約 63</div>
+</div>
+<div class="card" onclick="window.location='../reports/3694.html'">
+  <div class="card-top">
+    <span class="ticker">3694</span>
+    <span class="company-name">海華</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>9B</strong> 市值</div>
+    <div class="metric"><strong>13.67</strong> P/E</div>
+    <div class="metric"><strong>2.34</strong> P/B</div>
+  </div>
+  <div class="card-summary">海華科技 (AzureWave) 為全球智慧無線與影像模組的領先供應商，隸屬於 研華 (Advantech) 與 華碩 (ASUS) 策略投資體系。 公司專注於縮小化、高性能的無線通訊模組與數位影像處理模組，應用範圍涵蓋物聯網、穿戴式裝置、車用電子及數位家電。 核心業務與發展亮點： 1. WiFi </div>
+</div>
+<div class="card" onclick="window.location='../reports/6143.html'">
+  <div class="card-top">
+    <span class="ticker">6143</span>
+    <span class="company-name">振曜</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>9B</strong> 市值</div>
+    <div class="metric"><strong>15.51</strong> P/E</div>
+    <div class="metric"><strong>2.79</strong> P/B</div>
+  </div>
+  <div class="card-summary">振曜科技 (6143，Netronix) 為全球最大電子書閱讀器 (e-Reader) 代工製造廠，具備強大軟硬體整合能力，專精於電子紙 (E Ink) 應用技術。公司為非 Amazon 陣營電子書出貨量逾 80% 的獨家組裝供應商。 產品涵蓋各尺寸彩色/黑白電子書、電子貨架標籤 (ESL)、電子行</div>
+</div>
+<div class="card" onclick="window.location='../reports/3062.html'">
+  <div class="card-top">
+    <span class="ticker">3062</span>
+    <span class="company-name">建漢</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>8B</strong> 市值</div>
+    <div class="metric"><strong>34.20</strong> P/E</div>
+    <div class="metric"><strong>1.99</strong> P/B</div>
+  </div>
+  <div class="card-summary">建漢科技 (3062，CyberTAN) 為 鴻海 集團旗下專精網通板塊之 ODM/JDM 廠商，總部位於新竹科學園區。公司從傳統寬頻路由器代工積極轉型，承接集團在低軌衛星 (LEO) 地面接收器與次世代 Wi-Fi 7 企業設備之研發製造重任，已於越南完成新廠擴產佈局以降低成本提升競爭力。 核心產</div>
+</div>
+<div class="card" onclick="window.location='../reports/6263.html'">
+  <div class="card-top">
+    <span class="ticker">6263</span>
+    <span class="company-name">普萊德</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>8B</strong> 市值</div>
+    <div class="metric"><strong>14.99</strong> P/E</div>
+    <div class="metric"><strong>4.40</strong> P/B</div>
+  </div>
+  <div class="card-summary">普萊德科技股份有限公司 (6263，PLANET) 是一家全球知名的IP網路通訊產品與解決方案品牌商。自1993年成立以來，普萊德便以自有品牌「PLANET」行銷全球逾160個國家。產品線涵蓋商用網路交換器、光纖網路、乙太網路供電(PoE)、無線網路及網路安全監控設備。近年緊抓工業物聯網(IIoT)</div>
+</div>
+<div class="card" onclick="window.location='../reports/8045.html'">
+  <div class="card-top">
+    <span class="ticker">8045</span>
+    <span class="company-name">達運光電</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>117.34</strong> P/E</div>
+    <div class="metric"><strong>3.65</strong> P/B</div>
+  </div>
+  <div class="card-summary">達運光電 (8045，Twoway Communications) 為台灣第一大寬頻放大器及光工作站設備商，成立於 1992 年，總部位於新北市。公司為亞洲唯一通過北美主要有線電視多系統營運商 (MSO) 認證之混合光纖同軸 (HFC) 傳輸設備研發製造廠商，並以自有品牌 ACI 行銷全球。 核心產</div>
+</div>
+<div class="card" onclick="window.location='../reports/3558.html'">
+  <div class="card-top">
+    <span class="ticker">3558</span>
+    <span class="company-name">神準</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>23.16</strong> P/E</div>
+    <div class="metric"><strong>1.16</strong> P/B</div>
+  </div>
+  <div class="card-summary">神準科技 (Senao Networks) 為 神腦集團 旗下網通廠 (母公司 神腦國際 2450)。 專注於 企業級 無線網路 (WLAN)、交換器與 邊緣運算 (Edge Computing) 設備。 經營模式包含 ODM/OEM 代工與自有品牌 EnGenius。 近年積極切入 AI 伺服器 </div>
+</div>
+<div class="card" onclick="window.location='../reports/6426.html'">
+  <div class="card-top">
+    <span class="ticker">6426</span>
+    <span class="company-name">統新</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>6B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>6.49</strong> P/B</div>
+  </div>
+  <div class="card-summary">統新光訊股份有限公司 (6426) 是全球領先的高階光通訊薄膜濾光片製造商，屬於光被動元件之高度寡佔市場供應商。公司擁有精密的光學鍍膜技術，主要生產應用於高密度波分多工(DWDM)系統、光纖收發模組及基地台的濾光片。隨著全球5G基建、AI大型資料中心建置及高速光模組(800G/1.6T)需求的飆升，</div>
+</div>
+<div class="card" onclick="window.location='../reports/6416.html'">
+  <div class="card-top">
+    <span class="ticker">6416</span>
+    <span class="company-name">瑞祺電通</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>6B</strong> 市值</div>
+    <div class="metric"><strong>18.43</strong> P/E</div>
+    <div class="metric"><strong>1.64</strong> P/B</div>
+  </div>
+  <div class="card-summary">瑞祺電通股份有限公司 (6416，CASwell) 隸屬於鴻海集團旗下的樺漢 (6414) 體系，是台灣領先的網路通訊及資訊安全設備硬體供應商。瑞祺電通專注於研發及製造企業級防火牆、整合式威脅管理(UTM)、無線網路閘道器及SD-WAN(軟體定義廣域網路)等網安硬體平台。藉由鴻海的製造資源與集團在5</div>
+</div>
+<div class="card" onclick="window.location='../reports/4903.html'">
+  <div class="card-top">
+    <span class="ticker">4903</span>
+    <span class="company-name">聯光通</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>46.79</strong> P/E</div>
+    <div class="metric"><strong>4.50</strong> P/B</div>
+  </div>
+  <div class="card-summary">聯光通科技 (4903，United Fiber Optic Communication) 為台灣專業光纖光纜製造與系統工程廠商。核心業務涵蓋：光纖光纜製造 (屋外充膠光纜、屋內光纜、微簇型光纜，獲日本 Fujikura 藤倉技術授權，具備 600 芯以上高密度光纜生產能力)、光通訊工程 (承攬電信</div>
+</div>
+<div class="card" onclick="window.location='../reports/6546.html'">
+  <div class="card-top">
+    <span class="ticker">6546</span>
+    <span class="company-name">正基</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>26.84</strong> P/E</div>
+    <div class="metric"><strong>2.45</strong> P/B</div>
+  </div>
+  <div class="card-summary">正基科技股份有限公司 (6546，AMPAK) 是一家專注於研發與銷售高階無線通訊模組(Wi-Fi/藍牙/5G)的IC設計服務平台。不同於一般硬體製造商，正基採取「輕資產」的營運模式(生產委外)，將核心資源投入於軟硬體整合與客製化開發。其高度整合的無線通訊模組(SiP/SoM)不僅尺寸極小，更能快速</div>
+</div>
+<div class="card" onclick="window.location='../reports/7812.html'">
+  <div class="card-top">
+    <span class="ticker">7812</span>
+    <span class="company-name">稜研科技</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>4.55</strong> P/B</div>
+  </div>
+  <div class="card-summary">稜研科技 (7812，TMYTEK) 為台灣專精毫米波 (mmWave) 相位陣列天線 (Phased Array Antenna) 技術之新創公司，成立於 2014 年，總部位於台北內湖。公司以 Fabless 模式運營，專注於主動式電子掃描陣列 (AESA) 雷達與天線模組之研發設計，核心技術可</div>
+</div>
+<div class="card" onclick="window.location='../reports/6220.html'">
+  <div class="card-top">
+    <span class="ticker">6220</span>
+    <span class="company-name">岳豐</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>38.89</strong> P/E</div>
+    <div class="metric"><strong>1.45</strong> P/B</div>
+  </div>
+  <div class="card-summary">岳豐科技 (6220，General Cable) 為成功從 OEM 線材代工廠轉型為擁有跨國「自有品牌及電商通路」之網通與電源線材大廠。公司最大競爭優勢在於深度「垂直整合」，透過併購美國 Prime Wire & Cable (實體通路電源線品牌) 及 Monoprice (知名 3C 電商平台)</div>
+</div>
+<div class="card" onclick="window.location='../reports/6417.html'">
+  <div class="card-top">
+    <span class="ticker">6417</span>
+    <span class="company-name">韋僑</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>21.69</strong> P/E</div>
+    <div class="metric"><strong>2.58</strong> P/B</div>
+  </div>
+  <div class="card-summary">韋僑科技股份有限公司 (6417，Securitag) 是全球極少數能提供「一條龍客製化RFID應用解決方案」的高端射頻識別(RFID)感應標籤製造商。公司採差異化策略，摒棄大量製造標準化標籤的紅海競爭，專注深耕高技術門檻、高毛利的客製化RFID應用利基市場。其關鍵競爭力在於從天線設計、材料封裝到生</div>
+</div>
+<div class="card" onclick="window.location='../reports/3577.html'">
+  <div class="card-top">
+    <span class="ticker">3577</span>
+    <span class="company-name">泓格</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>26.81</strong> P/E</div>
+    <div class="metric"><strong>3.09</strong> P/B</div>
+  </div>
+  <div class="card-summary">泓格科技 (3577，ICP DAS) 為台灣專業工業自動化解決方案供應商，所有產品標榜百分之百台灣研發製造。主要產品涵蓋 PAC (可程式自動化控制器)、遠端 I/O 模組、工業通訊介面卡及 IIoT (工業物聯網) 軟硬體整合平台。 近年積極推廣智慧製造、能源管理 (EMS) 及 ESG 碳盤查</div>
+</div>
+<div class="card" onclick="window.location='../reports/3221.html'">
+  <div class="card-top">
+    <span class="ticker">3221</span>
+    <span class="company-name">台嘉碩</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>1750.00</strong> P/E</div>
+    <div class="metric"><strong>1.83</strong> P/B</div>
+  </div>
+  <div class="card-summary">台嘉碩科技 (3221，Tai-Saw) 為台灣唯一具備表面聲波 (SAW) 元件全製程能力之頻率元件製造商，核心技術團隊源自 Motorola 電子通訊零件事業部。主要產品涵蓋射頻 SAW 濾波器、中頻 SAW 濾波器、SAW 共振器、SAW 雙工器及體聲波 (BAW) 石英元件 (石英振盪器、T</div>
+</div>
+<div class="card" onclick="window.location='../reports/6820.html'">
+  <div class="card-top">
+    <span class="ticker">6820</span>
+    <span class="company-name">連訊</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>561.67</strong> P/E</div>
+    <div class="metric"><strong>10.71</strong> P/B</div>
+  </div>
+  <div class="card-summary">連訊通信 (6820，ACON Optics Communications) 成立於 2017 年，專精於光纖通訊被動元件之設計與製造，產品涵蓋高精密度光纖跳接線 (Patch Cord)、光纖適配器 (Adapter)、光分路器及各類光纖連接器。公司取得 ISO 9001/14001/27001/</div>
+</div>
+<div class="card" onclick="window.location='../reports/3047.html'">
+  <div class="card-top">
+    <span class="ticker">3047</span>
+    <span class="company-name">訊舟</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.46</strong> P/B</div>
+  </div>
+  <div class="card-summary">訊舟科技 (3047，EDIMAX) 為台灣老牌網通設備廠商，以自有品牌 EDIMAX 及 COMTREND 雙品牌行銷全球，成立於 1986 年，擁有超過三十年網通產品研發製造經驗，服務全球逾 300 個合作夥伴。核心產品涵蓋家用及企業級 Wi-Fi 路由器、網管型交換器、無線基地台 (AP)、A</div>
+</div>
+<div class="card" onclick="window.location='../reports/8059.html'">
+  <div class="card-top">
+    <span class="ticker">8059</span>
+    <span class="company-name">凱碩</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>3.24</strong> P/B</div>
+  </div>
+  <div class="card-summary">凱碩科技 (8059，CastleNet Technology) 為台灣專注於寬頻網路通訊設備之 OBM/ODM 製造商，成立於 1998 年，為國內排名前五大寬頻數據機供應商。公司深耕纜線數據機 (Cable Modem) 技術，為全球少數取得 CableLabs 認證並具備 DOCSIS 3.1</div>
+</div>
+<div class="card" onclick="window.location='../reports/3025.html'">
+  <div class="card-top">
+    <span class="ticker">3025</span>
+    <span class="company-name">星通</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>29.06</strong> P/E</div>
+    <div class="metric"><strong>4.63</strong> P/B</div>
+  </div>
+  <div class="card-summary">星通資訊 (3025，Loop Telecom) 為全球前三大關鍵任務通訊 (MCC，Mission Critical Communication) 特殊利基設備商，創立逾三十年，總部位於新竹科學園區。公司以自有品牌 LOOP 行銷全球超過 70 國，專注於電力、鐵道、油氣管線等基礎建設所需之極高可</div>
+</div>
+<div class="card" onclick="window.location='../reports/8011.html'">
+  <div class="card-top">
+    <span class="ticker">8011</span>
+    <span class="company-name">台通</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>7.85</strong> P/E</div>
+    <div class="metric"><strong>1.08</strong> P/B</div>
+  </div>
+  <div class="card-summary">台通光電 (8011，Tai Tung Communication) 為台灣專業光纖通信電纜及相關設備製造商，總部位於新北市新莊區，深耕光通訊網路基礎建設超過三十年。主要產品涵蓋各式光纜 (鬆管型、直埋型、架空型、單模及多模光纜)、被動式光學元件 (光分路器、連接器)、光纖配線設備，以及銅線產品 (</div>
+</div>
+<div class="card" onclick="window.location='../reports/8048.html'">
+  <div class="card-top">
+    <span class="ticker">8048</span>
+    <span class="company-name">德勝</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>22.45</strong> P/E</div>
+    <div class="metric"><strong>2.92</strong> P/B</div>
+  </div>
+  <div class="card-summary">德勝科技 (8048，Ruby Tech) 為台灣深耕網路通訊設備超過四十年之專業 OEM/ODM 製造商，總部位於台北市。核心業務高度集中於光纖區域網路及乙太網路交換設備之研發製造，主要產品包含 PoE 乙太網路交換器 (佔營收主力)、工業級交換器、光纖媒體轉換器、GEPON OLT/ONU 光纖</div>
+</div>
+<div class="card" onclick="window.location='../reports/8097.html'">
+  <div class="card-top">
+    <span class="ticker">8097</span>
+    <span class="company-name">常珵</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.83</strong> P/B</div>
+  </div>
+  <div class="card-summary">常珵科技 (8097，ATW Technology) 為台灣專業網通設備代工廠，前身為利奇精密科技，成立於 1986 年，總部位於新北市樹林區，另於墨西哥、中國成都、菲律賓馬尼拉及巴西設有據點。公司核心能力為 SMT 表面黏著技術電子代工，以此為基礎延伸至商用網通設備、物聯網 (物聯網) 及無線通訊</div>
+</div>
+<div class="card" onclick="window.location='../reports/6142.html'">
+  <div class="card-top">
+    <span class="ticker">6142</span>
+    <span class="company-name">友勁</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.08</strong> P/B</div>
+  </div>
+  <div class="card-summary">友勁科技 (6142，Alpha Networks) 為友訊科技 (2332，D-Link) 轉投資之專業網通設備製造商，隸屬台鋼集團。公司堅持「台灣製造 (MIT)」以確保品質與資訊安全，近年全面轉型，汰換低毛利消費型網通產品，將營運重心集中於高毛利的商用/企業級網通市場。 主力產品涵蓋 2.5G</div>
+</div>
+<div class="card" onclick="window.location='../reports/6530.html'">
+  <div class="card-top">
+    <span class="ticker">6530</span>
+    <span class="company-name">創威</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>49.33</strong> P/E</div>
+    <div class="metric"><strong>6.65</strong> P/B</div>
+  </div>
+  <div class="card-summary">創威光電 (6530，Axcen Photonics) 為台灣精實的光收發模組及光學次模組 (OSA: TOSA/ROSA/BOSA) 研發製造商，母公司為鈺創科技。公司深耕光通訊領域，具備光學次模組自行封裝與整合能力，朝上游垂直整合發展。 主力產品涵蓋 SFP/SFP+/SFP28 各代次光收發模</div>
+</div>
+<div class="card" onclick="window.location='../reports/6152.html'">
+  <div class="card-top">
+    <span class="ticker">6152</span>
+    <span class="company-name">百一</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.51</strong> P/B</div>
+  </div>
+  <div class="card-summary">百一電子 (6152，Prime Electronics) 為通訊網路與微波器材 ODM 製造商，主力營收來源為數位機上盒 (STB)，並延伸至寬頻網通產品 (GPON/Wi-Fi) 及多軌道衛星降頻器 (LNB)。 公司近年積極推動產品高階化轉型：成為台灣首家取得 Netflix Self-Ser</div>
+</div>
+<div class="card" onclick="window.location='../reports/3447.html'">
+  <div class="card-top">
+    <span class="ticker">3447</span>
+    <span class="company-name">展達</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>24.59</strong> P/E</div>
+    <div class="metric"><strong>2.34</strong> P/B</div>
+  </div>
+  <div class="card-summary">展達通訊 (3447，XAVi Technologies) 隸屬 群光 (Chicony) 集團，為專業寬頻網路終端設備製造商。主要產品涵蓋光纖 PON 寬頻閘道器、G.fast 用戶端設備 (CPE)、Wi-Fi 無線路由器及 AIoT 智慧家庭裝置 (如網路攝影機、物聯網感測器)。 公司具備完整</div>
+</div>
+<div class="card" onclick="window.location='../reports/3466.html'">
+  <div class="card-top">
+    <span class="ticker">3466</span>
+    <span class="company-name">德晉</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.88</strong> P/B</div>
+  </div>
+  <div class="card-summary">德晉科技 (3466，Skardin) 主要從事數位機上盒 (STB) 與衛星接收系統之設計、製造與銷售。產品涵蓋 DVB-S/S2 (衛星)、DVB-T/T2 (地面廣播)、DVB-C (有線電視) 數位機上盒及 Hybrid 混合型機上盒，銷售區域以南美洲 (秘魯、智利、厄瓜多、烏拉圭、阿根廷)</div>
+</div>
+<div class="card" onclick="window.location='../reports/6216.html'">
+  <div class="card-top">
+    <span class="ticker">6216</span>
+    <span class="company-name">居易</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>43.22</strong> P/E</div>
+    <div class="metric"><strong>1.42</strong> P/B</div>
+  </div>
+  <div class="card-summary">居易科技 (6216，DrayTek) 為台灣少數以純自有品牌行銷全球之網通設備廠，以「Vigor」品牌系列著稱，主攻中小企業 (SMB) 利基市場。公司刻意避開消費端及大型電信標案，精準鎖定黏著度極高的企業級客戶。 主力產品涵蓋企業級寬頻路由器 (含 4G/5G 行動路由)、Wi-Fi 7 高密度</div>
+</div>
+<div class="card" onclick="window.location='../reports/6134.html'">
+  <div class="card-top">
+    <span class="ticker">6134</span>
+    <span class="company-name">萬旭</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>251.25</strong> P/E</div>
+    <div class="metric"><strong>2.12</strong> P/B</div>
+  </div>
+  <div class="card-summary">萬旭電業 (6134，Wanshih Electronic) 為萬泰科技 (6190) 旗下子公司，專精於極細同軸線材、高頻天線與客製化連接器配線組裝。公司成功轉型脫離傳統 PC 線材紅海，將產品重心轉向四大高毛利領域：儲能工控、車用電子、醫療及視訊安控。 近年積極切入 AI 伺服器高速傳輸線材及低</div>
+</div>
+<div class="card" onclick="window.location='../reports/4905.html'">
+  <div class="card-top">
+    <span class="ticker">4905</span>
+    <span class="company-name">台聯電</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>32.11</strong> P/E</div>
+    <div class="metric"><strong>0.86</strong> P/B</div>
+  </div>
+  <div class="card-summary">台聯電訊 (4905，TAINET) 原為老牌 xDSL 數位用戶迴路設備廠商，近年進行重大業務轉型，跨足特用化學與醫療包裝領域。目前營運雙軌並行：醫療與特化事業 (主要營收來源) 透過子公司欣德芮生產醫療滅菌包裝材料及電子級特用化學品；網通事業維持 xDSL 數據機、G.fast 設備及光纖 PO</div>
+</div>
+<div class="card" onclick="window.location='../reports/3419.html'">
+  <div class="card-top">
+    <span class="ticker">3419</span>
+    <span class="company-name">譁裕</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.99</strong> P/B</div>
+  </div>
+  <div class="card-summary">譁裕實業 (3419，Wha Yu) 為台灣老牌專業天線設計製造廠，產品線涵蓋 Wi-Fi 天線 (路由器/AP 用)、5G 基站天線 (O-RAN)、車用多功能天線、GPS 天線及低軌衛星地面接收天線。客戶基數超過 600 家，遍及全球 25 國以上。 近年積極轉型高附加價值領域，包括 5G O-</div>
+</div>
+<div class="card" onclick="window.location='../reports/6465.html'">
+  <div class="card-top">
+    <span class="ticker">6465</span>
+    <span class="company-name">威潤</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>52.44</strong> P/E</div>
+    <div class="metric"><strong>5.50</strong> P/B</div>
+  </div>
+  <div class="card-summary">威潤科技 (6465，ATrack Technology) 為台灣專注於研發及製造車載衛星定位監控系統 (GPS Tracker) 的領導品牌。公司以自有品牌「ATrack」行銷全球，為車聯網及車隊管理市場提供高度客製化資通訊硬體方案。 產品支援 4G LTE、5G 及低功耗廣域網路 (LPWAN)</div>
+</div>
+<div class="card" onclick="window.location='../reports/5353.html'">
+  <div class="card-top">
+    <span class="ticker">5353</span>
+    <span class="company-name">台林</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>17.93</strong> P/E</div>
+    <div class="metric"><strong>1.32</strong> P/B</div>
+  </div>
+  <div class="card-summary">台林電通 (5353，Tailyn Technologies) 成立於 1980 年，總部位於桃園蘆竹，專注於工業級網通設備及專用電子系統之 EMS/ODM 服務。公司採「少量多樣、高可靠度」利基市場策略，避開消費電子紅海。 三大業務核心：(1) 工業網通：工業級交換器、路由器、5G NR 前傳設備</div>
+</div>
+<div class="card" onclick="window.location='../reports/6470.html'">
+  <div class="card-top">
+    <span class="ticker">6470</span>
+    <span class="company-name">宇智</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>12.89</strong> P/E</div>
+    <div class="metric"><strong>1.57</strong> P/B</div>
+  </div>
+  <div class="card-summary">宇智網通 (6470，U-MEDIA Communications) 為專注於設計及製造高階無線寬頻網路通訊設備之台灣網通廠，鎖定利基型高附加價值的企業級與車載網路設備市場。公司成立於 2004 年，總部位於新竹。 核心產品涵蓋 4G/5G 企業級路由器、5G 戶外橋接器、Wi-Fi 7 企業 AP</div>
+</div>
+<div class="card" onclick="window.location='../reports/6148.html'">
+  <div class="card-top">
+    <span class="ticker">6148</span>
+    <span class="company-name">驊宏資</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>27.17</strong> P/E</div>
+    <div class="metric"><strong>2.86</strong> P/B</div>
+  </div>
+  <div class="card-summary">驊宏資通 (6148，AZION) 為台灣跨足資訊、網路及電信之資通訊 (ICT) 系統整合集團。公司從傳統電腦軟硬體銷售成功轉型為專注於企業應用系統開發、雲端大數據平台建置的專業技術顧問。 公司主導成立「雲端聯合戰艦」聯盟搶食大型標案，並積極投資 AI 研發 (成立前進未來人工智慧實驗室)。透過代</div>
+</div>
+<div class="card" onclick="window.location='../reports/8089.html'">
+  <div class="card-top">
+    <span class="ticker">8089</span>
+    <span class="company-name">康全電訊</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.41</strong> P/B</div>
+  </div>
+  <div class="card-summary">康全電訊 (8089，Comtrend) 為台灣專業寬頻通訊設備研發製造商，成立於 1990 年，總部位於新北市三重區，為 訊舟科技 (EDIMAX，3047) 持股約 33% 之子公司。公司以自有品牌 COMTREND 打入全球電信營運商、有線電視營運商及北美電信網路設備經銷商。 三大產品線為光通</div>
+</div>
+<div class="card" onclick="window.location='../reports/8034.html'">
+  <div class="card-top">
+    <span class="ticker">8034</span>
+    <span class="company-name">榮群</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>17.13</strong> P/E</div>
+    <div class="metric"><strong>1.90</strong> P/B</div>
+  </div>
+  <div class="card-summary">榮群電訊 (8034，OPNET Technologies) 為台灣深耕電信局用級傳輸與接取設備之專業製造商，成立於 1991 年，總部位於新竹科學園區，資本額約十億元。公司專注於光纖寬頻網路、數位傳輸多工機、VDSL/GPON 高速數位用戶迴路等各類基礎通訊設備之研發與製造。 近年榮群積極佈局 5</div>
+</div>
+<div class="card" onclick="window.location='../reports/2444.html'">
+  <div class="card-top">
+    <span class="ticker">2444</span>
+    <span class="company-name">兆勁</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.72</strong> P/B</div>
+  </div>
+  <div class="card-summary">兆勁科技 (2444，AboCom) 原名友旺科技，成立於 1995 年，總部位於苗栗竹南科學園區。公司從傳統網通設備代工跨足半導體與光通訊領域，形成三大業務板塊：(1) 網通設備：工業級 Wi-Fi 6 路由器、Powerline 電力線通訊及 物聯網 藍牙感測方案；(2) 記憶體事業：DRAM、</div>
+</div>
+<div class="card" onclick="window.location='../reports/6674.html'">
+  <div class="card-top">
+    <span class="ticker">6674</span>
+    <span class="company-name">鋐寶科技</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.34</strong> P/B</div>
+  </div>
+  <div class="card-summary">鋐寶科技 (6674，Compal Broadband Networks，CBN) 隸屬仁寶電腦集團，專注於寬頻網路通訊設備之研發與製造。公司產品涵蓋智慧閘道器 (Smart Gateways)、數位機上盒 (STB) 及無線寬頻分享器，提供整合聯網之智慧家庭解決方案。 產品嚴格遵循 DOCSIS </div>
+</div>
+<div class="card" onclick="window.location='../reports/4980.html'">
+  <div class="card-top">
+    <span class="ticker">4980</span>
+    <span class="company-name">佐臻</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.60</strong> P/B</div>
+  </div>
+  <div class="card-summary">佐臻 (Jorjin Technologies) 為 無線通訊模組 與 AR 智慧眼鏡 之領導廠商。 獲得 鴻海 集團策略投資 (納入鴻海供應鏈)。 主要業務： 1. SiP 模組: 無線通訊 (Wi-Fi, Bluetooth, LoRa) 與物聯網 系統封裝模組。 2. AR/MR 智慧眼鏡: </div>
+</div>
+<div class="card" onclick="window.location='../reports/6708.html'">
+  <div class="card-top">
+    <span class="ticker">6708</span>
+    <span class="company-name">天擎</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>—</strong> P/B</div>
+  </div>
+  <div class="card-summary">天擎積體電路 (6708，Mars Semiconductor) 為台灣利基型 IC 設計公司，以「長距離高頻寬無線影音傳輸晶片」為核心競爭力。公司採用自主開發之 pWiFi 私有安全通訊協議，能在不受公開 Wi-Fi 頻段干擾的環境中實現 100 公尺以上高畫質無線影音傳輸。 晶片應用於車載影音、</div>
+</div>
+<div class="card" onclick="window.location='../reports/6638.html'">
+  <div class="card-top">
+    <span class="ticker">6638</span>
+    <span class="company-name">沅聖</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.84</strong> P/B</div>
+  </div>
+  <div class="card-summary">沅聖科技股份有限公司 (6638) 隸屬於樺漢科技(6414)集團，是台灣知名的智慧手持終端及智慧家居設備代工廠。沅聖早期專注於強固型工業用行動電腦(Rugged Handheld)的設計代工，近年來成功轉型並跨入智慧生活硬體領域，成為全球領先品牌的重要合作夥伴。公司主力產品涵蓋智慧門鈴、智慧安防攝</div>
+</div>
+<div class="card" onclick="window.location='../reports/8176.html'">
+  <div class="card-top">
+    <span class="ticker">8176</span>
+    <span class="company-name">智捷</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>849M</strong> 市值</div>
+    <div class="metric"><strong>30.62</strong> P/E</div>
+    <div class="metric"><strong>1.49</strong> P/B</div>
+  </div>
+  <div class="card-summary">智捷科技 (8176，Z-Com) 為台灣專精無線通訊系統之研發製造廠商，成立於 1995 年，總部位於新竹科學園區，於台灣及中國皆設有生產基地。公司憑藉射頻 (RF) 研發與無線寬頻網路整合軟體開發兩大核心技術，多次與國際級電信商合作，累計成功建置數百萬個營運商等級 Wi-Fi 基地台，業務遍布歐</div>
+</div>
+<div class="card" onclick="window.location='../reports/3664.html'">
+  <div class="card-top">
+    <span class="ticker">3664</span>
+    <span class="company-name">安瑞-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>798M</strong> 市值</div>
+    <div class="metric"><strong>64.74</strong> P/E</div>
+    <div class="metric"><strong>2.30</strong> P/B</div>
+  </div>
+  <div class="card-summary">安瑞-KY (Array Networks) 為全球領先的網路安全與應用交付解決方案供應商。 公司專注於提升企業網路的安全性、可用性與傳輸效能，主要產品包含應用交付控制器 (ADC) 與安全遠端存取 (SSL VPN)。 核心業務與發展方向： 1. 負載均衡與加速 (ADC): 透過硬體與虛擬化平台</div>
+</div>
+<div class="card" onclick="window.location='../reports/2314.html'">
+  <div class="card-top">
+    <span class="ticker">2314</span>
+    <span class="company-name">台揚</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>780M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>13.71</strong> P/B</div>
+  </div>
+  <div class="card-summary">台揚科技 (2314，Microelectronics Technology) 為台灣深耕微波及衛星通訊技術之專業設備廠，隸屬 鴻海 集團。公司為全球首家成功量產 Ka 頻段衛星地面站收發機之領導廠商，核心產品涵蓋 C/Ku/Ka 頻段 VSAT 收發器、低軌衛星 平板天線模組、5G O-RAN 開</div>
+</div>
+<div class="card" onclick="window.location='../reports/8101.html'">
+  <div class="card-top">
+    <span class="ticker">8101</span>
+    <span class="company-name">華冠</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>664M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.46</strong> P/B</div>
+  </div>
+  <div class="card-summary">華冠通訊 (8101，Arima Communications) 為台灣老牌無線通訊設備 OEM/ODM 製造商，成立於 1999 年，總部位於新北市內湖區。公司早期以手機代工為核心業務，近年轉型聚焦三大領域：(1) 企業級智慧顯示平台；(2) 工業級行動裝置 (含手持式終端、工業平板電腦及通訊模組</div>
+</div>
+<div class="card" onclick="window.location='../reports/6858.html'">
+  <div class="card-top">
+    <span class="ticker">6858</span>
+    <span class="company-name">愛比科技</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>646M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.01</strong> P/B</div>
+  </div>
+  <div class="card-summary">愛比科技 (6858，IPEVO) 為台灣設計製造之視訊溝通設備品牌公司，以「IPEVO」自有品牌行銷全球。公司專注於開發實物攝影機 (Document Camera)、視訊協作攝影機 (如 V4K PRO、DO-CAM) 及相關 AI 視訊軟體。 有別於傳統昂貴笨重的視訊設備，IPEVO 產品強調</div>
+</div>
+<div class="card" onclick="window.location='../reports/6241.html'">
+  <div class="card-top">
+    <span class="ticker">6241</span>
+    <span class="company-name">易通展</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>580M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.68</strong> P/B</div>
+  </div>
+  <div class="card-summary">易通展科技 (6241，Amigo Technology) 為專業網路通訊產品設備代工廠，商業模式純粹專注於 OEM/ODM，嚴格不發展自有品牌以避免與客戶衝突。公司前身為鑫永洋，成立於 1992 年，總部位於台南。 主力產品涵蓋企業級/強固型 Wi-Fi 7 無線網路接取點 (AP)、網狀路由器 </div>
+</div>
+<div class="card" onclick="window.location='../reports/3672.html'">
+  <div class="card-top">
+    <span class="ticker">3672</span>
+    <span class="company-name">康聯訊</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>457M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.29</strong> P/B</div>
+  </div>
+  <div class="card-summary">康聯訊科技 (3672，CTS) 為台灣專業光纖存取網路設備品牌廠商，以自有品牌「CTS」行銷全球。主要產品涵蓋光纖交換器 (Fiber Switch)、光纖轉換器、寬頻閘道器及工業級網管設備，產品設計強調在極端環境 (超高溫至極地嚴寒) 下之傳輸穩定性。 公司刻意避開消費級網通紅海市場，專注高進入</div>
+</div>
+<div class="card" onclick="window.location='../reports/2321.html'">
+  <div class="card-top">
+    <span class="ticker">2321</span>
+    <span class="company-name">東訊</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>442M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.69</strong> P/B</div>
+  </div>
+  <div class="card-summary">東訊 (2321，TECOM) 為 東元電機 集團旗下通訊設備子公司，創立於 1980 年，總部位於新竹科學園區。公司早期專注商務交換機與寬頻聯網設備，近年積極轉型為「能源操作系統平台」服務商，提供 AI 微電網智慧能碳管理平台、工業物聯網 (IIoT) 機電健康監控系統及智慧家庭 (e-Home)</div>
+</div>
+<div class="card" onclick="window.location='../reports/5348.html'">
+  <div class="card-top">
+    <span class="ticker">5348</span>
+    <span class="company-name">正能量智能</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>254M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.21</strong> P/B</div>
+  </div>
+  <div class="card-summary">正能量智能 (5348，Empower Technology) 前身為系通科技，2023 年經能率網通 (8071) 集團入主後更名並轉型。公司現定位為線上線下全通路運動整合平台，同時保留部分 GPS 及無線通訊產品業務。 核心業務涵蓋：(1) 收購馬拉松世界 (Marathon World) 實體</div>
+</div></div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

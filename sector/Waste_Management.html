@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Waste Management | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="sector-header">
+  <h1>Waste Management</h1>
+  <div class="subtitle">16 家公司 | 按市值排序</div>
+</div>
+<div class="container">
+  <div style="margin-bottom:12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">← 返回首頁</a>
+  </div>
+  <div class="cards-grid">
+<div class="card" onclick="window.location='../reports/8422.html'">
+  <div class="card-top">
+    <span class="ticker">8422</span>
+    <span class="company-name">可寧衛</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>34B</strong> 市值</div>
+    <div class="metric"><strong>27.21</strong> P/E</div>
+    <div class="metric"><strong>4.07</strong> P/B</div>
+  </div>
+  <div class="card-summary">可寧衛股份有限公司 (8422，CleanWay) 設立於1999年，為國內有害事業廢棄物清除處理業務龍頭，可處理700多種廢棄物代號中的400多種。主要業務包括： 1. 有害廢棄物固化與掩埋： 國內最大有害事業廢棄物固化及掩埋處理廠。 2. 環境整治： 受污染場址清理與修復，合約金額30.7億元之</div>
+</div>
+<div class="card" onclick="window.location='../reports/6803.html'">
+  <div class="card-top">
+    <span class="ticker">6803</span>
+    <span class="company-name">崑鼎</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>21B</strong> 市值</div>
+    <div class="metric"><strong>15.93</strong> P/E</div>
+    <div class="metric"><strong>3.01</strong> P/B</div>
+  </div>
+  <div class="card-summary">崑鼎綠能環保股份有限公司 (6803，ECOVE) 為中鼎工程 (9933) 集團旗下綠能環保控股公司，台灣最大垃圾焚化廠營運管理商。2025年營收54.72億元，處理廢棄物283萬噸，淨利7.41億元。主要業務包括： 1. 焚化廠營運： 透過子公司（信鼎、裕鼎、暉鼎等）操作台灣11座及澳門2座大型</div>
+</div>
+<div class="card" onclick="window.location='../reports/6581.html'">
+  <div class="card-top">
+    <span class="ticker">6581</span>
+    <span class="company-name">鋼聯</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>12B</strong> 市值</div>
+    <div class="metric"><strong>18.05</strong> P/E</div>
+    <div class="metric"><strong>2.75</strong> P/B</div>
+  </div>
+  <div class="card-summary">鋼聯工業股份有限公司 (6581) 為台灣事業廢棄物處理與資源循環利用之領導廠商，專精於含鋅廢棄物之回收處理與氧化鋅產品生產。主要業務包括： 1. 含鋅廢棄物處理： 處理電弧爐煉鋼集塵灰、電鍍污泥等含鋅廢棄物，提煉高純度氧化鋅。全年氧化鋅產品已全數預售完畢。 2. 焚化飛灰處理： 已取得4座焚化廠飛</div>
+</div>
+<div class="card" onclick="window.location='../reports/8341.html'">
+  <div class="card-top">
+    <span class="ticker">8341</span>
+    <span class="company-name">日友</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>10B</strong> 市值</div>
+    <div class="metric"><strong>17.22</strong> P/E</div>
+    <div class="metric"><strong>1.88</strong> P/B</div>
+  </div>
+  <div class="card-summary">日友環保科技股份有限公司 (8341) 成立於1994年，為台灣第一家專業生物醫療廢棄物焚化處理廠。主要業務包括： 1. 醫療廢棄物焚化： 處理具生物感染風險之醫療廢棄物，包含感染性醫療廢棄物與一般事業廢棄物。 2. 固化與掩埋： 有害事業廢棄物之固化處理及掩埋場營運。 3. 大陸事業群： 設有北京</div>
+</div>
+<div class="card" onclick="window.location='../reports/8390.html'">
+  <div class="card-top">
+    <span class="ticker">8390</span>
+    <span class="company-name">金益鼎</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>9B</strong> 市值</div>
+    <div class="metric"><strong>14.21</strong> P/E</div>
+    <div class="metric"><strong>2.58</strong> P/B</div>
+  </div>
+  <div class="card-summary">金益鼎企業股份有限公司 (8390) 設立於1997年，為台灣專業電子廢棄物回收處理與貴金屬精煉企業，總部位於新竹。主要業務包括： 1. 電子廢棄物處理： 提供半導體、PCB、電腦零組件、光電、化工及石化等產業之廢棄物清除與處理。 2. 貴金屬精煉： OEM精煉金、銀、鉑、鈀等高純度貴金屬，受惠國際</div>
+</div>
+<div class="card" onclick="window.location='../reports/8473.html'">
+  <div class="card-top">
+    <span class="ticker">8473</span>
+    <span class="company-name">山林水</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>16.64</strong> P/E</div>
+    <div class="metric"><strong>1.10</strong> P/B</div>
+  </div>
+  <div class="card-summary">山林水環境工程股份有限公司 (8473) 成立於2004年，為台灣專業環保水處理工程企業，和晶實業子公司。主要營收來源：水處理操作維護 (38.86%)、水處理承攬工程 (36.20%)、服務特許權 (17.03%)、事業廢棄物處理 (6.41%)。主要業務包括： 1. 水處理工程： 污水處理廠、再</div>
+</div>
+<div class="card" onclick="window.location='../reports/6923.html'">
+  <div class="card-top">
+    <span class="ticker">6923</span>
+    <span class="company-name">中台</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>25.94</strong> P/E</div>
+    <div class="metric"><strong>2.85</strong> P/B</div>
+  </div>
+  <div class="card-summary">中台資源科技股份有限公司 (6923) 設立於2001年，為全方位事業廢棄物焚化發電綜合處理廠商，提供從回收貴重金屬、廢電路板回收銅、環境整治等資源循環處理方案。主要業務包括： 1. 事業廢棄物焚化： 焚化處理半導體、光電、印刷電路板 (PCB) 及化工等產業之廢棄物，並進行熱能發電。 2. 貴金屬</div>
+</div>
+<div class="card" onclick="window.location='../reports/6947.html'">
+  <div class="card-top">
+    <span class="ticker">6947</span>
+    <span class="company-name">台鎔科技</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>213.33</strong> P/E</div>
+    <div class="metric"><strong>3.39</strong> P/B</div>
+  </div>
+  <div class="card-summary">台鎔科技材料股份有限公司 (6947) 為台灣處理高難度有毒事業廢棄物之環保企業，實踐循環經濟與轉廢為能。主要業務包括： 1. 有害廢棄物焚化： 擁有高規格專業焚化爐，處理科技廠與石化業之劇毒廢化學溶劑與污泥。 2. 再生溶劑生產： 蒸餾物理處理設備將廢溶劑（如光阻稀釋劑、IPA等）提純為再生溶劑，</div>
+</div>
+<div class="card" onclick="window.location='../reports/6951.html'">
+  <div class="card-top">
+    <span class="ticker">6951</span>
+    <span class="company-name">青新-創</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>14.80</strong> P/E</div>
+    <div class="metric"><strong>3.18</strong> P/B</div>
+  </div>
+  <div class="card-summary">青新環境工程股份有限公司 (6951) 為台灣最大醫療廢棄物清除服務商，日友 (8341) 集團旗下子公司。全台累計近11,000家客戶，醫療廢棄物收集市佔率超過30%，工業廢棄物收集市佔率約10%。主要業務包括： 1. 醫療廢棄物清運： 布建「星型運輸網絡」與「廢棄物集中中繼轉運站」模式，提供全台</div>
+</div>
+<div class="card" onclick="window.location='../reports/7507.html'">
+  <div class="card-top">
+    <span class="ticker">7507</span>
+    <span class="company-name">環拓科技</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>4.02</strong> P/B</div>
+  </div>
+  <div class="card-summary">環拓科技股份有限公司 (7507，ENRESTEC) 為全球唯一成功商業化廢輪胎化學熱裂解之環保科技公司。主要業務包括： 1. 廢輪胎熱裂解設備Turnkey輸出： 獨步全球之「低溫高壓連續式熱裂解」整廠設施技術與操作專利，將廢輪胎完全分解。 2. 環保碳黑生產： 從廢輪胎提煉高純度環保碳黑 (Ca</div>
+</div>
+<div class="card" onclick="window.location='../reports/8476.html'">
+  <div class="card-top">
+    <span class="ticker">8476</span>
+    <span class="company-name">台境</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>38.94</strong> P/E</div>
+    <div class="metric"><strong>1.82</strong> P/B</div>
+  </div>
+  <div class="card-summary">台境企業股份有限公司 (8476) 成立於2003年，為台灣專業環保工程與廢棄物處理企業，總部位於高雄。主要業務包括： 1. 環保工程專案： 土壤及地下水調查與整治工程、環境顧問諮詢。 2. 焚化爐代操作： 拓展焚化爐代操作市場，隨國營事業退出代操業務，配合政府廢棄物發電及綠電政策，焚化爐市場釋出龐</div>
+</div>
+<div class="card" onclick="window.location='../reports/6887.html'">
+  <div class="card-top">
+    <span class="ticker">6887</span>
+    <span class="company-name">寶綠特-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>9.47</strong> P/E</div>
+    <div class="metric"><strong>1.21</strong> P/B</div>
+  </div>
+  <div class="card-summary">寶綠特資源再生工程股份有限公司 (6887，Bo Re Tech) 為全球廢塑膠回收清洗設備與再生聚酯原料之領導企業。具備「垂直整合」優勢： 1. 設備工程事業： 全球頂尖PET廢塑膠清洗設備製造商，從設備設計到整廠輸出 (Turnkey)，已在超過40個國家部署265條以上PET回收清洗及應用端生</div>
+</div>
+<div class="card" onclick="window.location='../reports/7578.html'">
+  <div class="card-top">
+    <span class="ticker">7578</span>
+    <span class="company-name">利百景</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>155.23</strong> P/E</div>
+    <div class="metric"><strong>1.38</strong> P/B</div>
+  </div>
+  <div class="card-summary">利百景股份有限公司 (7578，Revivegen) 為台灣專業有害事業廢棄物處理與再生溶劑製造商。主要業務包括： 1. 廢溶劑焚化： 處理閃火點小於60度之廢液及非有害有機廢液，高溫焚化無害化。 2. 物理蒸餾精餾： 將廢化學溶劑提純脫水，提煉出再生溶劑售回工業市場。 3. 再生溶劑銷售： 「拿處</div>
+</div>
+<div class="card" onclick="window.location='../reports/6771.html'">
+  <div class="card-top">
+    <span class="ticker">6771</span>
+    <span class="company-name">平和環保-創</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>13.32</strong> P/E</div>
+    <div class="metric"><strong>1.55</strong> P/B</div>
+  </div>
+  <div class="card-summary">平和環保科技股份有限公司 (6771) 為專注於工業廢水處理及循環經濟之綠能環保公司。核心業務為提供高精度廢(污)水代處理服務，專精於處理重金屬、鉻系、鎳系及氨氮等四大工業廢水，能夠24小時無間斷截流處理。主要業務包括： 1. 廢水代處理： 同時處理不同產業之工業廢水，為台灣電鍍及表面處理產業之環保</div>
+</div>
+<div class="card" onclick="window.location='../reports/6624.html'">
+  <div class="card-top">
+    <span class="ticker">6624</span>
+    <span class="company-name">萬年清</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>168.06</strong> P/E</div>
+    <div class="metric"><strong>2.51</strong> P/B</div>
+  </div>
+  <div class="card-summary">萬年清環境工程股份有限公司 (6624) 為專精於高階工業廢水處理與水資源回收利用之環保工程公司，隸屬於上曜集團。擁有自主研發之流體化床Fenton技術、電解還原Fenton技術及上流式厭氧污泥床等六大核心廢水處理技術。主要業務包括： 1. 統包工程： 工業廢水處理系統之設計、建造與安裝，佔營收約7</div>
+</div>
+<div class="card" onclick="window.location='../reports/8440.html'">
+  <div class="card-top">
+    <span class="ticker">8440</span>
+    <span class="company-name">綠電</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>75.32</strong> P/E</div>
+    <div class="metric"><strong>1.76</strong> P/B</div>
+  </div>
+  <div class="card-summary">綠電再生股份有限公司 (8440，E&E Recycling) 設立於1998年，為國內第一家取得合法廢家電及廢資訊物品回收處理執照之廠商，亦為台灣最大的廢家電與廢資訊物品回收處理廠。主要業務包括： 1. 廢家電處理： 回收處理電視機、冷氣機、電冰箱、洗衣機、電風扇等廢棄家電。 2. 廢資訊物品處理</div>
+</div></div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

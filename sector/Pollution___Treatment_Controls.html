@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pollution & Treatment Controls | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="sector-header">
+  <h1>Pollution & Treatment Controls</h1>
+  <div class="subtitle">9 家公司 | 按市值排序</div>
+</div>
+<div class="container">
+  <div style="margin-bottom:12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">← 返回首頁</a>
+  </div>
+  <div class="cards-grid">
+<div class="card" onclick="window.location='../reports/6944.html'">
+  <div class="card-top">
+    <span class="ticker">6944</span>
+    <span class="company-name">兆聯實業</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>60B</strong> 市值</div>
+    <div class="metric"><strong>24.69</strong> P/E</div>
+    <div class="metric"><strong>7.50</strong> P/B</div>
+  </div>
+  <div class="card-summary">兆聯實業股份有限公司為頂級半導體廠房水務工程公司，專為高科技晶圓廠提供「水循環」全方位解決方案。半導體製程極度耗水且對超純水（UPW）純淨度要求達極致標準，同時排出之各式化學工業廢水須符合嚴苛環保排放與回收率標準。兆聯提供從超純水製造系統、廢水回收處理到廠內代營運（O&M）之一條龍水務統包服務。憑藉</div>
+</div>
+<div class="card" onclick="window.location='../reports/5292.html'">
+  <div class="card-top">
+    <span class="ticker">5292</span>
+    <span class="company-name">華懋</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>9B</strong> 市值</div>
+    <div class="metric"><strong>20.24</strong> P/E</div>
+    <div class="metric"><strong>4.83</strong> P/B</div>
+  </div>
+  <div class="card-summary">華懋科技 (Hwa Mau) 為台灣 半導體 VOCs (揮發性有機氣體) 處理設備 龍頭。 核心技術： 1. VOCs 防治設備: 沸石轉輪濃縮轉化系統 (市佔率高)，應用於半導體黃光製程。 2. 工業除濕/乾燥: 鋰電池超低露點轉輪除濕機、特殊乾燥房。 主要受益於先進製程擴產及環保法規趨嚴，為半</div>
+</div>
+<div class="card" onclick="window.location='../reports/6894.html'">
+  <div class="card-top">
+    <span class="ticker">6894</span>
+    <span class="company-name">衛司特</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>9B</strong> 市值</div>
+    <div class="metric"><strong>34.35</strong> P/E</div>
+    <div class="metric"><strong>5.67</strong> P/B</div>
+  </div>
+  <div class="card-summary">衛司特科技股份有限公司為專精「化廢為寶」之再生金屬與綠能環保科技公司。半導體與PCB製程中蝕刻與洗淨會產生大量含高濃度銅之有毒廢液。衛司特透過自主研發之高效能電解處理設備（Recocell系統），直接駐廠於客戶端，以電化學技術將含銅廢液電解還原為純度極高之「高純度銅管」。此「廠內電解零排放」之BOO</div>
+</div>
+<div class="card" onclick="window.location='../reports/1535.html'">
+  <div class="card-top">
+    <span class="ticker">1535</span>
+    <span class="company-name">中宇</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>13.36</strong> P/E</div>
+    <div class="metric"><strong>1.73</strong> P/B</div>
+  </div>
+  <div class="card-summary">中宇環保工程股份有限公司成立於1993年，為中鋼集團旗下環保工程公司，總部位於高雄。公司具備統包工程（EPC）能力，主要業務涵蓋：（1）環保工程： 水處理（超純水、廢水處理/回收）、空污防治（集塵、脫硫脫硝）；（2）機電工程： 汽電共生工程；（3）生技製藥廠房： 無塵室機電建置。並提供後續操作維護（</div>
+</div>
+<div class="card" onclick="window.location='../reports/9955.html'">
+  <div class="card-top">
+    <span class="ticker">9955</span>
+    <span class="company-name">佳龍</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>58.80</strong> P/E</div>
+    <div class="metric"><strong>2.73</strong> P/B</div>
+  </div>
+  <div class="card-summary">佳龍科技工程股份有限公司成立於1996年，總部位於桃園市，為專業貴金屬回收與有害事業廢棄物處理之環保科技公司。核心業務涵蓋：（1）貴金屬回收精煉： 回收含金、銀、鉑等貴金屬之廢料進行精煉銷售；（2）廢棄物處理： 固態及液態有害事業廢棄物之清除處理；（3）半導體零件清洗： 提供半導體產業工具及零件清洗</div>
+</div>
+<div class="card" onclick="window.location='../reports/6823.html'">
+  <div class="card-top">
+    <span class="ticker">6823</span>
+    <span class="company-name">濾能</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>3.02</strong> P/B</div>
+  </div>
+  <div class="card-summary">濾能股份有限公司為專注於半導體先進製程AMC（氣態分子污染物，Airborne Molecular Contaminants）微污染控制解決方案之環保科技公司。半導體製程越先進（如3nm、2nm及EUV曝光），對無塵室空氣純淨度要求越嚴苛。濾能提供客製化「化學濾網」，能精準吸附並中和干擾製程之化學氣</div>
+</div>
+<div class="card" onclick="window.location='../reports/4556.html'">
+  <div class="card-top">
+    <span class="ticker">4556</span>
+    <span class="company-name">旭然</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>32.12</strong> P/E</div>
+    <div class="metric"><strong>1.53</strong> P/B</div>
+  </div>
+  <div class="card-summary">旭然國際股份有限公司（Filtrafine）為工業液體過濾設備與耗材製造商，自有品牌「Filtrafine」行銷全球。核心產品包括濾心、濾袋及過濾外殼（Housing），具備高端微過濾技術，產品能滿足半導體、高科技電子及生技製藥產業對高潔淨度製程水之需求。主要客戶涵蓋台積電、聯電、日月光投控等半導體</div>
+</div>
+<div class="card" onclick="window.location='../reports/6723.html'">
+  <div class="card-top">
+    <span class="ticker">6723</span>
+    <span class="company-name">傑智環境</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>13.64</strong> P/E</div>
+    <div class="metric"><strong>2.03</strong> P/B</div>
+  </div>
+  <div class="card-summary">傑智環境科技股份有限公司為專注工業空氣污染防制與能資源回收之綠色環保工程公司，大股東為無塵室空調機電統包大廠漢唐（2404）。公司專精於處理高科技電子廠、半導體廠及化工廠製程排放之揮發性有機廢氣（VOCs）及空氣分子污染物（AMC）。提供 Total Air Solution 全方位解決方案，包含廢</div>
+</div>
+<div class="card" onclick="window.location='../reports/6641.html'">
+  <div class="card-top">
+    <span class="ticker">6641</span>
+    <span class="company-name">基士德-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>699M</strong> 市值</div>
+    <div class="metric"><strong>41.63</strong> P/E</div>
+    <div class="metric"><strong>0.48</strong> P/B</div>
+  </div>
+  <div class="card-summary">基士德科技股份有限公司（KY公司）為專注於水處理及環保設備之台資企業，主要營運重心位於中國大陸，是中國環保市場知名之水處理設備與技術服務外商。核心產品涵蓋沉水式泵浦、攪拌機、曝氣機等水處理關鍵設備，廣泛應用於市政污水處理、工業廢水處理及下水道工程。近年積極推動「環保設備智能化」，發展水務物聯網（Io</div>
+</div></div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

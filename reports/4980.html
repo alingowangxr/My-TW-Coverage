@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>4980 佐臻 | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="container">
+  <div style="margin:16px 0 12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">首頁</a> &rsaquo;
+    <a href="../sector/Communication_Equipment.html">Communication Equipment</a> &rsaquo;
+    4980 佐臻
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+    <span class="ticker" style="font-size:16px;padding:4px 12px">4980</span>
+    <h1 style="font-size:22px;font-weight:700">佐臻</h1>
+  </div>
+  <div class="report-layout">
+    <div>
+      <div class="report-content"><h1>4980 - 佐臻</h1>
+<h2 id="section-desc">業務簡介</h2>
+<p><strong>板塊:</strong> Technology<br />
+<strong>產業:</strong> Communication Equipment<br />
+<strong>市值:</strong> 1,206 百萬台幣<br />
+<strong>企業價值:</strong> 761 百萬台幣</p>
+<p>佐臻 (Jorjin Technologies) 為 <strong>無線通訊模組</strong> 與 <strong>AR 智慧眼鏡</strong> 之領導廠商。<br />
+獲得 <strong><a href="../index.html?wl=鴻海" class="wl">鴻海</a></strong> 集團策略投資 (納入<a href="../index.html?wl=鴻海" class="wl">鴻海</a>供應鏈)。<br />
+主要業務：<br />
+1.  <strong>SiP 模組</strong>: 無線通訊 (Wi-Fi, <a href="../index.html?wl=Bluetooth" class="wl">Bluetooth</a>, LoRa) 與<a href="../index.html?wl=物聯網" class="wl">物聯網</a> 系統封裝模組。<br />
+2.  <strong>AR/MR 智慧眼鏡</strong>: 提供 <a href="../index.html?wl=AR" class="wl">AR</a> 智慧眼鏡之 <a href="../index.html?wl=ODM" class="wl">ODM</a>/JDM 服務，應用於工業巡檢、醫療導航、教育等 B2B 領域。<br />
+致力於整合感測器、光學引擎與無線傳輸技術，打造輕量化 <a href="../index.html?wl=AR" class="wl">AR</a> 眼鏡解決方案。</p>
+<h2 id="section-supply">供應鏈位置</h2>
+<p><strong>上游 (核心算力與微縮光機引擎):</strong><br />
+- <strong>晶片與光學採購:</strong> 海量採購全球最頂級之強大行動平台算力晶片 (如高通 <a href="../index.html?wl=Qualcomm" class="wl">Qualcomm</a> XR 特規平台等)、微縮無線感測與連網 SoC (如歐美 STM, Nordic)，以及次世代終極光學微顯示引擎晶片 (如 <a href="../index.html?wl=Micro_LED" class="wl">Micro LED</a>/<a href="../index.html?wl=OLED" class="wl">OLED</a> 霸主廠 Porotech 及日商 <a href="../index.html?wl=Sony" class="wl">Sony</a>)。</p>
+<p><strong>中游 (微型化封裝與 AR 超級載具平台):</strong><br />
+- <strong>智慧眼鏡之母:</strong> <strong>佐臻 (4980)</strong> (早期自代理歐美射頻零件發跡起家，後憑藉其練就之世界級極致縮小化 SiP (系統級封裝) 模組工藝技術，狂暴式變幻轉型為全球頂級之 <strong>AR / MR 智慧眼鏡與穿戴平台</strong> ODM / JDM 研發服務絕對先驅。近期更震撼業界，獲得神龜集團 <strong><a href="../index.html?wl=鴻海" class="wl">鴻海</a></strong> 神盾級資金與超級製造火力入股成為戰略大股東，霸氣目標一統全台灣 AR / MR 前沿一條龍供應鏈平台版圖)。</p>
+<p><strong>下游 (智慧穿戴與 B2B 深層次系統端):</strong><br />
+- <strong>虛實交界的擴增領域:</strong> 將難以極致微縮的 AR/MR 眼鏡終端樣機與底層穿戴運算整合底座模組，直接跨海高單價供貨幫扶全球日系及美系擴增實境先驅品牌商，以及深入極度仰賴精準度 B2B 之智慧醫療 (手術用導航)、重工智慧工廠巡檢 (如<a href="../index.html?wl=中鋼" class="wl">中鋼</a>、亞東石化)、國軍醫療特用平台與警用等超多維空間的特許系統整合商 (SI) 客製化硬核方案。</p>
+<h2 id="section-clients">主要客戶及供應商</h2>
+<h3>主要客戶</h3>
+<ul>
+<li><strong>日不落頂層先驅 AR 品牌大軍:</strong> 身為全球極稀罕少數能徹底搞定極其繁複光學近眼顯示技術與熱壓封裝極限散熱之深厚底蘊廠家，其 AR 眼鏡背後 ODM 服伺之終端客戶皆為引領全球科技樹的行業標竿，包含長年死忠鐵桿兄弟日商巨頭 <strong><a href="../index.html?wl=Epson" class="wl">Epson</a></strong>、強勢美商 <strong><a href="../index.html?wl=Vuzix" class="wl">Vuzix</a></strong> 甚至國內大廠華碩 (ASUS) 等重量品牌，協助其實現高難度光學輕量化量產佈局。</li>
+<li><strong>智慧醫療與極端重工業尖端客戶:</strong> 極度深度結盟大咖醫療夥伴，如攜手美國頂尖醫療新創 Insight Medical Systems 合力獨家打造堪稱黑科技之「人工關節置換手術 MR 導航頭盔裝置」，成為醫療 MR 頭戴領導品牌；並強勢聯手 Panasonic 與台灣伺服器雲端巨獸雲達科技 (QCT) 多頭強攻打造 5G 毫米波無延遲之智慧工廠巡檢超級方案。</li>
+</ul>
+<h3>主要供應商</h3>
+<ul>
+<li><strong>絕對頂規晶片霸權與<a href="../index.html?wl=鴻海" class="wl">鴻海</a>神山製造力:</strong> 其「微縮大腦核心」晶片供應極度仰仗也深獲認可綁定全球行動霸主 <a href="../index.html?wl=Qualcomm_高通" class="wl">Qualcomm 高通</a> (佐臻甚至具有強核研發實力協助反向開發其神級 XR2 元宇宙晶片平台) 等少數跨國壟斷巨頭；而在後段最為艱難的硬體硬生生量產端，如今獲得富爸爸 <strong><a href="../index.html?wl=鴻海_(2317)" class="wl">鴻海 (2317)</a></strong> 入股撐腰，直接接軌連結百年難見、無可匹敵的世界級超級代工產能與規模優勢；而決定續航生死的特種微型電池與關鍵光學領域，更強勢結盟 Enovix (美商 100% 主動式矽負極神級電池技術) 及光學大腕 Porotech 等超級軍火商共同打造未來穿戴視網膜級神物。</li>
+</ul><h2 id="section-finance">財務概況</h2>
+<p>(單位: 百萬台幣, 只有 Margin 為 %)</p>
+<h3>估值指標 (股價 $26.75 as of 2026-03-26 | TTM 截至 2025-06-30 | Forward 預估至 2025-12-31)</h3>
+<table>
+<thead>
+<tr>
+<th>P/E (TTM)</th>
+<th>Forward P/E</th>
+<th>P/S (TTM)</th>
+<th>P/B</th>
+<th>EV/EBITDA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>N/A</td>
+<td>N/A</td>
+<td>9.41</td>
+<td>1.60</td>
+<td>-8.24</td>
+</tr>
+</tbody>
+</table>
+<h3>年度關鍵財務數據 (近 3 年)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">2024-12-31</th>
+<th style="text-align: right;">2023-12-31</th>
+<th style="text-align: right;">2022-12-31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Revenue</td>
+<td style="text-align: right;">130.16</td>
+<td style="text-align: right;">350.68</td>
+<td style="text-align: right;">326.01</td>
+</tr>
+<tr>
+<td style="text-align: left;">Gross Profit</td>
+<td style="text-align: right;">-40.55</td>
+<td style="text-align: right;">94.62</td>
+<td style="text-align: right;">152.05</td>
+</tr>
+<tr>
+<td style="text-align: left;">Gross Margin (%)</td>
+<td style="text-align: right;">-31.16</td>
+<td style="text-align: right;">26.98</td>
+<td style="text-align: right;">46.64</td>
+</tr>
+<tr>
+<td style="text-align: left;">Selling &amp; Marketing Exp</td>
+<td style="text-align: right;">17.94</td>
+<td style="text-align: right;">12.33</td>
+<td style="text-align: right;">14.14</td>
+</tr>
+<tr>
+<td style="text-align: left;">R&amp;D Exp</td>
+<td style="text-align: right;">51.09</td>
+<td style="text-align: right;">61.58</td>
+<td style="text-align: right;">67.66</td>
+</tr>
+<tr>
+<td style="text-align: left;">General &amp; Admin Exp</td>
+<td style="text-align: right;">35.61</td>
+<td style="text-align: right;">37.55</td>
+<td style="text-align: right;">31.29</td>
+</tr>
+<tr>
+<td style="text-align: left;">Operating Income</td>
+<td style="text-align: right;">-145.19</td>
+<td style="text-align: right;">-16.83</td>
+<td style="text-align: right;">38.96</td>
+</tr>
+<tr>
+<td style="text-align: left;">Operating Margin (%)</td>
+<td style="text-align: right;">-111.55</td>
+<td style="text-align: right;">-4.80</td>
+<td style="text-align: right;">11.95</td>
+</tr>
+<tr>
+<td style="text-align: left;">Net Income</td>
+<td style="text-align: right;">-93.39</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">69.00</td>
+</tr>
+<tr>
+<td style="text-align: left;">Net Margin (%)</td>
+<td style="text-align: right;">-71.75</td>
+<td style="text-align: right;">0.28</td>
+<td style="text-align: right;">21.17</td>
+</tr>
+<tr>
+<td style="text-align: left;">Op Cash Flow</td>
+<td style="text-align: right;">0.26</td>
+<td style="text-align: right;">-51.63</td>
+<td style="text-align: right;">92.36</td>
+</tr>
+<tr>
+<td style="text-align: left;">Investing Cash Flow</td>
+<td style="text-align: right;">-47.52</td>
+<td style="text-align: right;">69.10</td>
+<td style="text-align: right;">130.17</td>
+</tr>
+<tr>
+<td style="text-align: left;">Financing Cash Flow</td>
+<td style="text-align: right;">5.30</td>
+<td style="text-align: right;">220.76</td>
+<td style="text-align: right;">-102.48</td>
+</tr>
+<tr>
+<td style="text-align: left;">CAPEX</td>
+<td style="text-align: right;">-10.69</td>
+<td style="text-align: right;">-7.60</td>
+<td style="text-align: right;">-3.68</td>
+</tr>
+</tbody>
+</table>
+<h3>季度關鍵財務數據 (近 4 季)</h3>
+<p>無可用數據。</p></div>
+    </div>
+    <div>
+<div class="report-meta">
+  <div class="meta-item">
+    <span class="meta-label">板塊 / 產業</span>
+    <span class="meta-value" style="font-size:13px">Technology / Communication Equipment</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">市值</span>
+    <span class="meta-value">1B 百萬台幣</span>
+  </div>
+  <table class="val-table">
+    <tr><td>P/E (TTM)</td><td>—</td></tr>
+    <tr><td>P/B</td><td>1.60</td></tr>
+    <tr><td>EV/EBITDA</td><td>-8.24</td></tr>
+  </table>
+</div>
+<div class="toc">
+  <h4>目錄</h4>
+  <a href="#section-desc">業務簡介</a>
+  <a href="#section-supply">供應鏈位置</a>
+  <a href="#section-clients">主要客戶及供應商</a>
+  <a href="#section-finance">財務概況</a>
+</div>
+<div class="report-meta" style="margin-top:12px">
+  <h4 style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Wikilinks (14)</h4>
+  <a href="../index.html?wl=AR" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">AR</a><a href="../index.html?wl=Bluetooth" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">Bluetooth</a><a href="../index.html?wl=Epson" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">Epson</a><a href="../index.html?wl=Micro_LED" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">Micro LED</a><a href="../index.html?wl=ODM" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">ODM</a><a href="../index.html?wl=OLED" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">OLED</a><a href="../index.html?wl=Qualcomm" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">Qualcomm</a><a href="../index.html?wl=Qualcomm_高通" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">Qualcomm 高通</a><a href="../index.html?wl=Sony" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">Sony</a><a href="../index.html?wl=Vuzix" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">Vuzix</a><a href="../index.html?wl=中鋼" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">中鋼</a><a href="../index.html?wl=物聯網" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">物聯網</a><a href="../index.html?wl=鴻海" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">鴻海</a><a href="../index.html?wl=鴻海_(2317)" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">鴻海 (2317)</a>
+</div>
+<div class="related-box"><h4>相關公司</h4><div class="related-item"><span class="ticker" style="font-size:10px">2330</span> <a href="2330.html" style="font-size:12px">仲琦</a></div><div class="related-item"><span class="ticker" style="font-size:10px">6526</span> <a href="6526.html" style="font-size:12px">佐臻</a></div><div class="related-item"><span class="ticker" style="font-size:10px">6231</span> <a href="6231.html" style="font-size:12px">仲琦</a></div><div class="related-item"><span class="ticker" style="font-size:10px">6456</span> <a href="6456.html" style="font-size:12px">機光科技</a></div><div class="related-item"><span class="ticker" style="font-size:10px">1582</span> <a href="1582.html" style="font-size:12px">歐特明</a></div><div class="related-item"><span class="ticker" style="font-size:10px">6209</span> <a href="6209.html" style="font-size:12px">東訊</a></div><div class="related-item"><span class="ticker" style="font-size:10px">6230</span> <a href="6230.html" style="font-size:12px">歐特明</a></div><div class="related-item"><span class="ticker" style="font-size:10px">3062</span> <a href="3062.html" style="font-size:12px">仲琦</a></div></div></div>
+  </div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Leisure | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="sector-header">
+  <h1>Leisure</h1>
+  <div class="subtitle">20 家公司 | 按市值排序</div>
+</div>
+<div class="container">
+  <div style="margin-bottom:12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">← 返回首頁</a>
+  </div>
+  <div class="cards-grid">
+<div class="card" onclick="window.location='../reports/6670.html'">
+  <div class="card-top">
+    <span class="ticker">6670</span>
+    <span class="company-name">復盛應用</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>39B</strong> 市值</div>
+    <div class="metric"><strong>12.52</strong> P/E</div>
+    <div class="metric"><strong>2.49</strong> P/B</div>
+  </div>
+  <div class="card-summary">復盛應用科技股份有限公司 (6670) 是全球最大的高爾夫球桿頭代工製造商，在全球中高階球桿頭市場佔有率高達五成以上。公司以精湛的精密鑄造與鍛造技術為核心，除穩居高爾夫球具龍頭外，近年積極推動產品多元化，透過併購與策略結盟，成功將精密金屬加工技術延伸至航太零組件 (渦輪葉片)、汽車金屬鍛件 (子公司</div>
+</div>
+<div class="card" onclick="window.location='../reports/1736.html'">
+  <div class="card-top">
+    <span class="ticker">1736</span>
+    <span class="company-name">喬山</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>38B</strong> 市值</div>
+    <div class="metric"><strong>13.96</strong> P/E</div>
+    <div class="metric"><strong>2.80</strong> P/B</div>
+  </div>
+  <div class="card-summary">喬山健康科技股份有限公司 (1736，Johnson Health Tech) 成立於 1975 年，為全球第三大健身器材品牌集團，2023 年合併營收超過 12 億美元。旗下擁有三大自有品牌：Matrix (商用健身俱樂部市場)、Horizon (家用中高階)、Vision (入門家用)，另經營按</div>
+</div>
+<div class="card" onclick="window.location='../reports/9921.html'">
+  <div class="card-top">
+    <span class="ticker">9921</span>
+    <span class="company-name">巨大</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>28B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.84</strong> P/B</div>
+  </div>
+  <div class="card-summary">巨大機械工業股份有限公司 (9921，Giant Manufacturing) 成立於 1972 年，為全球最大自行車品牌製造商。旗下擁有自有品牌「Giant」及女性專屬品牌「Liv」，產品涵蓋公路車、登山車、城市車、兒童車及電動輔助自行車 (E-Bike)。2003 年與美利達共同推動台灣自行車產</div>
+</div>
+<div class="card" onclick="window.location='../reports/8033.html'">
+  <div class="card-top">
+    <span class="ticker">8033</span>
+    <span class="company-name">雷虎</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>23B</strong> 市值</div>
+    <div class="metric"><strong>254.31</strong> P/E</div>
+    <div class="metric"><strong>11.96</strong> P/B</div>
+  </div>
+  <div class="card-summary">雷虎科技股份有限公司 (8033) 原為全球知名的無線電遙控模型品牌廠，近年成功轉型為台灣具指標性的無人載具與軍工大廠。公司擁有多項自主核心技術，開發陸、海、空全方位無人載具，包含軍用型偵蒐及自殺無人機、海用匿蹤無人快艇「SeaShark」及潛艦，積極建立「非紅供應鏈」。公司與美國 AI 合作夥伴A</div>
+</div>
+<div class="card" onclick="window.location='../reports/9914.html'">
+  <div class="card-top">
+    <span class="ticker">9914</span>
+    <span class="company-name">美利達</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>20B</strong> 市值</div>
+    <div class="metric"><strong>16.90</strong> P/E</div>
+    <div class="metric"><strong>1.04</strong> P/B</div>
+  </div>
+  <div class="card-summary">美利達工業股份有限公司 (9914，Merida Industry) 成立於 1972 年，為全球第二大自行車品牌廠，僅次於同業巨大 (Giant)。公司以自有品牌「MERIDA」行銷全球，產品涵蓋公路車、登山車、城市車、碟煞公路車及電動輔助自行車 (E-Bike)。2003 年美利達與巨大共同推動</div>
+</div>
+<div class="card" onclick="window.location='../reports/4536.html'">
+  <div class="card-top">
+    <span class="ticker">4536</span>
+    <span class="company-name">拓凱</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>14B</strong> 市值</div>
+    <div class="metric"><strong>8.00</strong> P/E</div>
+    <div class="metric"><strong>1.46</strong> P/B</div>
+  </div>
+  <div class="card-summary">拓凱實業 (4536，Topkey) 為全球領先的碳纖維複合材料製造商。產品應用領域多元，涵蓋自行車 (車架/輪圈/前叉)、球拍 (網球/羽球)、安全帽、航太 (飛機座椅/內裝) 及醫療 (CT/MRI 床板)。拓凱是全球最大網球拍OEM廠，亦為高階自行車與安全帽之關鍵供應商。生產基地位於台灣台中 </div>
+</div>
+<div class="card" onclick="window.location='../reports/8462.html'">
+  <div class="card-top">
+    <span class="ticker">8462</span>
+    <span class="company-name">柏文</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>11B</strong> 市值</div>
+    <div class="metric"><strong>17.09</strong> P/E</div>
+    <div class="metric"><strong>4.74</strong> P/B</div>
+  </div>
+  <div class="card-summary">柏文健康事業股份有限公司 (8462) 為台灣首家上市之專業連鎖健身中心，旗下品牌「健身工廠 (Fitness Factory)」為南台灣起家之領導健身品牌。全國擁有超過 84 間專業據點，會員數逾 37 萬人，並通過SGS Qualicert 國際服務驗證標章，為亞洲及台灣首家獲此認證之健身品牌。</div>
+</div>
+<div class="card" onclick="window.location='../reports/8938.html'">
+  <div class="card-top">
+    <span class="ticker">8938</span>
+    <span class="company-name">明安</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>10B</strong> 市值</div>
+    <div class="metric"><strong>10.93</strong> P/E</div>
+    <div class="metric"><strong>1.27</strong> P/B</div>
+  </div>
+  <div class="card-summary">明安國際企業股份有限公司 (8938，Advanced International Multitech) 成立於 1987 年，為全球領先的碳纖維複合材料產品ODM代工廠。業務涵蓋五大領域：(1) 高爾夫球具 — 金屬木桿、鐵桿、推桿、碳纖維桿身及組裝；(2) 碳纖維自行車零組件 — 車架、前叉及零</div>
+</div>
+<div class="card" onclick="window.location='../reports/2762.html'">
+  <div class="card-top">
+    <span class="ticker">2762</span>
+    <span class="company-name">世界健身-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>8B</strong> 市值</div>
+    <div class="metric"><strong>19.28</strong> P/E</div>
+    <div class="metric"><strong>2.75</strong> P/B</div>
+  </div>
+  <div class="card-summary">世界健身-KY (2762，World Gym Taiwan) 是台灣市佔率第一的連鎖健身品牌，會員數超過 45 萬人，全台據點逾 100 間。主要業務為經營大型健身俱樂部，提供健身器材、團體課程與私人教練課程 (Personal Training)。公司採取多品牌策略 (World Gym、Wor</div>
+</div>
+<div class="card" onclick="window.location='../reports/8467.html'">
+  <div class="card-top">
+    <span class="ticker">8467</span>
+    <span class="company-name">波力-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>15.45</strong> P/E</div>
+    <div class="metric"><strong>2.66</strong> P/B</div>
+  </div>
+  <div class="card-summary">波力環球企業 (8467，Bonny Worldwide，KY) 專注於碳纖維複合材料運動用品之研發與製造，擁有超過 40 年經驗。主力業務為OEM/ODM代工全球冰上曲棍球領導品牌Bauer Hockey之冰球桿及頭盔，此合作關係自 2003 年開始，為公司最主要營收來源。Bauer Hockey</div>
+</div>
+<div class="card" onclick="window.location='../reports/8924.html'">
+  <div class="card-top">
+    <span class="ticker">8924</span>
+    <span class="company-name">大田</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>6B</strong> 市值</div>
+    <div class="metric"><strong>12.14</strong> P/E</div>
+    <div class="metric"><strong>1.37</strong> P/B</div>
+  </div>
+  <div class="card-summary">大田精密工業股份有限公司 (8924，O-TA Precision) 成立於 1988 年，專精於高爾夫球桿頭之精密鑄造與鍛造製造，為全球主要高爾夫球桿頭代工廠之一。核心技術涵蓋失蠟精密鑄造、鍛造及碳纖維複合材料加工。主要客戶為全球頂級高爾夫球品牌，包括Callaway、TaylorMade、Tit</div>
+</div>
+<div class="card" onclick="window.location='../reports/1515.html'">
+  <div class="card-top">
+    <span class="ticker">1515</span>
+    <span class="company-name">力山</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>25.00</strong> P/E</div>
+    <div class="metric"><strong>1.11</strong> P/B</div>
+  </div>
+  <div class="card-summary">力山工業股份有限公司 (1515，Rexon Industrial) 成立於 1972 年，主要業務分為三大類：健身器材、電動工具及園藝工具。力山初期以電動工具起家，後轉型為國際健身器材大廠之主要ODM代工夥伴。健身器材為最大營收來源，主要客戶包括Peloton (跑步機/飛輪車)、Life Fit</div>
+</div>
+<div class="card" onclick="window.location='../reports/8442.html'">
+  <div class="card-top">
+    <span class="ticker">8442</span>
+    <span class="company-name">威宏-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>12.96</strong> P/E</div>
+    <div class="metric"><strong>0.97</strong> P/B</div>
+  </div>
+  <div class="card-summary">威宏控股 (8442，WW Holding，KY) 旗下擁有四家核心子公司，分別經營不同產品線：(1) 威保 — 運動裝備與護具製造，客戶包括Nike、Under Armour、Decathlon；(2) 宏盛 — 精品包袋製造，客戶包括Kipling、TUMI、TOUS、Longchamp；(3)</div>
+</div>
+<div class="card" onclick="window.location='../reports/1598.html'">
+  <div class="card-top">
+    <span class="ticker">1598</span>
+    <span class="company-name">岱宇</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>37.02</strong> P/E</div>
+    <div class="metric"><strong>0.73</strong> P/B</div>
+  </div>
+  <div class="card-summary">岱宇國際股份有限公司 (1598，Dyaco International) 成立於 1990 年，為全球主要健身器材製造商與品牌商。旗下擁有自有品牌 SOLE、SPIRIT、XTERRA，並代理 UFC 授權品牌健身器材。產品涵蓋家用及商用健身器材，包括跑步機、橢圓機、健身車等。主要市場為北美地區，</div>
+</div>
+<div class="card" onclick="window.location='../reports/8933.html'">
+  <div class="card-top">
+    <span class="ticker">8933</span>
+    <span class="company-name">愛地雅</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.24</strong> P/B</div>
+  </div>
+  <div class="card-summary">愛地雅工業股份有限公司 (8933，Ideal Bike) 成立於 1980 年，為台灣老牌自行車整車OEM/ODM代工廠。公司從事自行車之設計製造、加工及組裝銷售，產品涵蓋登山車、公路車、兒童車、休閒車及電動輔助自行車 (E-Bike)。主要外銷市場為歐洲、美洲及亞洲。生產基地位於台灣台中及中國大</div>
+</div>
+<div class="card" onclick="window.location='../reports/1432.html'">
+  <div class="card-top">
+    <span class="ticker">1432</span>
+    <span class="company-name">大魯閣</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>3.05</strong> P/E</div>
+    <div class="metric"><strong>1.19</strong> P/B</div>
+  </div>
+  <div class="card-summary">大魯閣實業 (1432，TRK Corporation) 原名大魯閣纖維，1973 年成立，1982 年上市。公司已從傳統紡織業轉型為休閒娛樂及商業不動產開發運營商。主要業務包括：(1)「大魯閣棒壘球打擊場」— 全台唯一且規模最大的棒壘球連鎖店，全國擁有 12 座打擊場與 4 間保齡球館；(2) 商</div>
+</div>
+<div class="card" onclick="window.location='../reports/1593.html'">
+  <div class="card-top">
+    <span class="ticker">1593</span>
+    <span class="company-name">祺驊</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>17.51</strong> P/E</div>
+    <div class="metric"><strong>1.08</strong> P/B</div>
+  </div>
+  <div class="card-summary">祺驊股份有限公司 (1593，Chi Hua Fitness) 成立於 1997 年，專精於健身器材核心零組件之研發與製造。主要產品包括發電式磁控阻力器 (Generator Brake)、渦電流煞車器 (Eddy Current Brake)、控制面板 (Console)、直流馬達及心率感測器等。</div>
+</div>
+<div class="card" onclick="window.location='../reports/8928.html'">
+  <div class="card-top">
+    <span class="ticker">8928</span>
+    <span class="company-name">鉅明</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>16.74</strong> P/E</div>
+    <div class="metric"><strong>1.09</strong> P/B</div>
+  </div>
+  <div class="card-summary">鉅明精密工業股份有限公司 (8928，Dynamic Precision) 成立於 1973 年，專精於高爾夫球桿頭之精密鑄造製造，球桿頭佔營收比重高達 99%。公司以失蠟精密鑄造 (Investment Casting) 為核心技術，生產木桿、鐵桿、推桿及球道木等各類球桿頭，為全球主要高爾夫球品牌</div>
+</div>
+<div class="card" onclick="window.location='../reports/1526.html'">
+  <div class="card-top">
+    <span class="ticker">1526</span>
+    <span class="company-name">日馳</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.77</strong> P/B</div>
+  </div>
+  <div class="card-summary">日馳企業股份有限公司 (1526，Sun Race Sturmey-Archer) 成立於 1972 年，主要從事自行車變速器及零組件之研發、製造與銷售。公司擁有自有品牌「SunRace」及 2000 年併購之英國百年變速器品牌「Sturmey-Archer」，產品涵蓋內變速器、外變速器、大齒盤、飛</div>
+</div>
+<div class="card" onclick="window.location='../reports/6804.html'">
+  <div class="card-top">
+    <span class="ticker">6804</span>
+    <span class="company-name">明係</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>803M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.55</strong> P/B</div>
+  </div>
+  <div class="card-summary">明係事業股份有限公司 (6804) 專攻中高階自行車及電動輔助自行車 (E-Bike) 的研發與ODM/OEM代工製造。公司走精緻路線，避開低階大眾市場，專注於需要高度手工組裝工藝、碳纖維車架應用以及複雜機電整合的高單價車款。其少量多樣彈性生產能力，成為歐美精品級自行車品牌及新創 E-Bike 品牌</div>
+</div></div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Steel | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="sector-header">
+  <h1>Steel</h1>
+  <div class="subtitle">37 家公司 | 按市值排序</div>
+</div>
+<div class="container">
+  <div style="margin-bottom:12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">← 返回首頁</a>
+  </div>
+  <div class="cards-grid">
+<div class="card" onclick="window.location='../reports/2002.html'">
+  <div class="card-top">
+    <span class="ticker">2002</span>
+    <span class="company-name">中鋼</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>296B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.01</strong> P/B</div>
+  </div>
+  <div class="card-summary">中國鋼鐵 (2002，China Steel) 為台灣最大鋼鐵企業、唯一高爐煉鋼一貫廠 (年粗鋼1,050萬噸)。集團含中龍鋼鐵、中鋼構、中鋼鋁業、中鋼運通。上游鐵礦自Vale、BHP、Rio Tinto、FMG。下游含汽車 (國瑞汽車/福特六和)、家電 (東元/大同用電磁鋼片)、造船 (台灣國際造</div>
+</div>
+<div class="card" onclick="window.location='../reports/1605.html'">
+  <div class="card-top">
+    <span class="ticker">1605</span>
+    <span class="company-name">華新</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>141B</strong> 市值</div>
+    <div class="metric"><strong>42.53</strong> P/E</div>
+    <div class="metric"><strong>0.85</strong> P/B</div>
+  </div>
+  <div class="card-summary">華新麗華 (1605，Walsin Lihwa) 為大中華區電線電纜及不鏽鋼領導廠商。收購義大利Cogne切入歐洲高端不鏽鋼。投資印尼鎳礦 (與青山集團合作) 掌握電動車電池材料。佈局離岸風電海底電纜。客戶含台電、沃旭能源。銅料來自Freeport-McMoRan、BHP。 ## 供應鏈位置 上游:</div>
+</div>
+<div class="card" onclick="window.location='../reports/2027.html'">
+  <div class="card-top">
+    <span class="ticker">2027</span>
+    <span class="company-name">大成鋼</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>87B</strong> 市值</div>
+    <div class="metric"><strong>12.87</strong> P/E</div>
+    <div class="metric"><strong>1.15</strong> P/B</div>
+  </div>
+  <div class="card-summary">大成不鏽鋼工業股份有限公司 (Ta Chen Stainless Pipe Co., Ltd.) 成立於 1986 年，總部位於台灣台南。公司已轉型為全球最大之不鏽鋼及鋁捲板通路商，深耕美國市場多年。大成鋼透過獨特之 B2B 電子商務平台及綿密之發貨倉庫網絡，提供「鋼鐵業 7-11」之即時服務。主要</div>
+</div>
+<div class="card" onclick="window.location='../reports/2006.html'">
+  <div class="card-top">
+    <span class="ticker">2006</span>
+    <span class="company-name">東和鋼鐵</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>53B</strong> 市值</div>
+    <div class="metric"><strong>11.28</strong> P/E</div>
+    <div class="metric"><strong>1.54</strong> P/B</div>
+  </div>
+  <div class="card-summary">東和鋼鐵 (2006，Tung Ho) 為台灣最大電爐鋼廠之一。產品含鋼筋及H型鋼 (台灣市占九成)。鋼筋訂單逾百萬噸。上游約50%國內+50%進口廢鋼。下游含中鋼構、長榮鋼及台積電廠房。 ## 供應鏈位置 上游: 國內外廢鋼 中游: 東鋼 (電爐→鋼筋/H型鋼; 鋼構) 下游: 營建業、中鋼構、長</div>
+</div>
+<div class="card" onclick="window.location='../reports/2211.html'">
+  <div class="card-top">
+    <span class="ticker">2211</span>
+    <span class="company-name">長榮鋼</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>43B</strong> 市值</div>
+    <div class="metric"><strong>11.81</strong> P/E</div>
+    <div class="metric"><strong>1.56</strong> P/B</div>
+  </div>
+  <div class="card-summary">長榮鋼鐵 (2211，Evergreen Steel) 隸屬長榮集團，為台灣大型鋼構工程及貨櫃維修企業。鋼構業務涵蓋廠房、高層建築、橋樑設計製造安裝，年產能逾10萬噸。代表工程含台北101、台灣高鐵軌道、南港展覽館。貨櫃維修主要服務長榮海運。子公司榮鼎綠能經營廢棄物處理及生質能。上游鋼材來自中鋼、東</div>
+</div>
+<div class="card" onclick="window.location='../reports/2015.html'">
+  <div class="card-top">
+    <span class="ticker">2015</span>
+    <span class="company-name">豐興</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>40B</strong> 市值</div>
+    <div class="metric"><strong>17.83</strong> P/E</div>
+    <div class="metric"><strong>1.75</strong> P/B</div>
+  </div>
+  <div class="card-summary">豐興鋼鐵 (2015) 為台灣主要電爐鋼廠，生產鋼筋及線材，為中部地區鋼筋價格指標。採廢鋼電爐煉鋼。下游供應營建業。同業競爭者含東和鋼鐵 (2006)。鋼構客戶含中鋼構、長榮鋼。 ## 供應鏈位置 上游 (原料): - 廢鋼: 主要原料，約 50% 來自國內回收，50% 進口 (美國、日本、澳洲貨櫃</div>
+</div>
+<div class="card" onclick="window.location='../reports/2023.html'">
+  <div class="card-top">
+    <span class="ticker">2023</span>
+    <span class="company-name">燁輝</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>27B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.83</strong> P/B</div>
+  </div>
+  <div class="card-summary">燁輝企業 (2023) 隸屬義聯集團，為台灣領先之鍍面鋼品製造商。產品以鍍鋅鋼捲 (佔約53%) 及烤漆鋼捲 (佔約40%) 為主。上游熱軋鋼捲來自中鋼及關聯企業燁聯 (9957)。下游供應建材/家電/汽車。客戶含日系日立、Panasonic等家電品牌。子公司含燁興 (2007)。 ## 供應鏈位置</div>
+</div>
+<div class="card" onclick="window.location='../reports/2014.html'">
+  <div class="card-top">
+    <span class="ticker">2014</span>
+    <span class="company-name">中鴻</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>27B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.22</strong> P/B</div>
+  </div>
+  <div class="card-summary">中鴻鋼鐵股份有限公司 (Chung Hung Steel Corporation) 成立於 1983 年，前身為燁隆企業，現為中鋼集團旗下主要成員。公司總部位於台灣高雄，主要從事熱軋鋼捲、冷軋鋼捲、鍍鋅鋼捲及鋼管 (API 石油管、結構管) 之生產與銷售。中鴻定位為中鋼集團之下游加工與單軋廠，產品廣</div>
+</div>
+<div class="card" onclick="window.location='../reports/5009.html'">
+  <div class="card-top">
+    <span class="ticker">5009</span>
+    <span class="company-name">榮剛</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>19B</strong> 市值</div>
+    <div class="metric"><strong>15.91</strong> P/E</div>
+    <div class="metric"><strong>1.09</strong> P/B</div>
+  </div>
+  <div class="card-summary">榮剛材料 (Gloria Material) 隸屬於 台灣鋼鐵集團 (TSG)，為台灣唯一具備全製程之 特殊合金鋼 (Specialty Steel) 廠。 專注於高階應用材料，擁有 VAR (真空電弧重熔) 與 ESR (電渣重熔) 等高階煉鋼設備。 三大高毛利產品線： 1. 航太 (Aerosp</div>
+</div>
+<div class="card" onclick="window.location='../reports/2010.html'">
+  <div class="card-top">
+    <span class="ticker">2010</span>
+    <span class="company-name">春源</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>17B</strong> 市值</div>
+    <div class="metric"><strong>10.71</strong> P/E</div>
+    <div class="metric"><strong>1.30</strong> P/B</div>
+  </div>
+  <div class="card-summary">春源鋼鐵 (2010) 為專業鋼材裁剪加工及配銷商，承接中鋼、日本製鐵、JFE等鋼廠之熱軋鋼捲/冷軋鋼捲裁剪為客戶所需規格。下游供應汽車鋼板 (國瑞汽車/福特六和/裕隆汽車)、家電用鋼 (東元/大同)。 ## 供應鏈位置 上游 (原料): - 鋼捲/鋼板: 向中鋼 (CSC)、中龍、日本製鐵 (Ni</div>
+</div>
+<div class="card" onclick="window.location='../reports/9957.html'">
+  <div class="card-top">
+    <span class="ticker">9957</span>
+    <span class="company-name">燁聯</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>16B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.16</strong> P/B</div>
+  </div>
+  <div class="card-summary">燁聯鋼鐵 (9957，YUSCO) 隸屬義聯集團 (創辦人林義守)，為台灣最大且唯一擁有煉鋼/熱軋/冷軋完整一貫作業之不鏽鋼廠。廠址高雄岡山 (56公頃，總投資480億)。產品涵蓋不鏽鋼熱軋鋼捲、冷軋鋼捲、鋼胚及鎳合金，應用於建築裝潢、家電、汽車、綠能及醫療。集團關係企業含燁輝 (2023，鍍面鋼)</div>
+</div>
+<div class="card" onclick="window.location='../reports/2031.html'">
+  <div class="card-top">
+    <span class="ticker">2031</span>
+    <span class="company-name">新光鋼</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>13B</strong> 市值</div>
+    <div class="metric"><strong>12.20</strong> P/E</div>
+    <div class="metric"><strong>1.09</strong> P/B</div>
+  </div>
+  <div class="card-summary">新光鋼鐵 (2031) 為台灣主要鋼材配銷商及裁剪加工中心。約33%鋼材採購自中鋼。另佈局離岸風電鋼構及鋼材貿易。下游供應營建/機械/造船等產業。 ## 供應鏈位置 上游 (原料): - 鋼捲/鋼板: 向中鋼 (CSC) (約佔 33%) 及國外鋼廠 (如俄羅斯、巴西、日本、烏克蘭等，約佔 66%)</div>
+</div>
+<div class="card" onclick="window.location='../reports/2034.html'">
+  <div class="card-top">
+    <span class="ticker">2034</span>
+    <span class="company-name">允強</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>11B</strong> 市值</div>
+    <div class="metric"><strong>102.00</strong> P/E</div>
+    <div class="metric"><strong>1.10</strong> P/B</div>
+  </div>
+  <div class="card-summary">允強實業股份有限公司 (YC Inox Co., Ltd.) 成立於 1973 年，總部位於台灣彰化。公司為全球前五大不鏽鋼管/板製造廠，亦是亞洲最大之不鏽鋼管製造商。主要產品包括不鏽鋼配管、構造管、薄板及捲板。允強近年積極進行全球佈局，於土耳其設立生產基地 (YC Inox TR)，以貼近歐洲及中</div>
+</div>
+<div class="card" onclick="window.location='../reports/2035.html'">
+  <div class="card-top">
+    <span class="ticker">2035</span>
+    <span class="company-name">唐榮</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>10B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>4.25</strong> P/B</div>
+  </div>
+  <div class="card-summary">唐榮鐵工廠股份有限公司 (Tang Eng Iron Works Co., Ltd.) 成立於 1940 年，總部位於台灣高雄。公司為台灣歷史最悠久之鋼鐵廠，現為國營事業色彩濃厚之不鏽鋼上游煉鋼廠。主要產品為不鏽鋼熱軋/冷軋鋼捲 (300 系為主)。唐榮在國內不鏽鋼產業鏈中扮演關鍵原料供應角色，供應</div>
+</div>
+<div class="card" onclick="window.location='../reports/2013.html'">
+  <div class="card-top">
+    <span class="ticker">2013</span>
+    <span class="company-name">中鋼構</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>9B</strong> 市值</div>
+    <div class="metric"><strong>14.15</strong> P/E</div>
+    <div class="metric"><strong>1.59</strong> P/B</div>
+  </div>
+  <div class="card-summary">中鋼結構 (2013，CSSC) 為中鋼集團旗下鋼結構工程專業廠。承攬大型鋼構工程含台積電/聯電/Micron科技廠房、台北101及公共建設。上游鋼材來自中鋼、中龍鋼鐵。另跨足離岸風電水下基礎 (透過興達海基)。 ## 供應鏈位置 上游 (原料): - 鋼材: 鋼板、H 型鋼主要向母公司中鋼 (CS</div>
+</div>
+<div class="card" onclick="window.location='../reports/2029.html'">
+  <div class="card-top">
+    <span class="ticker">2029</span>
+    <span class="company-name">盛餘</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>27.70</strong> P/E</div>
+    <div class="metric"><strong>0.65</strong> P/B</div>
+  </div>
+  <div class="card-summary">盛餘股份有限公司 (2029) 為鍍面鋼品製造商。技術合作夥伴含日本淀川製鋼所及豐田通商。上游熱軋鋼捲來自中鋼及中鴻。產品含鍍鋅/鍍鋁鋅/烤漆鋼捲，應用於建材/家電/汽車。 ## 供應鏈位置 上游 (原料): - 熱軋/冷軋鋼捲: 主要向中鋼 (CSC) 及中鴻 (2014) 採購，部分自日本或海外</div>
+</div>
+<div class="card" onclick="window.location='../reports/2020.html'">
+  <div class="card-top">
+    <span class="ticker">2020</span>
+    <span class="company-name">美亞</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>11.48</strong> P/E</div>
+    <div class="metric"><strong>1.51</strong> P/B</div>
+  </div>
+  <div class="card-summary">美亞鋼管廠股份有限公司 (Mayer Steel Pipe Corporation) 成立於 1959 年，總部位於台灣台北。公司為台灣老牌專業鋼管製造商，主要生產鍍鋅鋼管 (GIP)、黑鋼管、錏板管 (EMT)、不鏽鋼管及碳鋼鋼管。美亞鋼管產品廣泛應用於建築配管、消防管線、機械結構及公共工程。公司</div>
+</div>
+<div class="card" onclick="window.location='../reports/2028.html'">
+  <div class="card-top">
+    <span class="ticker">2028</span>
+    <span class="company-name">威致</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>6B</strong> 市值</div>
+    <div class="metric"><strong>66.43</strong> P/E</div>
+    <div class="metric"><strong>1.27</strong> P/B</div>
+  </div>
+  <div class="card-summary">威致鋼鐵 (2028) 為電爐煉鋼廠，主要生產鋼筋及扁鋼。近年取得IATF 16949認證切入汽車用鋼。外銷逾200萬噸零客訴。規劃鋼筋加工成型廠 (2026年完工) 實現產銷一條龍。上游以國內外廢鋼為主。 ## 供應鏈位置 上游: 國內外廢鋼回收 中游: 威致 (電爐煉鋼→鋼筋/扁鋼; IATF </div>
+</div>
+<div class="card" onclick="window.location='../reports/5538.html'">
+  <div class="card-top">
+    <span class="ticker">5538</span>
+    <span class="company-name">東明-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>6B</strong> 市值</div>
+    <div class="metric"><strong>10.96</strong> P/E</div>
+    <div class="metric"><strong>0.86</strong> P/B</div>
+  </div>
+  <div class="card-summary">東明-KY (5538) 為不鏽鋼扣件 (螺絲/螺帽) 專業廠，以自有品牌行銷中國市場。產品涵蓋不鏽鋼六角螺栓、螺帽、墊圈及特殊扣件。在中國設有完整經銷網絡。上游不鏽鋼線材來自燁聯 (9957)、華新麗華等。下游供應建築五金、機械設備及石化管線扣件客戶。 ## 供應鏈位置 上游: 燁聯、華新麗華 —</div>
+</div>
+<div class="card" onclick="window.location='../reports/2008.html'">
+  <div class="card-top">
+    <span class="ticker">2008</span>
+    <span class="company-name">高興昌</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>40.88</strong> P/E</div>
+    <div class="metric"><strong>1.43</strong> P/B</div>
+  </div>
+  <div class="card-summary">高興昌鋼鐵 (2008) 專業鋼管廠 (佔營收96%)。產品含鍍鋅鋼管/鋼管樁/API管。上游熱軋鋼捲來自中鋼。下游含營建 (鋼管樁)、公共工程 (橋樑/港灣) 及石化 (API管線)。另佈局高雄不動產。 ## 供應鏈位置 上游: 中鋼 — 熱軋鋼捲 中游: 高興昌 (鋼管/鍍鋅鋼管/API管) 下</div>
+</div>
+<div class="card" onclick="window.location='../reports/2030.html'">
+  <div class="card-top">
+    <span class="ticker">2030</span>
+    <span class="company-name">彰源</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>46.71</strong> P/E</div>
+    <div class="metric"><strong>0.92</strong> P/B</div>
+  </div>
+  <div class="card-summary">彰源企業股份有限公司 (Froch Enterprise Co., Ltd.) 成立於 1970 年，總部位於台灣雲林斗六。公司為台灣第一大不鏽鋼管及不鏽鋼板製造廠。主要產品包括不鏽鋼配管、構造管、鍋爐管及不鏽鋼板捲。彰源產品規格齊全，廣泛應用於石化、造紙、食品、能源及半導體電子廠房建設。內外銷比重</div>
+</div>
+<div class="card" onclick="window.location='../reports/2007.html'">
+  <div class="card-top">
+    <span class="ticker">2007</span>
+    <span class="company-name">燁興</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.06</strong> P/B</div>
+  </div>
+  <div class="card-summary">燁興企業 (2007) 為義聯集團首家公司，專業盤元線材廠 (年產50萬噸)。產品含不鏽鋼/碳鋼/合金鋼/快削鋼盤元。為燁輝 (2023) 子公司。上游鋼胚來自燁聯、中鋼。下游供岡山/路竹扣件聚落。 ## 供應鏈位置 上游: 燁聯、中鋼 — 鋼胚 中游: 燁興 (盤元: 不鏽鋼/合金鋼/快削鋼) 下</div>
+</div>
+<div class="card" onclick="window.location='../reports/2012.html'">
+  <div class="card-top">
+    <span class="ticker">2012</span>
+    <span class="company-name">春雨</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>88.06</strong> P/E</div>
+    <div class="metric"><strong>1.14</strong> P/B</div>
+  </div>
+  <div class="card-summary">春雨工廠 (2012) 為台灣最大扣件 (螺絲/螺帽) 製造商之一。產品涵蓋高強度扣件、軌道扣件及特殊扣件。上游盤元/線材來自中鋼。下游外銷北美工業通路如Fastenal、Grainger。另拓展電動車用高強度扣件。 ## 供應鏈位置 上游 (原料): - 盤元線材: 向中鋼 (CSC) 及日韓鋼廠</div>
+</div>
+<div class="card" onclick="window.location='../reports/2017.html'">
+  <div class="card-top">
+    <span class="ticker">2017</span>
+    <span class="company-name">官田鋼</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.87</strong> P/B</div>
+  </div>
+  <div class="card-summary">官田鋼鐵 (2017) 為專業鋼線及盤元二次加工廠。產品含球化線材、鍍鋅鐵線及各式鋼線。上游盤元來自中鋼。下游供應螺絲扣件業 (岡山聚落)、鐵線加工及建材用線。 ## 供應鏈位置 上游: 中鋼 — 盤元原料 中游: 官田鋼 (球化線材/鍍鋅鐵線/鋼線二次加工) 下游: - 螺絲扣件業 (岡山聚落) </div>
+</div>
+<div class="card" onclick="window.location='../reports/2069.html'">
+  <div class="card-top">
+    <span class="ticker">2069</span>
+    <span class="company-name">運錩</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>11.42</strong> P/E</div>
+    <div class="metric"><strong>0.76</strong> P/B</div>
+  </div>
+  <div class="card-summary">運錩鋼鐵股份有限公司 (Yuen Chang Stainless Steel Co., Ltd.) 成立於 1987 年，總部位於台灣高雄。公司為專業之不鏽鋼裁剪加工中心，並於中國寧波設有精密冷軋廠 (奇億金屬)。運錩專注於高精密、高附加價值之不鏽鋼薄板加工，產品以高品質表面處理及極薄厚度 (精密冷</div>
+</div>
+<div class="card" onclick="window.location='../reports/2038.html'">
+  <div class="card-top">
+    <span class="ticker">2038</span>
+    <span class="company-name">海光</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.81</strong> P/B</div>
+  </div>
+  <div class="card-summary">海光企業 (2038) 為南部電爐鋼廠 (EAF)，主要生產鋼筋及型鋼。採廢鋼電爐煉鋼→連鑄→熱軋一貫製程。以南部營建市場為主要銷售區域。上游為國內外廢鋼回收。下游供應南部營建業。 ## 供應鏈位置 上游: 國內外廢鋼回收 中游: 海光 (電爐煉鋼→鋼筋) 下游: - 南部營建業 — 鋼筋 - 高雄</div>
+</div>
+<div class="card" onclick="window.location='../reports/2032.html'">
+  <div class="card-top">
+    <span class="ticker">2032</span>
+    <span class="company-name">新鋼</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>29.64</strong> P/E</div>
+    <div class="metric"><strong>1.24</strong> P/B</div>
+  </div>
+  <div class="card-summary">新鋼工業 (2032，Sinkang) 為不鏽鋼裁剪及表面處理專業廠。上游不鏽鋼鋼捲來自華新麗華、燁聯、唐榮。下游供應廚具/建材/工業用戶。 ## 供應鏈位置 上游 (原料): - 不鏽鋼捲: 向國內外鋼廠採購，主要供應商包括華新麗華 (1605)、燁聯 (9957)、唐榮 (2035) 及進口。 </div>
+</div>
+<div class="card" onclick="window.location='../reports/2025.html'">
+  <div class="card-top">
+    <span class="ticker">2025</span>
+    <span class="company-name">千興</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.42</strong> P/B</div>
+  </div>
+  <div class="card-summary">千興不鏽鋼 (2025) 為不鏽鋼冷軋專業廠。上游來自燁聯、華新麗華、唐榮。下游含裁剪/製管/廚具/化工設備及AI 伺服器機殼。 ## 供應鏈位置 上游: 燁聯、華新麗華、唐榮 — 熱軋鋼捲 中游: 千興 (不鏽鋼冷軋) 下游: 裁剪/製管/廚具/化工; AI 伺服器機殼 ## 主要客戶及供應商 #</div>
+</div>
+<div class="card" onclick="window.location='../reports/6248.html'">
+  <div class="card-top">
+    <span class="ticker">6248</span>
+    <span class="company-name">沛波</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>13.29</strong> P/E</div>
+    <div class="metric"><strong>0.85</strong> P/B</div>
+  </div>
+  <div class="card-summary">沛波鋼鐵股份有限公司 (6248) 隸屬於台灣鋼鐵集團(台鋼)，是一家專業的鋼筋二次加工裝配與買賣廠。沛波的營運模式有別於傳統煉鋼廠，主要從事鋼筋的成型、裁剪、彎曲等客製化加工服務。透過引進自動化加工設備，沛波能大幅縮短營造廠在工地綁紮鋼筋的時間並降低人工成本。受惠於台商回流建廠、國內公共工程推動及</div>
+</div>
+<div class="card" onclick="window.location='../reports/5014.html'">
+  <div class="card-top">
+    <span class="ticker">5014</span>
+    <span class="company-name">建錩</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.74</strong> P/B</div>
+  </div>
+  <div class="card-summary">建錩實業 (Chien Shing / Chain Chon) 為專業 不鏽鋼捲板通路與加工中心 (Coil Center)。 經營模式類似「鋼鐵服務業」，提供： 1. 裁剪加工: 將上游鋼捲裁剪成客戶所需尺寸之板材、條類。 2. 表面處理: 磨砂、拋光、鏡面處理。 3. 物流配送: 「一廠下單，全</div>
+</div>
+<div class="card" onclick="window.location='../reports/2024.html'">
+  <div class="card-top">
+    <span class="ticker">2024</span>
+    <span class="company-name">志聯</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.29</strong> P/B</div>
+  </div>
+  <div class="card-summary">志聯工業 (2024) 為專業鋼線及棒鋼製造商。上游鋼胚來自中鋼、日本製鐵、寶鋼。下游供應彈簧/扣件/汽車零組件產業。 ## 供應鏈位置 上游 (原料): - 盤元 (Wire Rod): 向中鋼 (CSC)、寶鋼、日本製鐵 (Nippon Steel) 採購碳鋼及合金鋼盤元。 - 加工: 擁有酸洗</div>
+</div>
+<div class="card" onclick="window.location='../reports/2221.html'">
+  <div class="card-top">
+    <span class="ticker">2221</span>
+    <span class="company-name">大甲</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>13.25</strong> P/E</div>
+    <div class="metric"><strong>1.22</strong> P/B</div>
+  </div>
+  <div class="card-summary">大甲永和機械 (2221) 為台灣領先之不鏽鋼焊接管件製造商。雙事業：潔淨級 (UHP，佔約50%) 供應半導體/光電製程管路，為台積電合格供應商；化工級 (佔約50%) 主要外銷日本石化業。與日本MIE株式會社資本及業務合作。上游不鏽鋼管板來自華新麗華、燁聯及日本進口。另供聯電、力積電、友達、群創</div>
+</div>
+<div class="card" onclick="window.location='../reports/5016.html'">
+  <div class="card-top">
+    <span class="ticker">5016</span>
+    <span class="company-name">松和</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>16.53</strong> P/E</div>
+    <div class="metric"><strong>0.84</strong> P/B</div>
+  </div>
+  <div class="card-summary">松和工業 (5016) 為專業鋼索 (Wire Rope) 製造商，產品涵蓋各式不鏽鋼鋼索、碳鋼鋼索及鋼纜，應用於電梯升降、吊車起重、離岸風電吊裝及橋樑結構。為國內電梯用鋼索主要供應商，客戶含崇友 (4506)、永大等電梯廠。另供應營建起重及工業用鋼索。上游鋼線來自中鋼。 ## 供應鏈位置 中游 (</div>
+</div>
+<div class="card" onclick="window.location='../reports/2033.html'">
+  <div class="card-top">
+    <span class="ticker">2033</span>
+    <span class="company-name">佳大</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>44.29</strong> P/E</div>
+    <div class="metric"><strong>1.19</strong> P/B</div>
+  </div>
+  <div class="card-summary">佳大世界 (2033) 為鋼線及PC鋼絞線製造商，另生產鍍鋅鐵線及各式金屬線材。PC鋼絞線用於預力混凝土橋樑及建築。上游線材來自中鋼。下游供應營建/橋樑工程。 ## 供應鏈位置 上游: 中鋼 — 線材/盤元 中游: 佳大 (鋼線/PC鋼絞線製造) 下游: - 預力混凝土橋樑/建築工程 - 營建業 —</div>
+</div>
+<div class="card" onclick="window.location='../reports/9962.html'">
+  <div class="card-top">
+    <span class="ticker">9962</span>
+    <span class="company-name">有益</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>997M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.93</strong> P/B</div>
+  </div>
+  <div class="card-summary">有益鋼鐵 (9962，Yeou Yih Steel) 為台灣唯一且全球前三大不鏽鋼厚板專業廠。產品涵蓋不鏽鋼熱軋厚板、鋼片、鋼捲及扁鋼，外銷韓國/泰國/越南/馬來西亞/日本/新加坡/歐洲。應用於石化壓力容器、造船、食品製藥設備及能源設備。上游板坯來自燁聯 (9957)、華新麗華、唐榮及國際鋼廠。 #</div>
+</div>
+<div class="card" onclick="window.location='../reports/2064.html'">
+  <div class="card-top">
+    <span class="ticker">2064</span>
+    <span class="company-name">晉椿</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>811M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.86</strong> P/B</div>
+  </div>
+  <div class="card-summary">晉椿工業 (2064，Camellia Metal) 為東南亞領先之棒鋼與線材二次加工專業廠。主力產品涵蓋快削鋼、合金鋼、不鏽鋼棒材與線材，棒鋼年產能逾6萬噸、線材逾3萬噸，為亞洲快削鋼規格最齊全廠商。應用於汽車零件、航太精密件、扣件及電子零組件。上游鋼胚來自中鋼及日本特殊鋼廠。下游供應高雄岡山螺絲</div>
+</div>
+<div class="card" onclick="window.location='../reports/2073.html'">
+  <div class="card-top">
+    <span class="ticker">2073</span>
+    <span class="company-name">雄順</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>770M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>—</strong> P/B</div>
+  </div>
+  <div class="card-summary">雄順興業 (2073) 為鋼線二次加工專業廠，核心製程含拉線/球化/酸洗，主要產品為加工線材供應扣件 (螺絲/螺帽) 產業。上游盤元來自中鋼。下游供應高雄岡山螺絲產業聚落扣件廠。 ## 供應鏈位置 上游: 中鋼 — 盤元原料 中游: 雄順 (鋼線二次加工: 拉線/球化/酸洗) 下游: - 高雄岡山螺</div>
+</div></div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

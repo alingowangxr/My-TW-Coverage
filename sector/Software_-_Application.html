@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Software - Application | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="sector-header">
+  <h1>Software - Application</h1>
+  <div class="subtitle">18 家公司 | 按市值排序</div>
+</div>
+<div class="container">
+  <div style="margin-bottom:12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">← 返回首頁</a>
+  </div>
+  <div class="cards-grid">
+<div class="card" onclick="window.location='../reports/6231.html'">
+  <div class="card-top">
+    <span class="ticker">6231</span>
+    <span class="company-name">系微</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>13B</strong> 市值</div>
+    <div class="metric"><strong>43.28</strong> P/E</div>
+    <div class="metric"><strong>11.22</strong> P/B</div>
+  </div>
+  <div class="card-summary">系微股份有限公司 (6231，Insyde Software) 是一家全球領先的系統韌體(Firmware)與軟體工程服務供應商。公司的核心產品為UEFI系統韌體(如InsydeH2O BIOS)以及基板管理控制器(BMC)韌體(如Supervyse)。系微的韌體是銜接電腦硬體與作業系統的關鍵橋樑，</div>
+</div>
+<div class="card" onclick="window.location='../reports/5403.html'">
+  <div class="card-top">
+    <span class="ticker">5403</span>
+    <span class="company-name">中菲</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>8B</strong> 市值</div>
+    <div class="metric"><strong>13.00</strong> P/E</div>
+    <div class="metric"><strong>2.85</strong> P/B</div>
+  </div>
+  <div class="card-summary">中菲電腦 (5403，DDSC) 成立於 1981 年，為專業資訊系統整合服務商，深耕金融業、證券業及物流業之軟體開發與系統維護。公司以航運海運系統軟體起家，後成功切入金融業信託系統，目前在台灣銀行信託系統市佔率高達約 80%，證券業系統市佔率約 30%，形成極高轉換成本之產業護城河。主要業務涵蓋銀</div>
+</div>
+<div class="card" onclick="window.location='../reports/5203.html'">
+  <div class="card-top">
+    <span class="ticker">5203</span>
+    <span class="company-name">訊連</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>17.53</strong> P/E</div>
+    <div class="metric"><strong>1.08</strong> P/B</div>
+  </div>
+  <div class="card-summary">訊連科技（5203）是全球知名的多媒體影音軟體公司，亦是台灣軟體產業的領導者。主要產品包括「威力導演」（PowerDirector）、「相片大師」（PhotoDirector）等創意編輯軟體，以及FaceMe® AI臉部辨識技術。公司近年成功從傳統買斷制轉型為訂閱制（SaaS），並積極投入生成式AI</div>
+</div>
+<div class="card" onclick="window.location='../reports/8416.html'">
+  <div class="card-top">
+    <span class="ticker">8416</span>
+    <span class="company-name">實威</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>13.32</strong> P/E</div>
+    <div class="metric"><strong>2.85</strong> P/B</div>
+  </div>
+  <div class="card-summary">實威國際 (8416，SolidWizard) 成立於 1997 年，為法國 Dassault Systemes 在亞洲最大專業代理商。公司代理銷售 SOLIDWORKS 3D CAD 設計軟體及 3DEXPERIENCE 雲端協同設計管理平台，涵蓋 CAD、CAE 驗證分析 (SIMULIA)、P</div>
+</div>
+<div class="card" onclick="window.location='../reports/6486.html'">
+  <div class="card-top">
+    <span class="ticker">6486</span>
+    <span class="company-name">互動</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>14.63</strong> P/E</div>
+    <div class="metric"><strong>2.11</strong> P/B</div>
+  </div>
+  <div class="card-summary">互動國際數位 (6486，IDT) 隸屬於佳世達集團，為台灣頂尖的電信、媒體及寬頻網路系統整合商。公司專注於代理歐美一線硬體與軟體品牌，為客戶提供 5G 骨幹網路、微波無線傳輸、數位電視多媒體播送、地理資訊系統 (GIS) 及雲端資安之完整系統建置與售後服務。主要代理品牌包括 Cisco、Erics</div>
+</div>
+<div class="card" onclick="window.location='../reports/8284.html'">
+  <div class="card-top">
+    <span class="ticker">8284</span>
+    <span class="company-name">三竹</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>13.56</strong> P/E</div>
+    <div class="metric"><strong>2.17</strong> P/B</div>
+  </div>
+  <div class="card-summary">三竹資訊 (8284，Mitake) 為台灣金融資訊服務領導廠商，成立於 1991 年。公司提供行動看盤下單系統、行動銀行系統、企業簡訊平台、推播系統及企業即時通訊 (EIM) 等解決方案。國內行動看盤下單現有客戶涵蓋 元大證券、富邦證券等 46 家證券商，國外股票看盤下單客戶包括 凱基證券、富邦證</div>
+</div>
+<div class="card" onclick="window.location='../reports/3570.html'">
+  <div class="card-top">
+    <span class="ticker">3570</span>
+    <span class="company-name">大塚</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>12.02</strong> P/E</div>
+    <div class="metric"><strong>2.64</strong> P/B</div>
+  </div>
+  <div class="card-summary">大塚資訊科技 (3570，OITC) 為台灣主要的 3D CAD/CAM 軟體代理商與系統整合服務商，母公司為日本 IT 服務商大塚商會。公司為 Autodesk 及 PTC 在台灣唯一白金級全產品代理商，代理品牌涵蓋 Autodesk (AutoCAD、Inventor、Revit) 與 PTC </div>
+</div>
+<div class="card" onclick="window.location='../reports/6738.html'">
+  <div class="card-top">
+    <span class="ticker">6738</span>
+    <span class="company-name">鼎��</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>65.89</strong> P/B</div>
+  </div>
+  <div class="card-summary">鼎恒數位科技 (6738，MAYO) 為台灣指標性人力資源雲端軟體公司。核心產品「Apollo 雲端人資系統」採用 SaaS 模式，提供出勤、薪資結算、排班及招募等全方位 HRM 功能，支援台灣、中國及越南法規。此外推出「STAYFUN」員工福利整合平台及「Lasso」AI 招募測評工具。公司為台灣</div>
+</div>
+<div class="card" onclick="window.location='../reports/6902.html'">
+  <div class="card-top">
+    <span class="ticker">6902</span>
+    <span class="company-name">GOGOLOOK</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>47.75</strong> P/E</div>
+    <div class="metric"><strong>3.86</strong> P/B</div>
+  </div>
+  <div class="card-summary">走著瞧 (6902，Gogolook) 為國際知名之「信任科技 (TrustTech)」AI 軟體服務公司，從台灣國民 App「Whoscall」起家。透過用戶回報與 AI 大數據分析，累積全球龐大的電話識別與防詐騙惡意資料庫。公司業務延伸至企業端防詐 (ScamAdviser 全球假網址與商譽風險</div>
+</div>
+<div class="card" onclick="window.location='../reports/6874.html'">
+  <div class="card-top">
+    <span class="ticker">6874</span>
+    <span class="company-name">倍力</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>29.32</strong> P/E</div>
+    <div class="metric"><strong>4.23</strong> P/B</div>
+  </div>
+  <div class="card-summary">倍力資訊 (6874，M-Power) 專注於企業級軟體代理與自主研發 ESG 數位轉型解決方案。公司代理 Oracle、SAP、Cisco、IBM 等國際頂級商用軟體品牌，掌握極佳之企業客戶覆蓋率。近年成功轉型，自主研發「集團合併報表系統 (GCRS)」及「財務附註揭露系統 (FNDS)」協助上市</div>
+</div>
+<div class="card" onclick="window.location='../reports/5210.html'">
+  <div class="card-top">
+    <span class="ticker">5210</span>
+    <span class="company-name">寶碩</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>30.14</strong> P/E</div>
+    <div class="metric"><strong>2.30</strong> P/B</div>
+  </div>
+  <div class="card-summary">寶碩財務科技 (5210，Apex) 為台灣專業金融資訊系統開發商。主要業務：(1) 金融工程 — 銀行/證券之財務交易系統、風險管理系統、資產負債管理系統 (ALM)，技術強項在於複雜的財務模型運算與即時交易系統架構；(2) 系統整合 — 視訊會議系統、數位金融學院平台；(3) 綠能事業 — 近年</div>
+</div>
+<div class="card" onclick="window.location='../reports/6590.html'">
+  <div class="card-top">
+    <span class="ticker">6590</span>
+    <span class="company-name">普鴻</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>14.40</strong> P/E</div>
+    <div class="metric"><strong>2.55</strong> P/B</div>
+  </div>
+  <div class="card-summary">普鴻資訊 (6590，Provision) 為台灣金融支付與資訊安全軟體系統的隱形冠軍。公司專注於金融業核心支付應用、清算系統及企業級資安解決方案，在台灣銀行圈的票交/跨行支付系統市佔率極高。有別於一般軟體外包商，普鴻主打自有產品授權與常態性維護服務 (SaaS/PaaS)，創造穩定的高黏著度經常性</div>
+</div>
+<div class="card" onclick="window.location='../reports/5201.html'">
+  <div class="card-top">
+    <span class="ticker">5201</span>
+    <span class="company-name">凱衛</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.03</strong> P/B</div>
+  </div>
+  <div class="card-summary">凱衛資訊 (Kway) 為台灣老牌 金融軟體服務商，深耕證券期貨領域。 業務核心： 1. 金融中後台系統: 證券/期貨核心帳務系統、結算系統。 2. 交易前端工具: 獨家代理 MultiCharts (程式交易軟體) 於台灣之銷售，擁有廣大程式交易客群。 3. 系統整合: 代理銷售國外主機與軟體 (</div>
+</div>
+<div class="card" onclick="window.location='../reports/5202.html'">
+  <div class="card-top">
+    <span class="ticker">5202</span>
+    <span class="company-name">力新</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.10</strong> P/B</div>
+  </div>
+  <div class="card-summary">力新國際 (5202，NewSoft) 隸屬於台灣鋼鐵集團，為台灣知名軟體公司，早年以 OCR (光學字元辨識) 軟體「丹青」與「非常好色」聞名。目前轉型為企業數位轉型服務商：(1) AI OCR/IDR — 企業文件辨識與智慧單據輸入系統，支援發票、收據等自動化辨識；(2) 企業解決方案 — BP</div>
+</div>
+<div class="card" onclick="window.location='../reports/5211.html'">
+  <div class="card-top">
+    <span class="ticker">5211</span>
+    <span class="company-name">蒙恬</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>730M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.12</strong> P/B</div>
+  </div>
+  <div class="card-summary">蒙恬科技 (5211，Penpower) 為智慧型人機介面技術領導者，以「蒙恬筆」手寫輸入與「名片王 (WorldCard)」名片辨識聞名。核心技術涵蓋手寫辨識、OCR 文件辨識、語音辨識與人臉辨識。主要產品線：(1) 消費性電子 — 蒙恬筆、名片王、掃譯筆等硬體搭配辨識軟體；(2) 企業解決方案 </div>
+</div>
+<div class="card" onclick="window.location='../reports/5205.html'">
+  <div class="card-top">
+    <span class="ticker">5205</span>
+    <span class="company-name">中茂</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>410M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>4.67</strong> P/B</div>
+  </div>
+  <div class="card-summary">中茂能資 (5205，TGE) 前身為漢平電子轉投資企業，後轉型投入環保綠能領域。目前業務涵蓋：(1) 環境工程 — 水資源處理營運、廢棄物處理與再生利用服務、生質能發電規劃；(2) 通路經銷 — 電子零組件代理、民生消費品代理。公司資本額約 1.35 億元，營運規模較小，業務仍在調整轉型中，主要客</div>
+</div>
+<div class="card" onclick="window.location='../reports/3632.html'">
+  <div class="card-top">
+    <span class="ticker">3632</span>
+    <span class="company-name">研勤</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>387M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>3.27</strong> P/B</div>
+  </div>
+  <div class="card-summary">研勤科技 (3632，PAPAGO!) 以衛星導航品牌「PAPAGO!」奠定市場地位，目前已轉型為 AI 影像與人臉辨識領導廠商。核心業務：(1) FACE8 臉霸 — 自主研發人臉辨識引擎，為台灣落地量最大之人臉辨識系統，累計超過一萬家客戶採用，每日辨識量逾百萬次，應用於考勤、校園管理、健身房會員</div>
+</div>
+<div class="card" onclick="window.location='../reports/6882.html'">
+  <div class="card-top">
+    <span class="ticker">6882</span>
+    <span class="company-name">甲尚</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>313M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.17</strong> P/B</div>
+  </div>
+  <div class="card-summary">甲尚科技 (6882，Reallusion) 為全球角色動畫與多媒體軟體工具領域之台灣領導企業，成立於 1982 年，總部位於新北市。公司專注於降低高階動畫製作門檻，核心產品 iClone 為實時 3D 動畫軟體，搭配 Character Creator 角色建模工具與 Cartoon Animat</div>
+</div></div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>9802 鈺齊-KY | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="container">
+  <div style="margin:16px 0 12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">首頁</a> &rsaquo;
+    <a href="../sector/Footwear___Accessories.html">Footwear & Accessories</a> &rsaquo;
+    9802 鈺齊-KY
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+    <span class="ticker" style="font-size:16px;padding:4px 12px">9802</span>
+    <h1 style="font-size:22px;font-weight:700">鈺齊-KY</h1>
+  </div>
+  <div class="report-layout">
+    <div>
+      <div class="report-content"><h1>9802 - 鈺齊-KY</h1>
+<h2 id="section-desc">業務簡介</h2>
+<p><strong>板塊:</strong> Consumer Cyclical<br />
+<strong>產業:</strong> Footwear &amp; Accessories<br />
+<strong>市值:</strong> 16,140 百萬台幣<br />
+<strong>企業價值:</strong> 17,182 百萬台幣</p>
+<p>鈺齊國際股份有限公司 (9802) 成立於 1995 年，總部位於台灣雲林斗六，為台灣戶外鞋代工龍頭。公司以製造專業運動鞋及高功能戶外鞋為主要業務，量產代工品牌客戶已超過 50 家，主要分布於美國與歐洲。產品涵蓋登山鞋、越野跑鞋、雪靴、<a href="../index.html?wl=Gore-Tex" class="wl">Gore-Tex</a> 防水鞋、運動涼鞋及休閒鞋等戶外機能鞋款。生產基地遍布越南、柬埔寨及中國，近年積極調整產能佈局，降低中國產能比重 (已降至約 14%)，同時擴充越南及柬埔寨廠區以因應地緣政治風險。歐美市場合計佔營收約 85%。</p>
+<h2 id="section-supply">供應鏈位置</h2>
+<p><strong>上游 (鞋材與原料):</strong><br />
+- <strong>機能面料:</strong> <a href="../index.html?wl=Gore-Tex" class="wl">Gore-Tex</a> 防水透濕膜、高機能網布與皮革<br />
+- <strong>鞋底材料:</strong> <a href="../index.html?wl=Vibram" class="wl">Vibram</a> 橡膠大底、<a href="../index.html?wl=EVA" class="wl">EVA</a> 發泡中底<br />
+- <strong>化學品:</strong> 防水膠劑、環保接著劑</p>
+<p><strong>中游 (戶外鞋代工):</strong><br />
+- <strong>OEM/ODM:</strong> <strong>鈺齊-KY (9802)</strong> — 專業戶外機能鞋、運動鞋之設計開發與大量代工製造</p>
+<p><strong>下游 (國際品牌):</strong><br />
+- <strong>戶外與運動品牌:</strong> 歐美頂尖戶外與運動品牌商</p>
+<h2 id="section-clients">主要客戶及供應商</h2>
+<h3>主要客戶</h3>
+<ul>
+<li><strong>主力品牌:</strong> <a href="../index.html?wl=Decathlon" class="wl">Decathlon</a> (迪卡儂)、<a href="../index.html?wl=Merrell" class="wl">Merrell</a>、<a href="../index.html?wl=Jack_Wolfskin" class="wl">Jack Wolfskin</a>、<a href="../index.html?wl=Timberland" class="wl">Timberland</a>、<a href="../index.html?wl=The_North_Face" class="wl">The North Face</a></li>
+<li><strong>客戶結構:</strong> 前三大品牌佔營收超過 40%，前十大客戶合計超過 80%</li>
+</ul>
+<h3>主要供應商</h3>
+<ul>
+<li><strong>機能面料:</strong> <a href="../index.html?wl=Gore-Tex" class="wl">Gore-Tex</a> (防水透濕膜)、台灣紡織廠</li>
+<li><strong>橡膠大底:</strong> <a href="../index.html?wl=Vibram" class="wl">Vibram</a> 等國際專業鞋底品牌</li>
+<li><strong>鞋材輔料:</strong> <a href="../index.html?wl=百和興業" class="wl">百和興業</a> (8404) 等鞋用織帶與黏扣帶供應商</li>
+</ul><h2 id="section-finance">財務概況</h2>
+<p>(單位: 百萬台幣, 只有 Margin 為 %)</p>
+<h3>估值指標 (股價 $80.30 as of 2026-03-26 | TTM 截至 2025-12-31 | Forward 預估至 2026-12-31)</h3>
+<table>
+<thead>
+<tr>
+<th>P/E (TTM)</th>
+<th>Forward P/E</th>
+<th>P/S (TTM)</th>
+<th>P/B</th>
+<th>EV/EBITDA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>13.68</td>
+<td>7.97</td>
+<td>0.93</td>
+<td>1.17</td>
+<td>7.12</td>
+</tr>
+</tbody>
+</table>
+<h3>年度關鍵財務數據 (近 3 年)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">2025-12-31</th>
+<th style="text-align: right;">2024-12-31</th>
+<th style="text-align: right;">2023-12-31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Revenue</td>
+<td style="text-align: right;">17294.63</td>
+<td style="text-align: right;">14611.47</td>
+<td style="text-align: right;">16893.23</td>
+</tr>
+<tr>
+<td style="text-align: left;">Gross Profit</td>
+<td style="text-align: right;">3163.23</td>
+<td style="text-align: right;">2787.54</td>
+<td style="text-align: right;">3194.79</td>
+</tr>
+<tr>
+<td style="text-align: left;">Gross Margin (%)</td>
+<td style="text-align: right;">18.29</td>
+<td style="text-align: right;">19.08</td>
+<td style="text-align: right;">18.91</td>
+</tr>
+<tr>
+<td style="text-align: left;">Selling &amp; Marketing Exp</td>
+<td style="text-align: right;">218.06</td>
+<td style="text-align: right;">221.69</td>
+<td style="text-align: right;">269.33</td>
+</tr>
+<tr>
+<td style="text-align: left;">R&amp;D Exp</td>
+<td style="text-align: right;">322.36</td>
+<td style="text-align: right;">303.29</td>
+<td style="text-align: right;">180.33</td>
+</tr>
+<tr>
+<td style="text-align: left;">General &amp; Admin Exp</td>
+<td style="text-align: right;">1032.32</td>
+<td style="text-align: right;">999.01</td>
+<td style="text-align: right;">941.01</td>
+</tr>
+<tr>
+<td style="text-align: left;">Operating Income</td>
+<td style="text-align: right;">1590.49</td>
+<td style="text-align: right;">1263.54</td>
+<td style="text-align: right;">1804.12</td>
+</tr>
+<tr>
+<td style="text-align: left;">Operating Margin (%)</td>
+<td style="text-align: right;">9.20</td>
+<td style="text-align: right;">8.65</td>
+<td style="text-align: right;">10.68</td>
+</tr>
+<tr>
+<td style="text-align: left;">Net Income</td>
+<td style="text-align: right;">1213.48</td>
+<td style="text-align: right;">1376.46</td>
+<td style="text-align: right;">1496.98</td>
+</tr>
+<tr>
+<td style="text-align: left;">Net Margin (%)</td>
+<td style="text-align: right;">7.02</td>
+<td style="text-align: right;">9.42</td>
+<td style="text-align: right;">8.86</td>
+</tr>
+<tr>
+<td style="text-align: left;">Op Cash Flow</td>
+<td style="text-align: right;">1939.49</td>
+<td style="text-align: right;">2040.56</td>
+<td style="text-align: right;">4948.41</td>
+</tr>
+<tr>
+<td style="text-align: left;">Investing Cash Flow</td>
+<td style="text-align: right;">-2314.02</td>
+<td style="text-align: right;">-1693.30</td>
+<td style="text-align: right;">-1120.71</td>
+</tr>
+<tr>
+<td style="text-align: left;">Financing Cash Flow</td>
+<td style="text-align: right;">-629.54</td>
+<td style="text-align: right;">438.86</td>
+<td style="text-align: right;">-3250.74</td>
+</tr>
+<tr>
+<td style="text-align: left;">CAPEX</td>
+<td style="text-align: right;">-2450.02</td>
+<td style="text-align: right;">-1800.17</td>
+<td style="text-align: right;">-1054.76</td>
+</tr>
+</tbody>
+</table>
+<h3>季度關鍵財務數據 (近 4 季)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">2025-12-31</th>
+<th style="text-align: right;">2025-06-30</th>
+<th style="text-align: right;">2025-03-31</th>
+<th style="text-align: right;">2024-12-31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Revenue</td>
+<td style="text-align: right;">4575.29</td>
+<td style="text-align: right;">5232.37</td>
+<td style="text-align: right;">3667.59</td>
+<td style="text-align: right;">4388.17</td>
+</tr>
+<tr>
+<td style="text-align: left;">Gross Profit</td>
+<td style="text-align: right;">826.12</td>
+<td style="text-align: right;">967.68</td>
+<td style="text-align: right;">698.95</td>
+<td style="text-align: right;">894.44</td>
+</tr>
+<tr>
+<td style="text-align: left;">Gross Margin (%)</td>
+<td style="text-align: right;">18.06</td>
+<td style="text-align: right;">18.49</td>
+<td style="text-align: right;">19.06</td>
+<td style="text-align: right;">20.38</td>
+</tr>
+<tr>
+<td style="text-align: left;">Selling &amp; Marketing Exp</td>
+<td style="text-align: right;">58.39</td>
+<td style="text-align: right;">56.98</td>
+<td style="text-align: right;">50.04</td>
+<td style="text-align: right;">61.21</td>
+</tr>
+<tr>
+<td style="text-align: left;">R&amp;D Exp</td>
+<td style="text-align: right;">82.14</td>
+<td style="text-align: right;">83.74</td>
+<td style="text-align: right;">76.59</td>
+<td style="text-align: right;">81.92</td>
+</tr>
+<tr>
+<td style="text-align: left;">General &amp; Admin Exp</td>
+<td style="text-align: right;">256.59</td>
+<td style="text-align: right;">240.21</td>
+<td style="text-align: right;">294.79</td>
+<td style="text-align: right;">306.88</td>
+</tr>
+<tr>
+<td style="text-align: left;">Operating Income</td>
+<td style="text-align: right;">429.00</td>
+<td style="text-align: right;">586.75</td>
+<td style="text-align: right;">277.53</td>
+<td style="text-align: right;">444.43</td>
+</tr>
+<tr>
+<td style="text-align: left;">Operating Margin (%)</td>
+<td style="text-align: right;">9.38</td>
+<td style="text-align: right;">11.21</td>
+<td style="text-align: right;">7.57</td>
+<td style="text-align: right;">10.13</td>
+</tr>
+<tr>
+<td style="text-align: left;">Net Income</td>
+<td style="text-align: right;">360.12</td>
+<td style="text-align: right;">300.48</td>
+<td style="text-align: right;">251.88</td>
+<td style="text-align: right;">584.41</td>
+</tr>
+<tr>
+<td style="text-align: left;">Net Margin (%)</td>
+<td style="text-align: right;">7.87</td>
+<td style="text-align: right;">5.74</td>
+<td style="text-align: right;">6.87</td>
+<td style="text-align: right;">13.32</td>
+</tr>
+<tr>
+<td style="text-align: left;">Op Cash Flow</td>
+<td style="text-align: right;">325.71</td>
+<td style="text-align: right;">-981.38</td>
+<td style="text-align: right;">693.81</td>
+<td style="text-align: right;">652.87</td>
+</tr>
+<tr>
+<td style="text-align: left;">Investing Cash Flow</td>
+<td style="text-align: right;">-399.03</td>
+<td style="text-align: right;">-663.59</td>
+<td style="text-align: right;">-353.19</td>
+<td style="text-align: right;">-640.10</td>
+</tr>
+<tr>
+<td style="text-align: left;">Financing Cash Flow</td>
+<td style="text-align: right;">-460.49</td>
+<td style="text-align: right;">537.04</td>
+<td style="text-align: right;">-392.70</td>
+<td style="text-align: right;">552.17</td>
+</tr>
+<tr>
+<td style="text-align: left;">CAPEX</td>
+<td style="text-align: right;">-399.30</td>
+<td style="text-align: right;">-673.78</td>
+<td style="text-align: right;">-480.91</td>
+<td style="text-align: right;">-639.34</td>
+</tr>
+</tbody>
+</table></div>
+    </div>
+    <div>
+<div class="report-meta">
+  <div class="meta-item">
+    <span class="meta-label">板塊 / 產業</span>
+    <span class="meta-value" style="font-size:13px">Consumer Cyclical / Footwear & Accessories</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">市值</span>
+    <span class="meta-value">16B 百萬台幣</span>
+  </div>
+  <table class="val-table">
+    <tr><td>P/E (TTM)</td><td>13.68</td></tr>
+    <tr><td>P/B</td><td>1.17</td></tr>
+    <tr><td>EV/EBITDA</td><td>7.12</td></tr>
+  </table>
+</div>
+<div class="toc">
+  <h4>目錄</h4>
+  <a href="#section-desc">業務簡介</a>
+  <a href="#section-supply">供應鏈位置</a>
+  <a href="#section-clients">主要客戶及供應商</a>
+  <a href="#section-finance">財務概況</a>
+</div>
+<div class="report-meta" style="margin-top:12px">
+  <h4 style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Wikilinks (9)</h4>
+  <a href="../index.html?wl=Decathlon" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">Decathlon</a><a href="../index.html?wl=EVA" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">EVA</a><a href="../index.html?wl=Gore-Tex" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">Gore-Tex</a><a href="../index.html?wl=Jack_Wolfskin" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">Jack Wolfskin</a><a href="../index.html?wl=Merrell" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">Merrell</a><a href="../index.html?wl=The_North_Face" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">The North Face</a><a href="../index.html?wl=Timberland" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">Timberland</a><a href="../index.html?wl=Vibram" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">Vibram</a><a href="../index.html?wl=百和興業" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">百和興業</a>
+</div>
+<div class="related-box"><h4>相關公司</h4><div class="related-item"><span class="ticker" style="font-size:10px">6890</span> <a href="6890.html" style="font-size:12px">達新</a></div><div class="related-item"><span class="ticker" style="font-size:10px">9904</span> <a href="9904.html" style="font-size:12px">鈺齊-KY</a></div><div class="related-item"><span class="ticker" style="font-size:10px">4433</span> <a href="4433.html" style="font-size:12px">鈺齊-KY</a></div><div class="related-item"><span class="ticker" style="font-size:10px">8916</span> <a href="8916.html" style="font-size:12px">達新</a></div><div class="related-item"><span class="ticker" style="font-size:10px">1340</span> <a href="1340.html" style="font-size:12px">勝悅-KY</a></div><div class="related-item"><span class="ticker" style="font-size:10px">6768</span> <a href="6768.html" style="font-size:12px">志強-KY</a></div><div class="related-item"><span class="ticker" style="font-size:10px">9910</span> <a href="9910.html" style="font-size:12px">志強-KY</a></div><div class="related-item"><span class="ticker" style="font-size:10px">4438</span> <a href="4438.html" style="font-size:12px">廣越</a></div></div></div>
+  </div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

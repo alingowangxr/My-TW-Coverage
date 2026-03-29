@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Semiconductor Equipment & Materials | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="sector-header">
+  <h1>Semiconductor Equipment & Materials</h1>
+  <div class="subtitle">63 家公司 | 按市值排序</div>
+</div>
+<div class="container">
+  <div style="margin-bottom:12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">← 返回首頁</a>
+  </div>
+  <div class="cards-grid">
+<div class="card" onclick="window.location='../reports/7769.html'">
+  <div class="card-top">
+    <span class="ticker">7769</span>
+    <span class="company-name">鴻勁</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>695B</strong> 市值</div>
+    <div class="metric"><strong>49.26</strong> P/E</div>
+    <div class="metric"><strong>11.98</strong> P/B</div>
+  </div>
+  <div class="card-summary">鴻勁精密 (7769) 是全球 SoC 測試分選機 (Handler) 龍頭廠商，專注於半導體後段測試自動化設備。產品涵蓋成品測試 (FT)、系統級測試 (SLT) 及老化測試 (Burn-in) 分選機，並配備主動式溫控 (ATC) 及水冷板技術，對準 AI/HPC 及先進封裝需求。主要客戶以美系</div>
+</div>
+<div class="card" onclick="window.location='../reports/6223.html'">
+  <div class="card-top">
+    <span class="ticker">6223</span>
+    <span class="company-name">旺矽</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>356B</strong> 市值</div>
+    <div class="metric"><strong>112.34</strong> P/E</div>
+    <div class="metric"><strong>24.87</strong> P/B</div>
+  </div>
+  <div class="card-summary">旺矽科技股份有限公司 (6223) 是一家具備全球領導地位的半導體晶圓測試探針卡大廠。旺矽是全球前五大探針卡製造商，更在懸臂式(CPC)與垂直式(VPC)探針卡領域稱霸全球。公司提供一站式量測解決方案，涵蓋探針卡、測試機台及溫控系統。近年來，受惠於AI晶片及高效能運算(HPC)的強勁測試需求，旺矽的</div>
+</div>
+<div class="card" onclick="window.location='../reports/3189.html'">
+  <div class="card-top">
+    <span class="ticker">3189</span>
+    <span class="company-name">景碩</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>185B</strong> 市值</div>
+    <div class="metric"><strong>95.26</strong> P/E</div>
+    <div class="metric"><strong>4.91</strong> P/B</div>
+  </div>
+  <div class="card-summary">景碩科技 (3189) 是全球 Flip Chip (覆晶封裝) IC 載板前三大供應商，為和碩轉投資公司。公司主力產品為 BGA 基板、ABF 載板及 BT 載板，服務全球頂級 IC 設計及 IDM 客戶。子公司晶碩 (6491) 專攻高階 ABF 載板。生產據點涵蓋台灣新屋、新豐及蘇州。 ## </div>
+</div>
+<div class="card" onclick="window.location='../reports/3081.html'">
+  <div class="card-top">
+    <span class="ticker">3081</span>
+    <span class="company-name">聯亞</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>142B</strong> 市值</div>
+    <div class="metric"><strong>303.15</strong> P/E</div>
+    <div class="metric"><strong>34.00</strong> P/B</div>
+  </div>
+  <div class="card-summary">聯亞光電 (3081) 是全球領先的 III-V 族化合物半導體磊晶與雷射光源製造商，核心技術為在磷化銦 (InP) 基板上進行原子級精密磊晶。公司產品包括 InP 及 砷化鎵 磊晶片、雷射二極體 (LD) 及 LED，主要應用於光通訊、資料中心、矽光子 (SiPho)/CPO 及工業醫療感測。聯亞</div>
+</div>
+<div class="card" onclick="window.location='../reports/6510.html'">
+  <div class="card-top">
+    <span class="ticker">6510</span>
+    <span class="company-name">精測</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>105B</strong> 市值</div>
+    <div class="metric"><strong>105.27</strong> P/E</div>
+    <div class="metric"><strong>11.94</strong> P/B</div>
+  </div>
+  <div class="card-summary">中華精測科技股份有限公司 (6510，CHPT) 隸屬於中華電信集團，是全球前三大(非記憶體類)半導體MEMS探針卡及測試介面板領導品牌。精測以「All In House」的垂直整合模式，從探針材料配方、金屬加工到探針卡組裝全數自主掌握。其產品專精於高頻、高速、高腳數(High Pin Count)</div>
+</div>
+<div class="card" onclick="window.location='../reports/3131.html'">
+  <div class="card-top">
+    <span class="ticker">3131</span>
+    <span class="company-name">弘塑</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>76B</strong> 市值</div>
+    <div class="metric"><strong>69.93</strong> P/E</div>
+    <div class="metric"><strong>15.68</strong> P/B</div>
+  </div>
+  <div class="card-summary">弘塑科技 (3131) 是台灣半導體濕式製程設備領導廠商，產品涵蓋單晶圓旋轉設備、批次式槽酸設備及複合式製程設備，應用於清潔、蝕刻、顯影及光阻剝離。公司在 CoWoS 等 2.5D/3D 先進封裝製程中扮演關鍵角色，受惠於 AI 晶片帶動的先進封裝擴產，2025 年設備出貨量較前一年成長 70-10</div>
+</div>
+<div class="card" onclick="window.location='../reports/5483.html'">
+  <div class="card-top">
+    <span class="ticker">5483</span>
+    <span class="company-name">中美晶</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>72B</strong> 市值</div>
+    <div class="metric"><strong>17.20</strong> P/E</div>
+    <div class="metric"><strong>1.27</strong> P/B</div>
+  </div>
+  <div class="card-summary">中美晶 (5483，中美矽晶) 是台灣最大的 3 吋至 12 吋矽晶圓供應商，集團涵蓋半導體、太陽能及藍寶石三大事業。2024 年營收組成為半導體晶棒/晶圓 82%、車用零組件 10%、再生能源 4%、太陽能電池 2%。旗下子公司環球晶 (6488) 為全球第三大矽晶圓廠，朝陽科技 (8255) 專</div>
+</div>
+<div class="card" onclick="window.location='../reports/6257.html'">
+  <div class="card-top">
+    <span class="ticker">6257</span>
+    <span class="company-name">矽格</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>66B</strong> 市值</div>
+    <div class="metric"><strong>22.53</strong> P/E</div>
+    <div class="metric"><strong>3.02</strong> P/B</div>
+  </div>
+  <div class="card-summary">百容電子股份有限公司 (6257) 是台灣知名的電子零組件製造商，主營項目包含程式開關、繼電器、連接器及半導體導線架。憑藉著精密的沖壓及射出成型技術，百容電子的產品廣泛應用於消費性電子、家電、自動化控制及半導體封裝領域。近年來，公司積極跨足車用電子及高階半導體封裝應用，透過優化產品組合及提升自動化生</div>
+</div>
+<div class="card" onclick="window.location='../reports/2441.html'">
+  <div class="card-top">
+    <span class="ticker">2441</span>
+    <span class="company-name">超豐</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>53B</strong> 市值</div>
+    <div class="metric"><strong>21.16</strong> P/E</div>
+    <div class="metric"><strong>2.19</strong> P/B</div>
+  </div>
+  <div class="card-summary">超豐電子 (2441) 是台灣專業的半導體封裝測試服務廠商，為力成科技子公司 (持股約 43%)。公司主力業務為 IC 封裝 (占 2024 年營收 83%) 及測試 (17%)，技術涵蓋 DIP、SOP、QFP、LQFP、TSSOP 等傳統封裝型態。客戶以台灣 IC 設計公司為主 (約 62%)，</div>
+</div>
+<div class="card" onclick="window.location='../reports/6147.html'">
+  <div class="card-top">
+    <span class="ticker">6147</span>
+    <span class="company-name">頎邦</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>53B</strong> 市值</div>
+    <div class="metric"><strong>19.24</strong> P/E</div>
+    <div class="metric"><strong>1.11</strong> P/B</div>
+  </div>
+  <div class="card-summary">頎邦科技 (6147) 是全球最大的驅動 IC 封裝廠，全球市占率約 50%，專精於覆晶薄膜 (COF)、玻璃覆晶 (COG) 封裝及凸塊 (Bumping) 製造。公司為利基型半導體封裝測試服務商，產品主要應用於 LCD 及 OLED 面板驅動 IC。 ## 供應鏈位置 上游 (封裝材料): - </div>
+</div>
+<div class="card" onclick="window.location='../reports/6826.html'">
+  <div class="card-top">
+    <span class="ticker">6826</span>
+    <span class="company-name">和淞</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>53B</strong> 市值</div>
+    <div class="metric"><strong>22.77</strong> P/E</div>
+    <div class="metric"><strong>4.91</strong> P/B</div>
+  </div>
+  <div class="card-summary">和淞科技 (6826) 是一家半導體廠務設備及特殊化學品輸送系統製造商，母公司為國泰化工。公司主力產品為半導體廠務供應系統，包括化學品混配/輸送設備、氣體過濾淨化器及相關廠務工程。近年業務重心從工程承包成功轉型為半導體設備 OEM/ODM，為國際設備大廠代工生產模組，並直接供應終端晶圓廠客製化混氣/</div>
+</div>
+<div class="card" onclick="window.location='../reports/4991.html'">
+  <div class="card-top">
+    <span class="ticker">4991</span>
+    <span class="company-name">環宇-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>52B</strong> 市值</div>
+    <div class="metric"><strong>2570.59</strong> P/E</div>
+    <div class="metric"><strong>15.34</strong> P/B</div>
+  </div>
+  <div class="card-summary">環宇-KY (GCS Holdings) 為 化合物半導體 (Compound Semiconductor) 晶圓代工廠 (Foundry)，主要技術涵蓋 GaAs (砷化鎵)、InP (磷化銦) 與 GaN (氮化鎵)。 業務雙引擎： 1. 晶圓代工: 提供 RF (射頻) 與 Opto (光電)</div>
+</div>
+<div class="card" onclick="window.location='../reports/3532.html'">
+  <div class="card-top">
+    <span class="ticker">3532</span>
+    <span class="company-name">台勝科</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>52B</strong> 市值</div>
+    <div class="metric"><strong>83.12</strong> P/E</div>
+    <div class="metric"><strong>2.11</strong> P/B</div>
+  </div>
+  <div class="card-summary">台勝科 (3532，台塑勝高) 是台塑集團與日本 SUMCO 合資的專業矽晶圓製造商，生產 8 吋及 12 吋矽晶圓，為台灣最大矽晶圓廠之一。產品涵蓋拋光晶圓、退火晶圓及磊晶晶圓，應用於邏輯及記憶體晶片製造。12 吋產品中記憶體與邏輯晶圓比約 6:4，拋光晶圓占比超過 60%。公司導入 SUMCO </div>
+</div>
+<div class="card" onclick="window.location='../reports/2455.html'">
+  <div class="card-top">
+    <span class="ticker">2455</span>
+    <span class="company-name">全新</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>49B</strong> 市值</div>
+    <div class="metric"><strong>82.00</strong> P/E</div>
+    <div class="metric"><strong>14.87</strong> P/B</div>
+  </div>
+  <div class="card-summary">全新光電 (2455) 是全球前三大三五族化合物半導體專業磊晶廠，以 MOCVD 製程生產砷化鎵 (GaAs) 及磷化銦 (InP) 磊晶片。2025 上半年營收組成為微電子 (無線通訊元件) 77.5% 及光電子 (光通訊及感測元件) 22.5%。公司為全球砷化鎵磊晶市場領導者，已超越英國 IQE</div>
+</div>
+<div class="card" onclick="window.location='../reports/3563.html'">
+  <div class="card-top">
+    <span class="ticker">3563</span>
+    <span class="company-name">牧德</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>48B</strong> 市值</div>
+    <div class="metric"><strong>43.11</strong> P/E</div>
+    <div class="metric"><strong>8.38</strong> P/B</div>
+  </div>
+  <div class="card-summary">牧德科技 (3563) 是全球唯一的光學檢測設備一條龍廠商，專注於 PCB 及半導體用 AOI (自動光學檢測)、AVI (自動視覺檢測) 及 3D 檢測設備。全球前百大 PCB 廠中約九成為公司客戶。2025 年 Q1 營收年增近兩倍，受惠於 AI 伺服器帶動的先進載板檢測需求。公司以「PCB 技</div>
+</div>
+<div class="card" onclick="window.location='../reports/3450.html'">
+  <div class="card-top">
+    <span class="ticker">3450</span>
+    <span class="company-name">聯鈞</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>40B</strong> 市值</div>
+    <div class="metric"><strong>51.58</strong> P/E</div>
+    <div class="metric"><strong>8.00</strong> P/B</div>
+  </div>
+  <div class="card-summary">聯鈞光電 (3450) 是全球前三大雷射二極體封裝測試代工廠，近年從傳統封測轉型為「光通訊整合平台」。公司核心業務涵蓋 EML、VCSEL 及 AOC 雷射元件封測，並積極布局矽光子 (SiPho) 及CPO 技術。受惠於 AI 資料中心及高速光通訊需求，2025 年 Q1 營收創歷史新高。 ## </div>
+</div>
+<div class="card" onclick="window.location='../reports/3035.html'">
+  <div class="card-top">
+    <span class="ticker">3035</span>
+    <span class="company-name">智原</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>39B</strong> 市值</div>
+    <div class="metric"><strong>52.97</strong> P/E</div>
+    <div class="metric"><strong>3.02</strong> P/B</div>
+  </div>
+  <div class="card-summary">智原科技 (3035) 是亞洲首家 ASIC 設計服務廠商，提供經驗證的矽智財 (Silicon IP) 授權及客製化 ASIC 設計方案。公司為聯華電子集團成員，全球前十大 IP 供應商之一，ASIC 團隊逾 30 年經驗，累計完成數千個設計案，年出貨數億顆晶片。IP 產品涵蓋 Arm 相容 CP</div>
+</div>
+<div class="card" onclick="window.location='../reports/2481.html'">
+  <div class="card-top">
+    <span class="ticker">2481</span>
+    <span class="company-name">強茂</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>38B</strong> 市值</div>
+    <div class="metric"><strong>31.25</strong> P/E</div>
+    <div class="metric"><strong>2.60</strong> P/B</div>
+  </div>
+  <div class="card-summary">強茂 (2481) 是台灣領先的功率半導體垂直整合製造商 (IDM)，全球第六大整流器元件廠。公司產品涵蓋 MOSFET、蕭特基二極體、碳化矽 (SiC) 元件、IGBT、TVS 保護元件及馬達控制 IC。公司積極從消費電子轉型聚焦車用電子 (營收占比已近 30%，目標 40%)、工業控制、綠能及 </div>
+</div>
+<div class="card" onclick="window.location='../reports/3413.html'">
+  <div class="card-top">
+    <span class="ticker">3413</span>
+    <span class="company-name">京鼎</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>36B</strong> 市值</div>
+    <div class="metric"><strong>14.47</strong> P/E</div>
+    <div class="metric"><strong>2.15</strong> P/B</div>
+  </div>
+  <div class="card-summary">京鼎精密 (3413) 是鴻海集團旗下的半導體設備製造商，為 Applied Materials (AMAT) 的核心代工夥伴 (AMAT 亦為股東)。公司主力產品為半導體前段製程設備關鍵模組及零組件，涵蓋 CMP、PVD、CVD、蝕刻設備及雷射與檢測設備。近年積極發展自有品牌半導體及工業自動化高端</div>
+</div>
+<div class="card" onclick="window.location='../reports/8028.html'">
+  <div class="card-top">
+    <span class="ticker">8028</span>
+    <span class="company-name">昇陽半導體</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>35B</strong> 市值</div>
+    <div class="metric"><strong>47.61</strong> P/E</div>
+    <div class="metric"><strong>6.85</strong> P/B</div>
+  </div>
+  <div class="card-summary">昇陽半導體 (8028) 是台灣專業的矽晶圓再生 (Silicon Wafer Reclaim) 服務廠商，將半導體製程中使用過的測試晶圓 (Monitor Wafer/Dummy Wafer) 經研磨及清洗後再生為可重複使用的晶圓。再生晶圓為晶圓廠製程監控之重要耗材，可大幅降低新晶圓採購成本。公司</div>
+</div>
+<div class="card" onclick="window.location='../reports/6640.html'">
+  <div class="card-top">
+    <span class="ticker">6640</span>
+    <span class="company-name">均華</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>33B</strong> 市值</div>
+    <div class="metric"><strong>96.17</strong> P/E</div>
+    <div class="metric"><strong>13.59</strong> P/B</div>
+  </div>
+  <div class="card-summary">均華精密 (6640) 是台灣半導體黏晶機及封裝設備專業製造商，深耕半導體固晶及封裝設備領域逾 40 年。公司前身為 GPM 半導體事業部 (1978 年成立)，2010 年獨立設立，2018 年掛牌上櫃。產品涵蓋半導體固晶機、精密模具及相關自動化設備，服務台灣、中國、日本、韓國及東南亞客戶。 ##</div>
+</div>
+<div class="card" onclick="window.location='../reports/6683.html'">
+  <div class="card-top">
+    <span class="ticker">6683</span>
+    <span class="company-name">雍智科技</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>33B</strong> 市值</div>
+    <div class="metric"><strong>77.53</strong> P/E</div>
+    <div class="metric"><strong>11.83</strong> P/B</div>
+  </div>
+  <div class="card-summary">雍智科技 (6683) 是一家專業的 IC 測試載板 (Test Socket/Load Board) 設計及製造商，產品應用於半導體晶片測試製程。公司成立於 2006 年，總部位於新竹竹北，並於上海設有服務據點。產品涵蓋各式 IC 測試座、測試載板及相關治具，服務全球半導體測試客戶。產品涵蓋 BG</div>
+</div>
+<div class="card" onclick="window.location='../reports/6271.html'">
+  <div class="card-top">
+    <span class="ticker">6271</span>
+    <span class="company-name">同欣電</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>32B</strong> 市值</div>
+    <div class="metric"><strong>19.84</strong> P/E</div>
+    <div class="metric"><strong>1.18</strong> P/B</div>
+  </div>
+  <div class="card-summary">同欣電子工業股份有限公司 (6271，同欣電) 是台灣著名的半導體微型模組封裝及陶瓷電路板製造大廠，亦是全球前三大CMOS影像感測器(CIS)封測廠之一。同欣電的核心業務橫跨四大領域：影像感測器封裝(主力為車用CIS)、混合積體電路模組(含低軌衛星RF模組及光通訊模組)、高頻無線通訊模組與陶瓷基板(</div>
+</div>
+<div class="card" onclick="window.location='../reports/8110.html'">
+  <div class="card-top">
+    <span class="ticker">8110</span>
+    <span class="company-name">華東</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>28B</strong> 市值</div>
+    <div class="metric"><strong>22.19</strong> P/E</div>
+    <div class="metric"><strong>2.26</strong> P/B</div>
+  </div>
+  <div class="card-summary">華東科技 (8110) 是台灣專業的半導體用石英元件及材料製造商，產品涵蓋石英晶圓載具、石英管、石英舟及各式半導體製程用石英治具。石英為晶圓廠擴散、氧化、沉積等高溫製程之關鍵耗材。公司為台灣主要的半導體石英材料供應商之一，服務國內主要晶圓代工及記憶體製造客戶。 ## 供應鏈位置 上游 (原料): -</div>
+</div>
+<div class="card" onclick="window.location='../reports/5351.html'">
+  <div class="card-top">
+    <span class="ticker">5351</span>
+    <span class="company-name">鈺創</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>24B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>6.14</strong> P/B</div>
+  </div>
+  <div class="card-summary">鈺創科技 (Etron) 成立於 1991 年，總部位於台灣新竹。公司為全球知名 利基型記憶體 (Specialty DRAM) 設計公司 (Fabless)，產品包含 Buffer DRAM (KGDM, 消費性/網通應用)、RPC DRAM (微型封裝，針對 AIoT/Edge AI)。鈺創亦積</div>
+</div>
+<div class="card" onclick="window.location='../reports/6830.html'">
+  <div class="card-top">
+    <span class="ticker">6830</span>
+    <span class="company-name">汎銓</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>22B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>7.47</strong> P/B</div>
+  </div>
+  <div class="card-summary">汎銓科技 (6830) 是台灣半導體材料分析 (MA) 領導廠商，全球先進製程材料分析市占率超過 50%。公司核心技術為穿透式電子顯微鏡 (TEM) 分析，擁有業界最完整的 TEM 設備布局，提供 24 小時材料分析服務。公司服務涵蓋台灣、中國、日本及美國，主要用於晶圓廠研發階段之材料結構分析與故障</div>
+</div>
+<div class="card" onclick="window.location='../reports/6182.html'">
+  <div class="card-top">
+    <span class="ticker">6182</span>
+    <span class="company-name">合晶</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>20B</strong> 市值</div>
+    <div class="metric"><strong>384.44</strong> P/E</div>
+    <div class="metric"><strong>1.36</strong> P/B</div>
+  </div>
+  <div class="card-summary">合晶科技股份有限公司 (6182) 是全球前十大、重摻低電阻領域前三大的「半導體矽晶圓」專業製造商。主要產品涵蓋8吋與12吋拋光矽晶圓(Polished Wafer)及磊晶矽晶圓(Epi Wafer)，近年更積極跨足SOI(絕緣體上覆矽)與第三代[[半導體]]氮化鎵磊晶圓的研發。合晶的產品是製造功率</div>
+</div>
+<div class="card" onclick="window.location='../reports/2493.html'">
+  <div class="card-top">
+    <span class="ticker">2493</span>
+    <span class="company-name">揚博</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>20B</strong> 市值</div>
+    <div class="metric"><strong>24.33</strong> P/E</div>
+    <div class="metric"><strong>4.28</strong> P/B</div>
+  </div>
+  <div class="card-summary">揚博科技 (2493) 是一家專業的 PCB 及半導體製程設備製造商，主力產品為濕式製程設備 (蝕刻、去膜、清洗) 及乾式製程設備，並代理日本 Ishihara 化學品。客戶涵蓋全球主要半導體封裝及晶圓代工廠，產品銷售於日本、中國及東南亞。2024 年外銷占 62%、內銷占 38%。 ## 供應鏈位</div>
+</div>
+<div class="card" onclick="window.location='../reports/3265.html'">
+  <div class="card-top">
+    <span class="ticker">3265</span>
+    <span class="company-name">台星科</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>19B</strong> 市值</div>
+    <div class="metric"><strong>24.32</strong> P/E</div>
+    <div class="metric"><strong>3.04</strong> P/B</div>
+  </div>
+  <div class="card-summary">台星科 (3265) 是一家專業的半導體封裝測試服務廠商，專注於功率半導體及分離式元件封測。公司與 日月光投控、矽品、力成、超豐 等大廠同為台灣半導體封測產業鏈成員。主要封裝型態涵蓋 QFN、SOP、DIP 等。公司主要服務包括 IC 封裝及測試，技術涵蓋多種封裝型態，產品應用於車用電子、工業控制及</div>
+</div>
+<div class="card" onclick="window.location='../reports/2351.html'">
+  <div class="card-top">
+    <span class="ticker">2351</span>
+    <span class="company-name">順德</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>18B</strong> 市值</div>
+    <div class="metric"><strong>62.42</strong> P/E</div>
+    <div class="metric"><strong>2.66</strong> P/B</div>
+  </div>
+  <div class="card-summary">順德工業 (2351) 是全球前五大導線架供應商，也是全球最大的功率及分離式導線架製造商。公司成立於 1967 年，導線架及電子沖壓件占 2024 年營收 84%，五金文具占 14%。主力產品涵蓋高功率導線架、LED 導線架、IC 導線架、IGBT 導線架 (電動車應用) 及 VCM 金屬彈片 (手</div>
+</div>
+<div class="card" onclick="window.location='../reports/3016.html'">
+  <div class="card-top">
+    <span class="ticker">3016</span>
+    <span class="company-name">嘉晶</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>18B</strong> 市值</div>
+    <div class="metric"><strong>868.57</strong> P/E</div>
+    <div class="metric"><strong>3.55</strong> P/B</div>
+  </div>
+  <div class="card-summary">嘉晶電子 (3016) 是漢磊投控旗下的專業磊晶矽晶圓廠，為台灣唯一能量產 4 吋及 6 吋碳化矽 (SiC) 磊晶及 6 吋氮化鎵 (GaN) 磊晶的廠商。公司業務涵蓋矽磊晶代工 (占 2024 年營收約 60%) 及磊晶矽晶圓生產 (約 40%)，產品應用於功率元件、電動車、智慧電網、儲能系統及</div>
+</div>
+<div class="card" onclick="window.location='../reports/5443.html'">
+  <div class="card-top">
+    <span class="ticker">5443</span>
+    <span class="company-name">均豪</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>17B</strong> 市值</div>
+    <div class="metric"><strong>39.55</strong> P/E</div>
+    <div class="metric"><strong>1.94</strong> P/B</div>
+  </div>
+  <div class="card-summary">均豪精密（5443）成立於1978年，初期以模具製造為主，後轉型為智慧工廠與自動化設備供應商，專注於半導體、顯示器、與生醫產業之製程與檢測設備。公司近年積極佈局半導體封裝及再生晶圓領域，並與志聖（2467）、均華（6640）組成「G2C+聯盟」，提供整合性的一站式設備解決方案。公司產品涵蓋研磨、AO</div>
+</div>
+<div class="card" onclick="window.location='../reports/2338.html'">
+  <div class="card-top">
+    <span class="ticker">2338</span>
+    <span class="company-name">光罩</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>16B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>3.17</strong> P/B</div>
+  </div>
+  <div class="card-summary">台灣光罩 (2338) 是台灣領先的光罩 (Photomask) 製造商，專注於半導體及平面顯示器用光罩之研發、製造與銷售。公司產品涵蓋 5X/4X/2.5X/2X 投影式光罩及大面積光罩，應用於 IC 製造、LCD、LED 及晶圓級封裝 (WLCSP) 製程。2024 年光罩業務占營收 55%，轉</div>
+</div>
+<div class="card" onclick="window.location='../reports/3028.html'">
+  <div class="card-top">
+    <span class="ticker">3028</span>
+    <span class="company-name">增你強</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>13B</strong> 市值</div>
+    <div class="metric"><strong>16.95</strong> P/E</div>
+    <div class="metric"><strong>2.05</strong> P/B</div>
+  </div>
+  <div class="card-summary">增你強 (3028) 是台灣資深的半導體零組件通路商，服務超過 5,000 家客戶，深耕大中華市場。公司代理國際品牌包括 Infineon、Microchip、Rohm、Diodes、Vishay、Fuji Electric、TDK、太陽誘電、nichicon 等數十家國際半導體及被動元件品牌。產品</div>
+</div>
+<div class="card" onclick="window.location='../reports/2369.html'">
+  <div class="card-top">
+    <span class="ticker">2369</span>
+    <span class="company-name">菱生</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>12B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.56</strong> P/B</div>
+  </div>
+  <div class="card-summary">菱生精密 (2369) 是台灣專業的半導體封裝測試廠，專注於電源管理 IC、NOR Flash、MEMS 及光感測元件封測服務。公司為國內 MEMS 封裝領先者，封測服務占 2024 年營收 99%。技術涵蓋 QFP、QFN、SOP、TSOP、PLCC 等多種封裝型態，生產據點包括台中潭子、梧棲及中</div>
+</div>
+<div class="card" onclick="window.location='../reports/5222.html'">
+  <div class="card-top">
+    <span class="ticker">5222</span>
+    <span class="company-name">全訊</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>12B</strong> 市值</div>
+    <div class="metric"><strong>52.94</strong> P/E</div>
+    <div class="metric"><strong>4.84</strong> P/B</div>
+  </div>
+  <div class="card-summary">全訊科技（5222）成立於1998年，是台灣唯一專精於化合物半導體（GaAs/氮化鎵）製程的整合元件製造廠（IDM），專注於高頻微波功率放大器（PA）的設計、製造與封測。全訊在國防軍工領域具有領先地位，長期供應中山科學研究院（中科院）天弓、雄風等飛彈系統之關鍵微波元件。近年亦積極拓展低軌衛星（LEO</div>
+</div>
+<div class="card" onclick="window.location='../reports/3551.html'">
+  <div class="card-top">
+    <span class="ticker">3551</span>
+    <span class="company-name">世禾</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>11B</strong> 市值</div>
+    <div class="metric"><strong>21.38</strong> P/E</div>
+    <div class="metric"><strong>2.27</strong> P/B</div>
+  </div>
+  <div class="card-summary">世禾科技 (Shih Her Technologies) 為台灣 半導體與光電設備清洗 龍頭廠商。 專注於 PVD/CVD/Etch 等製程設備零組件的 精密清洗 與 再生處理 (Clean & Reborn)。 主要服務 半導體 (佔營收大宗) 與 面板 產業。 技術能力涵蓋先進製程 (如 3nm</div>
+</div>
+<div class="card" onclick="window.location='../reports/8064.html'">
+  <div class="card-top">
+    <span class="ticker">8064</span>
+    <span class="company-name">東捷</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>11B</strong> 市值</div>
+    <div class="metric"><strong>50.00</strong> P/E</div>
+    <div class="metric"><strong>3.52</strong> P/B</div>
+  </div>
+  <div class="card-summary">東捷科技 (8064) 是東台精機集團旗下的半導體及面板設備製造商，位於台南科學園區。公司初期專注於 IC 封裝測試設備，1999 年切入面板設備產業，開發自動化、製程、檢測及雷射修補設備。近年積極拓展半導體封裝設備，自 2019 年進入主要封裝廠的檢測及自動化設備市場。產品涵蓋廠務自動化、雷射應用</div>
+</div>
+<div class="card" onclick="window.location='../reports/6173.html'">
+  <div class="card-top">
+    <span class="ticker">6173</span>
+    <span class="company-name">信昌電</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>11B</strong> 市值</div>
+    <div class="metric"><strong>18.92</strong> P/E</div>
+    <div class="metric"><strong>1.17</strong> P/B</div>
+  </div>
+  <div class="card-summary">信昌電子陶瓷股份有限公司 (6173) 隸屬於華新科技集團，是一家專注於利基型被動元件與關鍵陶瓷材料(介電瓷粉)的製造商。信昌電具備從「原料瓷粉」到「元件成品」的垂直整合與100%台灣製造優勢。其核心產品聚焦於高功率、高電壓及大尺寸的特殊型MLCC(積層陶瓷電容)與電阻/電感。近年來受惠於AI[[伺</div>
+</div>
+<div class="card" onclick="window.location='../reports/6533.html'">
+  <div class="card-top">
+    <span class="ticker">6533</span>
+    <span class="company-name">晶心科</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>10B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.11</strong> P/B</div>
+  </div>
+  <div class="card-summary">晶心科技股份有限公司 (6533，Andes Technology) 是一家總部位於台灣的全球第五大處理器微架構矽智財(CPU IP)供應商，同時也是RISC-V國際協會的創始首席會員。有別於Arm架構的高昂授權費，晶心科專注於開發開源、極具彈性及高效率的RISC-V 32/64位元處理器核心IP。</div>
+</div>
+<div class="card" onclick="window.location='../reports/6261.html'">
+  <div class="card-top">
+    <span class="ticker">6261</span>
+    <span class="company-name">久元</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>9B</strong> 市值</div>
+    <div class="metric"><strong>17.00</strong> P/E</div>
+    <div class="metric"><strong>1.38</strong> P/B</div>
+  </div>
+  <div class="card-summary">久元電子 (6261) 是一家半導體測試代工及設備製造商，業務涵蓋晶圓測試 (CP)、成品測試 (FT)、系統級測試 (SLT) 及測試程式開發。設備產品包括 IC 測試機、分選機、固晶機及 AI 相關檢測設備。2025 上半年測試代工占營收 49%、設備銷售占 39%。主要客戶晶元光電占營收 23</div>
+</div>
+<div class="card" onclick="window.location='../reports/6920.html'">
+  <div class="card-top">
+    <span class="ticker">6920</span>
+    <span class="company-name">恆勁科技</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>9B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>4.93</strong> P/B</div>
+  </div>
+  <div class="card-summary">恆勁科技 (6920) 是一家專業的半導體先進封裝基板製造商，開發 C2iM 技術平台，以 Molding 材料生產 IC 載板，應用於 XQFN 高階導線架、線圈基板及 FOPLP 扇出型面板級封裝。公司專注於第三代半導體功率元件封裝市場，產品瞄準車用電源管理 IC、AI 伺服器電源晶片及 氮化鎵</div>
+</div>
+<div class="card" onclick="window.location='../reports/6953.html'">
+  <div class="card-top">
+    <span class="ticker">6953</span>
+    <span class="company-name">家碩</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>26.95</strong> P/E</div>
+    <div class="metric"><strong>4.23</strong> P/B</div>
+  </div>
+  <div class="card-summary">家碩科技 (6953，原名家登自動化) 是一家專業的半導體精密儀器銷售、維修及維護服務商。公司提供半導體製程所需之精密量測及檢測設備銷售與售後服務，服務台灣晶圓代工及封測客戶，專注於奈米級量測及缺陷檢測設備。公司於 2023 年更名為家碩科技，2024 年掛牌上櫃。代理品牌涵蓋 KLA、Onto I</div>
+</div>
+<div class="card" onclick="window.location='../reports/3055.html'">
+  <div class="card-top">
+    <span class="ticker">3055</span>
+    <span class="company-name">蔚華科</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>4.13</strong> P/B</div>
+  </div>
+  <div class="card-summary">蔚華科技 (3055) 是台灣專業的半導體設備通路商與技術服務商，代理全球領先設備品牌，提供測試、封裝、檢測及失效分析等整合解決方案。代理品牌包括 NI、Hamamatsu、Toray Engineering、TESCAN、SEMICS、ShibaSoku 等。公司成立於 1987 年，海外營收占 </div>
+</div>
+<div class="card" onclick="window.location='../reports/4760.html'">
+  <div class="card-top">
+    <span class="ticker">4760</span>
+    <span class="company-name">勤凱</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>6B</strong> 市值</div>
+    <div class="metric"><strong>25.57</strong> P/E</div>
+    <div class="metric"><strong>5.72</strong> P/B</div>
+  </div>
+  <div class="card-summary">勤凱科技 (4760) 是一家專業的電子導電漿製造商，主力產品為銀漿及銅漿，應用於電感、電阻、MLCC (積層陶瓷電容) 等被動元件的電路連接。公司產品為電子零組件中不可或缺的關鍵材料，市場涵蓋台灣、中國及韓國。近年積極布局半導體化學品、高階 AI 用合金膏及先進散熱材料。 ## 供應鏈位置 上游 </div>
+</div>
+<div class="card" onclick="window.location='../reports/6877.html'">
+  <div class="card-top">
+    <span class="ticker">6877</span>
+    <span class="company-name">鏵友益</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>179.69</strong> P/E</div>
+    <div class="metric"><strong>5.92</strong> P/B</div>
+  </div>
+  <div class="card-summary">鏵友益科技 (6877) 是一家專業的半導體及光電產業自動化設備及 AOI (自動光學檢測) 設備供應商，成立於 2014 年，2023 年掛牌上櫃。公司以客製化研發為核心優勢，提供智慧檢測及自動化設備。2021 年營收組成為半導體晶圓製造 37%、封裝測試 29%、PCB 11%、面板光電 20%</div>
+</div>
+<div class="card" onclick="window.location='../reports/6682.html'">
+  <div class="card-top">
+    <span class="ticker">6682</span>
+    <span class="company-name">華旭先進</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>6.19</strong> P/B</div>
+  </div>
+  <div class="card-summary">華旭先進 (6682，又稱華旭矽材) 是一家專業的半導體材料供應商，主要從事半導體用矽材料、研磨液及製程化學品相關產品之銷售與技術服務。公司產品應用於晶圓製造及半導體製程，服務台灣及亞太地區晶圓代工及 IDM 客戶。競爭同業包括崇越科技。 ## 供應鏈位置 上游 (材料供應): - 矽材料: 國際矽</div>
+</div>
+<div class="card" onclick="window.location='../reports/6266.html'">
+  <div class="card-top">
+    <span class="ticker">6266</span>
+    <span class="company-name">泰詠</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>14.47</strong> P/E</div>
+    <div class="metric"><strong>1.73</strong> P/B</div>
+  </div>
+  <div class="card-summary">泰詠電子 (6266) 是一家專業的 IC 設計公司，專注於 LCD 驅動 IC 及電源管理 IC 設計。公司產品應用於中小尺寸面板驅動，主要服務面板廠及消費電子品牌。公司為台灣中小型 IC 設計業者，產品涵蓋 TFT-LCD 源極驅動 IC、閘極驅動 IC 及 LED 驅動 IC。 ## 供應鏈位</div>
+</div>
+<div class="card" onclick="window.location='../reports/3041.html'">
+  <div class="card-top">
+    <span class="ticker">3041</span>
+    <span class="company-name">揚智</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.06</strong> P/B</div>
+  </div>
+  <div class="card-summary">揚智科技 (3041) 是全球領先的數位多媒體 SoC 設計公司，為聯華電子集團轉投資，為全球前三大機上盒 (STB) SoC 供應商。公司核心產品為 DVB-S2X/DVB-C 數位電視機上盒晶片，結合高安全性條件接收系統 (CAS) 技術，服務全球數百家付費電視營運商。累計已銷售超過 4,000</div>
+</div>
+<div class="card" onclick="window.location='../reports/2302.html'">
+  <div class="card-top">
+    <span class="ticker">2302</span>
+    <span class="company-name">麗正</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>37.40</strong> P/E</div>
+    <div class="metric"><strong>1.75</strong> P/B</div>
+  </div>
+  <div class="card-summary">麗正國際 (2302) 是台灣首家以國人資金及技術製造半導體矽整流器的企業，成立於 1976 年。公司為垂直整合的功率半導體製造商，主力產品為整流二極體，廣泛應用於車用電子、家電、通訊設備、電腦及 LED 照明。集團生產據點遍及台灣土城及中國浙江嘉善，銷售通路佈及全球，在美國洛杉磯及香港設有銷售據點</div>
+</div>
+<div class="card" onclick="window.location='../reports/6425.html'">
+  <div class="card-top">
+    <span class="ticker">6425</span>
+    <span class="company-name">易發</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.41</strong> P/B</div>
+  </div>
+  <div class="card-summary">易發精機股份有限公司 (6425，EFCT) 是一家專業的高精密自動化生產設備開發商。易發精機以其優異的機器視覺與系統整合能力，提供從光電面板貼合、鋰電池模組自動化組裝到半導體晶圓級檢測設備(AOI)的全方位解決方案。近年來，易發成功切入全球先進封裝(如CoWoS)測試設備供應鏈，並攜手群電與美超微</div>
+</div>
+<div class="card" onclick="window.location='../reports/6532.html'">
+  <div class="card-top">
+    <span class="ticker">6532</span>
+    <span class="company-name">瑞耘</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>10.72</strong> P/E</div>
+    <div class="metric"><strong>2.28</strong> P/B</div>
+  </div>
+  <div class="card-summary">瑞耘科技股份有限公司 (6532) 是一家專精於半導體前段製程設備之關鍵零組件製造商。瑞耘具備深厚的精密金屬與特殊陶瓷加工能力，其主力產品包含晶圓夾持環(Retaining Ring)、靜電吸盤(E-Chuck)、氣體擴散盤等，廣泛應用於半導體蝕刻(Etch)、化學機械平坦化(CMP)及薄膜沉積(C</div>
+</div>
+<div class="card" onclick="window.location='../reports/3444.html'">
+  <div class="card-top">
+    <span class="ticker">3444</span>
+    <span class="company-name">利機</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>27.97</strong> P/E</div>
+    <div class="metric"><strong>2.52</strong> P/B</div>
+  </div>
+  <div class="card-summary">利機企業 (3444) 是一家專業的半導體及光電產業先進材料通路商，代理銷售涵蓋半導體、平面顯示器、LED 及綠色能源等高科技產業之材料、零件與設備。公司成立於 1993 年，主要產品包括銀漿 (客戶如 韋僑、德微)、封裝材料及製程化學品。2024 年內銷占 58%、外銷占 42%。 ## 供應鏈位</div>
+</div>
+<div class="card" onclick="window.location='../reports/6735.html'">
+  <div class="card-top">
+    <span class="ticker">6735</span>
+    <span class="company-name">美達科技</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>182.19</strong> P/E</div>
+    <div class="metric"><strong>2.66</strong> P/B</div>
+  </div>
+  <div class="card-summary">美達科技 (6735) 是一家專業的半導體類比暨混合訊號積體電路測試儀器製造商，成立於 2002 年，2022 年掛牌上櫃。公司核心產品為類比及混合訊號 IC 測試機台，應用於半導體晶片測試製程，服務 IC 設計、晶圓代工及封測客戶。產品支援 電源管理 IC、ADC/DAC 等類比晶片測試。 ## </div>
+</div>
+<div class="card" onclick="window.location='../reports/6658.html'">
+  <div class="card-top">
+    <span class="ticker">6658</span>
+    <span class="company-name">聯策</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>53.46</strong> P/E</div>
+    <div class="metric"><strong>1.92</strong> P/B</div>
+  </div>
+  <div class="card-summary">聯策科技 (6658) 是一家專業的半導體設備及工業自動化解決方案供應商，提供半導體製程相關的溫控設備，包括 CVD、蝕刻及清洗製程用溫控、自動化系統及技術服務。公司產品應用於晶圓製造、封裝測試及面板製程，服務台灣及亞太地區半導體客戶。產品涵蓋 Chiller 冷卻系統、加熱器及精密溫控模組。 ##</div>
+</div>
+<div class="card" onclick="window.location='../reports/3178.html'">
+  <div class="card-top">
+    <span class="ticker">3178</span>
+    <span class="company-name">公準</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.06</strong> P/B</div>
+  </div>
+  <div class="card-summary">公準精密 (Gongin Precision) 是台灣領先的高階 精密金屬加工 與航太級零件供應商。 公司專長於高難度材料加工與潔淨室組裝，成功打入全球半導體設備與低軌衛星供應鏈。 核心業務領域： 1. 半導體設備: 為全球微影設備龍頭 ASML 與設備大廠 Applied Materials 提供</div>
+</div>
+<div class="card" onclick="window.location='../reports/6787.html'">
+  <div class="card-top">
+    <span class="ticker">6787</span>
+    <span class="company-name">晶瑞光</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.94</strong> P/B</div>
+  </div>
+  <div class="card-summary">晶瑞光 (6787) 是一家專業的光學濾光片及光學元件製造商，產品涵蓋窄帶通過濾光片 (NBPF)、藍色玻璃濾光片 (NBG)、UVIR/IR Cut 濾光片、高反射濾光片、抗反射濾光片、分光鏡及二向色濾光片。產品應用於3D 感測、ToF、ADAS、DMS 及黃光製程。近年開發雙光模組及黃光製程產品</div>
+</div>
+<div class="card" onclick="window.location='../reports/6684.html'">
+  <div class="card-top">
+    <span class="ticker">6684</span>
+    <span class="company-name">安格</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>28.31</strong> P/E</div>
+    <div class="metric"><strong>1.23</strong> P/B</div>
+  </div>
+  <div class="card-summary">安格科技 (6684) 是一家專業的 IC 設計公司，由矽谷及台灣半導體研發菁英於 2010 年創立。公司核心技術為超高速實體層介面 (PHY) IP 設計及相關應用 IC。產品包括高速傳輸介面 IC、USB 控制器及相關 IP 授權，應用於消費電子、工業控制及通訊設備。產品支援 USB4、PCIe</div>
+</div>
+<div class="card" onclick="window.location='../reports/6218.html'">
+  <div class="card-top">
+    <span class="ticker">6218</span>
+    <span class="company-name">豪勉</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.03</strong> P/B</div>
+  </div>
+  <div class="card-summary">豪勉科技股份有限公司 (6218) 是一家深耕半導體與資訊網路兩大高科技領域的專業設備代理及系統整合商。在半導體事業(約佔24%)，豪勉早期代理歐美日等二十餘家原廠的晶圓製造與光電設備，近年成功轉型「自主研發」，開發出高階LED/Micro LED晶圓點測機及AOI檢測設備，並順利承接國際晶片大廠訂</div>
+</div>
+<div class="card" onclick="window.location='../reports/3490.html'">
+  <div class="card-top">
+    <span class="ticker">3490</span>
+    <span class="company-name">單井</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>526.00</strong> P/E</div>
+    <div class="metric"><strong>1.60</strong> P/B</div>
+  </div>
+  <div class="card-summary">單井工業 (3490) 是一家專業的半導體及 LED 封裝用模具及自動化設備製造商。公司主力產品為 LED、半導體及二極體封裝用模具，以及封裝後段製程所需之自動化設備。產品應用於 QFN、SOP 等封裝型態之模具。國內 LED 及半導體一、二線大廠均為長期客戶，如 億光電子、日月光投控、矽品 等封裝</div>
+</div>
+<div class="card" onclick="window.location='../reports/3467.html'">
+  <div class="card-top">
+    <span class="ticker">3467</span>
+    <span class="company-name">台灣精材</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>64.84</strong> P/E</div>
+    <div class="metric"><strong>—</strong> P/B</div>
+  </div>
+  <div class="card-summary">台灣精材 (3467) 是全球少數能提供半導體設備用高純度耗材零組件的專業廠商，主要產品為半導體前段製程中蝕刻及薄膜等製程所需的精密陶瓷、石英及矽零組件。陶瓷材料涵蓋氧化鋁、氧化鋯、氮化矽及碳化矽等高性能材料。公司成立於 1997 年，近年拓展四大成長主線：新世代陶瓷材料開發、翻新工程 (Refur</div>
+</div>
+<div class="card" onclick="window.location='../reports/5272.html'">
+  <div class="card-top">
+    <span class="ticker">5272</span>
+    <span class="company-name">笙科</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.39</strong> P/B</div>
+  </div>
+  <div class="card-summary">笙科電子 (5272) 是亞洲唯一同時專長於 SRD (短距離無線通訊) 及 LNB (低雜訊降頻器) 之 RF IC 設計公司，前身為聯笙無線事業部門。公司專注以 CMOS 製程開發射頻半導體晶片，產品應用於無線滑鼠、無線鍵盤、遙控器、衛星電視接收及 物聯網 無線通訊模組。 ## 供應鏈位置 上游</div>
+</div>
+<div class="card" onclick="window.location='../reports/3150.html'">
+  <div class="card-top">
+    <span class="ticker">3150</span>
+    <span class="company-name">鈺寶-創</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>859M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.53</strong> P/B</div>
+  </div>
+  <div class="card-summary">鈺寶科技 (3150) 是一家專業的 IC 設計公司，專注於高效能低功耗無線音訊傳輸晶片及模組設計。公司核心技術為無線數位音視訊傳輸，採用 CMOS 製程。競爭同業包括 Qualcomm (aptX) 及 Airoha，產品廣泛應用於無線耳機、無線音響、無線麥克風及家電音響設備。公司為全球無線音訊傳</div>
+</div></div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

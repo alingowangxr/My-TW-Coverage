@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Real Estate - Development | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="sector-header">
+  <h1>Real Estate - Development</h1>
+  <div class="subtitle">34 家公司 | 按市值排序</div>
+</div>
+<div class="container">
+  <div style="margin-bottom:12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">← 返回首頁</a>
+  </div>
+  <div class="cards-grid">
+<div class="card" onclick="window.location='../reports/2542.html'">
+  <div class="card-top">
+    <span class="ticker">2542</span>
+    <span class="company-name">興富發</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>77B</strong> 市值</div>
+    <div class="metric"><strong>16.95</strong> P/E</div>
+    <div class="metric"><strong>1.45</strong> P/B</div>
+  </div>
+  <div class="card-summary">興富發建設 (2542，Highwealth Construction) 成立於 1980 年，總部位於台北，為台灣最大民營建商之一，由曹淵博領軍經營。集團推案量居全台前列，一年交屋超過 4,000 戶，產品涵蓋首購、換屋、別墅、豪宅及辦公室等全品項。旗下擁有齊裕營造 (全國地下室挖掘最多的營造公司</div>
+</div>
+<div class="card" onclick="window.location='../reports/2539.html'">
+  <div class="card-top">
+    <span class="ticker">2539</span>
+    <span class="company-name">櫻花建</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>58B</strong> 市值</div>
+    <div class="metric"><strong>13.80</strong> P/E</div>
+    <div class="metric"><strong>3.23</strong> P/B</div>
+  </div>
+  <div class="card-summary">櫻花建設 (2539，Sakura Construction) 成立於 1988 年，總部位於台中，隸屬於台灣最大推案機構寶佳機構，由林家宏擔任董事長。櫻花建主要佈局台中北屯、烏日高鐵特區、彰化及桃園等高成長區域，主打高 CP 值首購住宅，推案量大且穩定，為中部地區重要建商。代表建案包括「櫻花大綻」</div>
+</div>
+<div class="card" onclick="window.location='../reports/5522.html'">
+  <div class="card-top">
+    <span class="ticker">5522</span>
+    <span class="company-name">遠雄</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>57B</strong> 市值</div>
+    <div class="metric"><strong>9.80</strong> P/E</div>
+    <div class="metric"><strong>1.13</strong> P/B</div>
+  </div>
+  <div class="card-summary">遠雄建設 (5522，Farglory Land) 為台灣大型建商，推案遍及全台，具備高度垂直整合能力。主要業務包括：(1) 住宅開發 — 大型造鎮計畫 (三峽北大、林口 A7、台中港市鎮)；(2) 廠辦開發 — 為國內廠辦先驅 (遠雄 U-Town)；(3) BOT 開發 — 台北大巨蛋等指標性公</div>
+</div>
+<div class="card" onclick="window.location='../reports/2548.html'">
+  <div class="card-top">
+    <span class="ticker">2548</span>
+    <span class="company-name">華固</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>39B</strong> 市值</div>
+    <div class="metric"><strong>13.59</strong> P/E</div>
+    <div class="metric"><strong>1.76</strong> P/B</div>
+  </div>
+  <div class="card-summary">華固建設 (2548，Huaku Development) 成立於 1989 年，總部位於台北，被譽為「營建績優生」，以財務穩健、專注本業及高品質建築聞名。主要業務集中於雙北精華地段之住宅及頂級商辦/廠辦開發，代表作包括「華固國票金融大樓」、「華固創匯」、「華固中央置地」。華固品牌形象優良，深受換屋</div>
+</div>
+<div class="card" onclick="window.location='../reports/2923.html'">
+  <div class="card-top">
+    <span class="ticker">2923</span>
+    <span class="company-name">鼎固-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>32B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.73</strong> P/B</div>
+  </div>
+  <div class="card-summary">鼎固-KY (2923，Ding Gu) 為日月光集團張家旗下的房地產開發商，主要業務位於中國大陸 (上海、重慶)。經營模式涵蓋「不動產開發銷售」(住宅) 與「商場辦公樓租賃」(日月光中心)。租賃業務方面，在上海及重慶擁有大型商場日月光中心與辦公樓，提供穩定租金現金流；開發業務方面，在上海、重慶、無</div>
+</div>
+<div class="card" onclick="window.location='../reports/1808.html'">
+  <div class="card-top">
+    <span class="ticker">1808</span>
+    <span class="company-name">潤隆</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>28B</strong> 市值</div>
+    <div class="metric"><strong>23.01</strong> P/E</div>
+    <div class="metric"><strong>2.18</strong> P/B</div>
+  </div>
+  <div class="card-summary">潤隆建設 (1808，Run Long Construction) 創立於 1977 年，原從事陶瓷磁磚製造，2004 年轉型不動產開發。公司為興富發集團成員，2010 年由興富發透過旗下齊裕營造入主。潤隆以「自購、合建、都更」三軌並行模式積極取得土地，推案遍布北中南主要都會區。子公司金駿營造具備甲</div>
+</div>
+<div class="card" onclick="window.location='../reports/2501.html'">
+  <div class="card-top">
+    <span class="ticker">2501</span>
+    <span class="company-name">國建</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>28B</strong> 市值</div>
+    <div class="metric"><strong>8.35</strong> P/E</div>
+    <div class="metric"><strong>0.91</strong> P/B</div>
+  </div>
+  <div class="card-summary">國泰建設 (2501，國建) 成立於 1964 年，總部位於台北，隸屬於霖園集團。公司為台灣老牌龍頭建商，以「國泰格局」之高品質住宅聞名，品牌信譽卓著。主要業務為委託營造廠興建國民住宅及商業大樓出租出售，推案遍及全台主要都會區。近年跨足飯店 (國泰飯店觀光事業) 及健康管理業務。集團內營造資源由三井</div>
+</div>
+<div class="card" onclick="window.location='../reports/6177.html'">
+  <div class="card-top">
+    <span class="ticker">6177</span>
+    <span class="company-name">達麗</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>23B</strong> 市值</div>
+    <div class="metric"><strong>12.68</strong> P/E</div>
+    <div class="metric"><strong>2.08</strong> P/B</div>
+  </div>
+  <div class="card-summary">達麗建設 (6177) 為台灣積極推案之上市營建商，推案策略精準，緊跟「軌道經濟」及「新興產業園區」(如台積電設廠效應) 之發展動能，在北、中、南台灣持續深耕，鎖定剛性自住與置產需求。旗下子公司「寶信營造」具備甲級營造資格，形成開發與施工之垂直整合優勢。此外，達麗亦將觸角延伸至美國西雅圖進行不動產投</div>
+</div>
+<div class="card" onclick="window.location='../reports/5534.html'">
+  <div class="card-top">
+    <span class="ticker">5534</span>
+    <span class="company-name">長虹</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>23B</strong> 市值</div>
+    <div class="metric"><strong>12.81</strong> P/E</div>
+    <div class="metric"><strong>1.08</strong> P/B</div>
+  </div>
+  <div class="card-summary">長虹建設 (5534，Chong Hong Construction) 為台灣知名優質建商，營運風格穩健，財務結構健全，獲利能力在營建股中名列前茅。經營特色包括：(1) 產品策略 — 「廠辦」與「住宅」雙軌並進，透過商辦/廠辦開發創造穩定現金流與高毛利；(2) 佈局轉型 — 早期深耕內湖，近年積極佈</div>
+</div>
+<div class="card" onclick="window.location='../reports/2524.html'">
+  <div class="card-top">
+    <span class="ticker">2524</span>
+    <span class="company-name">京城</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>14B</strong> 市值</div>
+    <div class="metric"><strong>21.89</strong> P/E</div>
+    <div class="metric"><strong>0.67</strong> P/B</div>
+  </div>
+  <div class="card-summary">京城建設 (2524，King's Town Construction) 創立於 1982 年，總部位於高雄，為南台灣最具代表性之品牌建商，以打造高雄地標性建築聞名。公司推案聚焦高雄市精華區，包括美術館特區、農十六、亞灣區等，產品定位中高端，主打豪宅及高品質換屋住宅。京城亦跨足特定專業區開發、飯店餐</div>
+</div>
+<div class="card" onclick="window.location='../reports/2511.html'">
+  <div class="card-top">
+    <span class="ticker">2511</span>
+    <span class="company-name">太子</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>13B</strong> 市值</div>
+    <div class="metric"><strong>24.64</strong> P/E</div>
+    <div class="metric"><strong>0.51</strong> P/B</div>
+  </div>
+  <div class="card-summary">太子建設 (2511，Prince Housing & Development) 成立於 1973 年，總部位於台南，由台南幫之台南紡織、統一、環球水泥等集資成立，1991 年公開上市。公司為台灣老牌建商，業務涵蓋住宅及商業大樓開發銷售、觀光飯店經營、停車場營運及物業管理。旗下飯店事業包含台南老爺行</div>
+</div>
+<div class="card" onclick="window.location='../reports/5508.html'">
+  <div class="card-top">
+    <span class="ticker">5508</span>
+    <span class="company-name">永信建</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>11B</strong> 市值</div>
+    <div class="metric"><strong>16.74</strong> P/E</div>
+    <div class="metric"><strong>1.99</strong> P/B</div>
+  </div>
+  <div class="card-summary">永信建設 (5508，Yungshin Construction) 成立於 1987 年，總部位於高雄，為南台灣知名建商。公司長期深耕高雄地區房地產市場，主要業務為委託營造廠興建國民住宅、商業大樓、別墅等，並採「先建後售」模式確保品質及掌握市場需求。產品涵蓋首購、換屋及豪宅市場，近期亦推動綠建築及智</div>
+</div>
+<div class="card" onclick="window.location='../reports/1436.html'">
+  <div class="card-top">
+    <span class="ticker">1436</span>
+    <span class="company-name">華友聯</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>11B</strong> 市值</div>
+    <div class="metric"><strong>11.32</strong> P/E</div>
+    <div class="metric"><strong>1.62</strong> P/B</div>
+  </div>
+  <div class="card-summary">華友聯開發 (1436) 深耕南台灣的房地產開發商，總部位於高雄，推案區域集中於高雄及台南重劃區。公司專注於大型住宅大樓開發，鎖定首購及換屋族群，代表作包括鳳山、楠梓、仁武等區域之造鎮計畫。華友聯亦跨足休閒觀光產業，經營墾丁「H 會館」(H Resort) 精品度假旅館，結合海景與設計美學。受惠於台</div>
+</div>
+<div class="card" onclick="window.location='../reports/1442.html'">
+  <div class="card-top">
+    <span class="ticker">1442</span>
+    <span class="company-name">名軒</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>10B</strong> 市值</div>
+    <div class="metric"><strong>8.96</strong> P/E</div>
+    <div class="metric"><strong>1.23</strong> P/B</div>
+  </div>
+  <div class="card-summary">名軒開發 (1442) 為麗寶集團旗下上市營建公司，由吳寶田家族主導經營。公司專注於淡海新市鎮、桃園及台中等區域之住宅及商辦開發，擅長大規模軌道經濟開發案，代表建案包括淡海「名軒海樂地」系列。名軒運用麗寶集團之營造及資源整合能力，從土地取得、規劃設計到銷售一條龍運作。麗寶集團旗下亦包含麗寶樂園、福容</div>
+</div>
+<div class="card" onclick="window.location='../reports/2534.html'">
+  <div class="card-top">
+    <span class="ticker">2534</span>
+    <span class="company-name">宏盛</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>10B</strong> 市值</div>
+    <div class="metric"><strong>8.07</strong> P/E</div>
+    <div class="metric"><strong>0.64</strong> P/B</div>
+  </div>
+  <div class="card-summary">宏盛建設 (2534，Hung Sheng Construction) 成立於 1986 年，總部位於台北，隸屬於宏泰集團。公司以打造頂級豪宅聞名，最具代表性作品為台灣豪宅指標仁愛帝寶 (The Palace)，曾為全台最貴豪宅。除頂級豪宅外，近年亦積極佈局淡海新市鎮及台北市區中小坪數精緻住宅。營造</div>
+</div>
+<div class="card" onclick="window.location='../reports/6186.html'">
+  <div class="card-top">
+    <span class="ticker">6186</span>
+    <span class="company-name">新潤</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>8B</strong> 市值</div>
+    <div class="metric"><strong>5.28</strong> P/E</div>
+    <div class="metric"><strong>1.56</strong> P/B</div>
+  </div>
+  <div class="card-summary">新潤興業 (6186) 專注於北台灣都會區之知名房地產開發商。公司早年為驅動 IC 設計公司，2011 年成功轉型營建業。推案策略明確，主攻大台北及桃園地區具發展潛力之重劃區 (如新莊塭仔圳、桃園青埔、機捷 A10 站等)，鎖定「首購族」與首換族群。新潤以高性價比、中小坪數及主打健康防疫概念之「養生</div>
+</div>
+<div class="card" onclick="window.location='../reports/5525.html'">
+  <div class="card-top">
+    <span class="ticker">5525</span>
+    <span class="company-name">順天</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>8B</strong> 市值</div>
+    <div class="metric"><strong>18.06</strong> P/E</div>
+    <div class="metric"><strong>1.40</strong> P/B</div>
+  </div>
+  <div class="card-summary">順天建設 (5525，Sweeten) 為台中老牌優質建商，深耕台中市場超過 30 年。業務範疇包括：(1) 建設本業 — 台中地區高級住宅與別墅開發，品牌形象優良；(2) 商用不動產 — 長期持有資產 (如順天經貿廣場) 收租，提供穩定現金流；(3) 工業廠辦 — 開發工業區廠辦 (如順天豐華)。</div>
+</div>
+<div class="card" onclick="window.location='../reports/2536.html'">
+  <div class="card-top">
+    <span class="ticker">2536</span>
+    <span class="company-name">宏普</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>6.96</strong> P/E</div>
+    <div class="metric"><strong>0.59</strong> P/B</div>
+  </div>
+  <div class="card-summary">宏普建設 (2536，Hong Pu Real Estate Development) 成立於 1988 年，總部位於台北大安區。公司為中型精品建商，推案地點集中於台北市內湖、南港、信義、中山等房價具潛力之地區。營業項目以委託營造廠興建國民住宅大樓之出租、出售為主。近年透過轉投資三橋建設、川悅建設踏</div>
+</div>
+<div class="card" onclick="window.location='../reports/2505.html'">
+  <div class="card-top">
+    <span class="ticker">2505</span>
+    <span class="company-name">國揚</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>8.04</strong> P/E</div>
+    <div class="metric"><strong>0.67</strong> P/B</div>
+  </div>
+  <div class="card-summary">國揚實業 (2505，Kuo Yang Construction) 成立於 1972 年，總部位於台北，為國揚集團核心企業。集團涵蓋漢神百貨、漢來美食等知名事業體。公司業務以住宅及頂級廠辦開發為主，近年積極參與公辦都更及廠辦案 (如內湖舊宗段、新北三重案)。推案策略聚焦台北市內湖、南港、信義等科技走</div>
+</div>
+<div class="card" onclick="window.location='../reports/3056.html'">
+  <div class="card-top">
+    <span class="ticker">3056</span>
+    <span class="company-name">富華新</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>13.80</strong> P/E</div>
+    <div class="metric"><strong>0.83</strong> P/B</div>
+  </div>
+  <div class="card-summary">富華創新 (3056，富華新，原總太地產) 發跡於台中，2023 年由「總太地產」正式更名。公司是中部知名大型造鎮建商，代表作包括「心之所向」、「總太 2020」等大型社區。更名後宣示轉型為全方位控股公司，除持續深耕房地產外，積極跨足新能源 (充電樁、儲能) 與智慧城市領域。目前推案重心集中在台中水</div>
+</div>
+<div class="card" onclick="window.location='../reports/3188.html'">
+  <div class="card-top">
+    <span class="ticker">3188</span>
+    <span class="company-name">鑫龍騰</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>6B</strong> 市值</div>
+    <div class="metric"><strong>8.68</strong> P/E</div>
+    <div class="metric"><strong>1.82</strong> P/B</div>
+  </div>
+  <div class="card-summary">鑫龍騰開發 (3188，Golden Long Teng) 深耕高雄地區之品牌建商，原為電子通路商，後由高雄天玉集團入主轉型為營建業。公司受惠於南台灣產業轉型 (如台積電高雄廠效應、日月光半導體擴廠效應)，在高雄精華區具備高度市場敏銳度。經營特色包括：(1) 地段優勢 — 重心放在高雄左營高鐵特區、</div>
+</div>
+<div class="card" onclick="window.location='../reports/2442.html'">
+  <div class="card-top">
+    <span class="ticker">2442</span>
+    <span class="company-name">新美齊</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>6B</strong> 市值</div>
+    <div class="metric"><strong>4.78</strong> P/E</div>
+    <div class="metric"><strong>0.94</strong> P/B</div>
+  </div>
+  <div class="card-summary">新美齊 (2442，Jean) 成立於 1986 年，總部位於台北。公司早期為顯示器代工廠，2010 年代轉型跨足房地產開發及物業管理。目前專注於雙北地區之精緻住宅及商辦開發，並致力於推動都市更新及危老重建案。旗下電子事業已分拆為凱銳光電 (車用電子)，核心業務已確立為建設開發。曾承接美國在台協會 </div>
+</div>
+<div class="card" onclick="window.location='../reports/5206.html'">
+  <div class="card-top">
+    <span class="ticker">5206</span>
+    <span class="company-name">坤悅</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>8.24</strong> P/E</div>
+    <div class="metric"><strong>1.32</strong> P/B</div>
+  </div>
+  <div class="card-summary">坤悅開發 (5206，Kunyue Development) 深耕大台中地區之專業建設公司，專注於自住剛性需求 (首購/換屋) 之住宅大樓開發。建案特色強調「耐震」、「好宅」與優質售後服務。擁有甲級營造廠子公司「坤聯營造」，能有效控管施工品質與成本，形成開發與施工之垂直整合優勢。推案區域集中在台中市</div>
+</div>
+<div class="card" onclick="window.location='../reports/4907.html'">
+  <div class="card-top">
+    <span class="ticker">4907</span>
+    <span class="company-name">富宇</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>33.01</strong> P/E</div>
+    <div class="metric"><strong>1.91</strong> P/B</div>
+  </div>
+  <div class="card-summary">富宇地產 (4907，Fu Yu Property) 前身為「春雨開發」，為台灣知名住宅與大樓開發商。主要業務為住宅不動產開發，深耕台中及新竹地區，推案涵蓋首購至豪宅產品，亦經營辦公大樓銷售及租賃。以「富宇建設機構」品牌在市場上運作，品牌知名度高。建案委由合作甲級營造廠施工，建材採購包括台灣水泥、國</div>
+</div>
+<div class="card" onclick="window.location='../reports/2538.html'">
+  <div class="card-top">
+    <span class="ticker">2538</span>
+    <span class="company-name">基泰</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>11.46</strong> P/E</div>
+    <div class="metric"><strong>0.78</strong> P/B</div>
+  </div>
+  <div class="card-summary">基泰建設 (2538，Kee Tai Properties) 成立於 1979 年，總部位於台北。公司專營台北市精華地段之精品住宅及商辦開發，曾為台北市知名建商，長期深耕中山、大直、信義等區域。2023 年受到「大直工安意外」(基泰大直建案鄰損事件) 重大影響，施工中基地連續壁破損導致鄰宅傾斜下陷，</div>
+</div>
+<div class="card" onclick="window.location='../reports/2718.html'">
+  <div class="card-top">
+    <span class="ticker">2718</span>
+    <span class="company-name">全心投控</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>2.82</strong> P/E</div>
+    <div class="metric"><strong>0.67</strong> P/B</div>
+  </div>
+  <div class="card-summary">全心投控 (2718，Allmind Holdings) 前身為「晶悅國際飯店」，2024 年正式更名並完成轉型。公司已退出觀光飯店經營，轉型為房地產開發與投資控股公司。營運重心轉向土地開發、建築案推動，透過子公司合一建築及華昇營造進行建案開發施工。策略性投資方面，公司持有上市建商三發地產 (994</div>
+</div>
+<div class="card" onclick="window.location='../reports/2506.html'">
+  <div class="card-top">
+    <span class="ticker">2506</span>
+    <span class="company-name">太設</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>451.00</strong> P/E</div>
+    <div class="metric"><strong>0.18</strong> P/B</div>
+  </div>
+  <div class="card-summary">太平洋建設 (2506，太設) 成立於 1967 年，總部位於台北。公司早期涵蓋百貨零售 (太平洋 SOGO、太平洋百貨) 及營建事業，經歷集團重整後，目前專注於營建本業及綠色事業。業務包括住宅開發 (如太平洋之森系列) 及公共工程承攬，擁有自有甲級營造廠資格。近年積極推動資產活化、都市更新案及轉型</div>
+</div>
+<div class="card" onclick="window.location='../reports/2596.html'">
+  <div class="card-top">
+    <span class="ticker">2596</span>
+    <span class="company-name">綠意</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>17.31</strong> P/E</div>
+    <div class="metric"><strong>1.61</strong> P/B</div>
+  </div>
+  <div class="card-summary">綠意開發 (2596，ReaLy Development & Construction) 成立於 2001 年，總部位於台北松山區。公司業務涵蓋住宅大樓開發銷售、工業廠房開發租售、特定專業區開發、公共建設投資及營造工程。推案區域以台北市及新北市為主，亦承接營建工程。代表建案包括台北文山區「綠意仙跡」</div>
+</div>
+<div class="card" onclick="window.location='../reports/2537.html'">
+  <div class="card-top">
+    <span class="ticker">2537</span>
+    <span class="company-name">聯上發</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>69.67</strong> P/E</div>
+    <div class="metric"><strong>0.62</strong> P/B</div>
+  </div>
+  <div class="card-summary">聯上發 (2537，WE & WIN Development) 成立於 1987 年，隸屬於聯上集團，關聯企業包括上市公司聯上實業 (4113)。公司原名春其開發，2008 年更名為聯上發。推案區域涵蓋北中南台灣，近年南部推案聚焦台南安南科工段及高雄地區，北部指標案「聯上澐朗」位於新店央北，總銷逾 </div>
+</div>
+<div class="card" onclick="window.location='../reports/6212.html'">
+  <div class="card-top">
+    <span class="ticker">6212</span>
+    <span class="company-name">理銘</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>7.70</strong> P/E</div>
+    <div class="metric"><strong>0.82</strong> P/B</div>
+  </div>
+  <div class="card-summary">理銘開發 (6212) 深耕大新竹地區之知名區域型不動產開發建商。公司發展歷程豐富，早年從事玻璃纖維材料貿易 (環興實業)，後轉型電子零組件與光碟機讀取頭代理 (理銘科技)，最終於 2007 年全面轉型為房地產開發商。目前核心業務為委託營造廠興建住宅與商業大樓並進行租售，同時涵蓋建材批發零售與室內裝</div>
+</div>
+<div class="card" onclick="window.location='../reports/6171.html'">
+  <div class="card-top">
+    <span class="ticker">6171</span>
+    <span class="company-name">大城地產</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>7.20</strong> P/E</div>
+    <div class="metric"><strong>1.08</strong> P/B</div>
+  </div>
+  <div class="card-summary">大城地產 (6171，曾用名台灣亞銳士) 為專業不動產開發商，主要業務為住宅及商業大樓之開發、興建與租售。公司早年從事電腦通訊業務，後轉型借殼成為營建股。推案區域以大台中地區為主，透過精準選地及對市場脈動之掌握，持續穩定推案以挹注營收。建案委由合作營造廠施工，建材採購包括台灣水泥、鋼筋及國產建材實業</div>
+</div>
+<div class="card" onclick="window.location='../reports/3489.html'">
+  <div class="card-top">
+    <span class="ticker">3489</span>
+    <span class="company-name">森寶</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.99</strong> P/B</div>
+  </div>
+  <div class="card-summary">森寶開發 (3489) 專注於大台北地區之營建與房地產開發商。公司主要採取「自有土地開發」與「合建分售」雙軌模式，針對自住型買房客群推出高性價比之集合式住宅建案。最大競爭優勢在於擁有 100% 持股之「森碁營造」子公司，形成從土地開發、建築設計到營造施工之一條龍垂直整合體系，有效控制工程進度、降低成</div>
+</div>
+<div class="card" onclick="window.location='../reports/5455.html'">
+  <div class="card-top">
+    <span class="ticker">5455</span>
+    <span class="company-name">昇益</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>6.88</strong> P/E</div>
+    <div class="metric"><strong>1.13</strong> P/B</div>
+  </div>
+  <div class="card-summary">昇益開發 (5455，Shengyih Development) 成立於 1991 年，總部位於新竹。公司原從事電子業，後轉型為營建開發商，與新竹在地知名建商「昌益建設」集團關係密切。主要業務為委託營造廠興建住宅及商業大樓之出租或出售，建案主要集中於新竹地區，受惠於新竹科學園區之強勁購屋需求 (如台</div>
+</div>
+<div class="card" onclick="window.location='../reports/1805.html'">
+  <div class="card-top">
+    <span class="ticker">1805</span>
+    <span class="company-name">寶徠</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>55.00</strong> P/E</div>
+    <div class="metric"><strong>0.91</strong> P/B</div>
+  </div>
+  <div class="card-summary">寶徠建設 (1805，Better Life Group) 成立於 1978 年，總部位於台北內湖。公司前身為凱聚建設，2009 年更名為寶徠建設。目前專注於台北市及新北市之住宅大樓開發與銷售，近年積極投入都市更新及危老重建案。公司亦跨足太陽能應用事業及旅行社業務。曾與璞園建築團隊進行策略聯盟，建案</div>
+</div></div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

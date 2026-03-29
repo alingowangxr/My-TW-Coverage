@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Software - Infrastructure | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="sector-header">
+  <h1>Software - Infrastructure</h1>
+  <div class="subtitle">21 家公司 | 按市值排序</div>
+</div>
+<div class="container">
+  <div style="margin-bottom:12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">← 返回首頁</a>
+  </div>
+  <div class="cards-grid">
+<div class="card" onclick="window.location='../reports/7722.html'">
+  <div class="card-top">
+    <span class="ticker">7722</span>
+    <span class="company-name">LINEPAY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>22B</strong> 市值</div>
+    <div class="metric"><strong>45.07</strong> P/E</div>
+    <div class="metric"><strong>2.04</strong> P/B</div>
+  </div>
+  <div class="card-summary">連加網路商業股份有限公司 (7722，LINE Pay Taiwan) 為 LINE 集團在台灣經營第三方支付與行動支付之子公司。LINE Pay 為台灣行動支付市場主要品牌之一，服務涵蓋餐飲、購物、飲料、生活、交通、娛樂及美妝旅遊七大消費場域。營收主要來自第三方支付交易手續費抽成，依據合作商家店面</div>
+</div>
+<div class="card" onclick="window.location='../reports/7749.html'">
+  <div class="card-top">
+    <span class="ticker">7749</span>
+    <span class="company-name">意騰-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>18B</strong> 市值</div>
+    <div class="metric"><strong>34.85</strong> P/E</div>
+    <div class="metric"><strong>4.91</strong> P/B</div>
+  </div>
+  <div class="card-summary">意騰科技股份有限公司 (7749，Intelligo) 為台灣 AI 邊緣運算聲學技術領導者，由聯發科於 2016 年分拆成立，聯發科持股約 20%。公司專攻極低功耗之「邊緣 AI 類神經網路聲學演算法」與專用 ASIC 晶片設計，核心產品 IG2200 AI 聲學晶片可在極有限算力之終端設備中執行</div>
+</div>
+<div class="card" onclick="window.location='../reports/7819.html'">
+  <div class="card-top">
+    <span class="ticker">7819</span>
+    <span class="company-name">精誠金融</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>18B</strong> 市值</div>
+    <div class="metric"><strong>22.88</strong> P/E</div>
+    <div class="metric"><strong>4.08</strong> P/B</div>
+  </div>
+  <div class="card-summary">精誠金融科技股份有限公司 (7819) 為台灣線下實體店面刷卡終端設備市場之絕對領導者，由台灣軟體業龍頭精誠資訊 (6214) 分拆上市。公司掌握全台逾七成刷卡終端設備銷售市佔率，以及超過半數之維修保養業務。服務涵蓋多品牌刷卡機代理銷售、全台刷卡機維運與特店商化服務、信用卡收單系統建置、電子發票與第</div>
+</div>
+<div class="card" onclick="window.location='../reports/6462.html'">
+  <div class="card-top">
+    <span class="ticker">6462</span>
+    <span class="company-name">神盾</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>9B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.26</strong> P/B</div>
+  </div>
+  <div class="card-summary">神盾股份有限公司 (6462，Egis Technology) 是一家從生體指紋辨識IC起家的台灣無晶圓廠(Fabless)半導體公司。過去神盾主要依賴韓國智慧型手機之指紋辨識感測器訂單。為擺脫單一產品風險，神盾近年發動多起併購與策略結盟(如併購乾瞻科技、芯鼎、安國等)，大舉轉型為AI與高效能運算(</div>
+</div>
+<div class="card" onclick="window.location='../reports/6763.html'">
+  <div class="card-top">
+    <span class="ticker">6763</span>
+    <span class="company-name">綠界科技</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>9B</strong> 市值</div>
+    <div class="metric"><strong>11.58</strong> P/E</div>
+    <div class="metric"><strong>2.83</strong> P/B</div>
+  </div>
+  <div class="card-summary">綠界科技股份有限公司 (6763，ECPay) 為台灣第三方支付市場規模最大的支付品牌。公司專為中小型電商與個人賣家提供全方位金流、物流代收付基礎建設，服務涵蓋線上信用卡刷卡、超商條碼繳費、網路 ATM、先買後付 (BNPL) 與電子發票開立等一站式方案。串接 21 家銀行信用卡分期方案與七大銀行信</div>
+</div>
+<div class="card" onclick="window.location='../reports/6741.html'">
+  <div class="card-top">
+    <span class="ticker">6741</span>
+    <span class="company-name">91APP-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>14.18</strong> P/E</div>
+    <div class="metric"><strong>2.26</strong> P/B</div>
+  </div>
+  <div class="card-summary">91APP-KY (6741) 是台灣首家原生 SaaS 上市櫃科技公司，專精於零售業「全通路 (OMO)」商務解決方案。公司協助實體零售品牌與跨國品牌建立獨立 D2C (直接面對消費者) 電商網站與專屬購物 APP，結合 AI 大數據分析提供行銷自動化與電商代營運服務。九成以上營收來自穩定的系統訂</div>
+</div>
+<div class="card" onclick="window.location='../reports/3555.html'">
+  <div class="card-top">
+    <span class="ticker">3555</span>
+    <span class="company-name">博士旺</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>129.85</strong> P/E</div>
+    <div class="metric"><strong>12.71</strong> P/B</div>
+  </div>
+  <div class="card-summary">博士旺創新 (3555，BaaS Innovation) 為企業級區塊鏈基礎建設與數位資產合規服務商。公司前身為 IC 設計廠，現已轉型為控股式經營，核心業務涵蓋：(1) 區塊鏈供應鏈金融平台開發，與中國信託合作建置企業應收帳款融資系統；(2) VASP 合規與數位資產基礎建設顧問服務；(3) 去中</div>
+</div>
+<div class="card" onclick="window.location='../reports/6689.html'">
+  <div class="card-top">
+    <span class="ticker">6689</span>
+    <span class="company-name">伊雲谷</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>6B</strong> 市值</div>
+    <div class="metric"><strong>37.00</strong> P/E</div>
+    <div class="metric"><strong>1.95</strong> P/B</div>
+  </div>
+  <div class="card-summary">伊雲谷數位科技股份有限公司 (6689) 是亞洲首家掛牌上市的雲端數位管理服務公司(MSP/MSSP)。伊雲谷專注為企業提供一站式數位轉型顧問與多雲託管服務。公司是Amazon(AWS)在大中華區首家「核心級服務合作夥伴」，同時也整合Microsoft(Azure)、Google(GCP)與Orac</div>
+</div>
+<div class="card" onclick="window.location='../reports/6690.html'">
+  <div class="card-top">
+    <span class="ticker">6690</span>
+    <span class="company-name">安�硌穈T</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>16.54</strong> P/E</div>
+    <div class="metric"><strong>1.60</strong> P/B</div>
+  </div>
+  <div class="card-summary">安碁資訊股份有限公司 (6690，Acer Cyber Security) 為宏碁集團旗下資安子公司，是台灣最大的專業資訊安全監控委外服務商 (MSSP)。公司核心業務涵蓋四大服務：(1) 資訊安全監控 (Cloud SOC) — 提供雲地聯防之 7x24 全天候安全事件監控與告警；(2) 資訊安全</div>
+</div>
+<div class="card" onclick="window.location='../reports/6752.html'">
+  <div class="card-top">
+    <span class="ticker">6752</span>
+    <span class="company-name">叡揚</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>15.92</strong> P/E</div>
+    <div class="metric"><strong>3.11</strong> P/B</div>
+  </div>
+  <div class="card-summary">叡揚資訊股份有限公司 (6752) 為台灣歷史悠久之本土資訊軟體與雲端服務 (SaaS) 領導廠商，成立逾 35 年。核心業務涵蓋企業知識管理 (KM)、公文管理、人力資源、客戶關係管理 (CRM) 及資訊安全解決方案。公司以「Vital 雲端家族」SaaS 產品線為主力，並積極導入AI自然語言處理</div>
+</div>
+<div class="card" onclick="window.location='../reports/6870.html'">
+  <div class="card-top">
+    <span class="ticker">6870</span>
+    <span class="company-name">騰雲</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>27.23</strong> P/E</div>
+    <div class="metric"><strong>3.70</strong> P/B</div>
+  </div>
+  <div class="card-summary">騰雲科技服務股份有限公司 (6870) 為大型零售商與購物中心提供「客流、商流、金流」全方位數位轉型 SaaS 解決方案。核心產品採「解決方案即服務」(SolaaS) 模式，整合百貨商場前端行動支付 (Apple Pay、LINE Pay 等)、POS 收銀、電子發票、會員紅利 (CRM) 及櫃位帳</div>
+</div>
+<div class="card" onclick="window.location='../reports/6035.html'">
+  <div class="card-top">
+    <span class="ticker">6035</span>
+    <span class="company-name">悠遊卡</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>17.44</strong> P/E</div>
+    <div class="metric"><strong>3.31</strong> P/B</div>
+  </div>
+  <div class="card-summary">悠遊卡股份有限公司 (6035) 為台灣電子票證與電子支付領域市佔率超過九成的龍頭企業。公司專注於交通及小額消費場域，提供「悠遊卡」電子票證與「悠遊付」電子支付雙核心服務。悠遊卡累積超過 1,800 個品牌通路合作，合計約 35 萬個支付點，廣泛應用於台北捷運、公車、台鐵、便利商店及零售通路。公司為</div>
+</div>
+<div class="card" onclick="window.location='../reports/7823.html'">
+  <div class="card-top">
+    <span class="ticker">7823</span>
+    <span class="company-name">奧義賽博-KY創</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>8.84</strong> P/B</div>
+  </div>
+  <div class="card-summary">奧義智慧科技股份有限公司 (7823，CyCraft) 為台灣純正 AI 資安軟體原廠，2026 年 2 月於台灣創新板掛牌上市。公司自主研發 AI 自動化端點偵測回應 (EDR) 系統，能在一分鐘內串聯百萬個端點軌跡，自動拼湊駭客攻擊意圖與入侵路徑。核心產品 XCockpit AI 平台整合外部攻</div>
+</div>
+<div class="card" onclick="window.location='../reports/7721.html'">
+  <div class="card-top">
+    <span class="ticker">7721</span>
+    <span class="company-name">微程式</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>92.18</strong> P/E</div>
+    <div class="metric"><strong>2.18</strong> P/B</div>
+  </div>
+  <div class="card-summary">微程式資訊股份有限公司 (7721) 為台灣數位支付與物聯網 (AIoT) 軟硬整合技術服務商。公司以「技術研發為本」之輕資產架構，將 RFID、NFC、電控與雲端物聯網實力灌注於多元應用場域：(1) 公共交通數位支付終端 — 為 YouBike 微笑單車提供全套車柱電子支付系統；(2) 電動自行車</div>
+</div>
+<div class="card" onclick="window.location='../reports/7547.html'">
+  <div class="card-top">
+    <span class="ticker">7547</span>
+    <span class="company-name">碩網</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>29.80</strong> P/E</div>
+    <div class="metric"><strong>2.61</strong> P/B</div>
+  </div>
+  <div class="card-summary">碩網資訊股份有限公司 (7547，Intumit) 為台灣「對話式 AI」與「自然語言處理 (NLP)」領域之軟體系統領導者。核心產品 SmartRobot 智能客服系統在台灣金融業擁有超過八成市佔率，累積逾 700 家企業客戶。公司專精於將 AI 大語言模型 (LLM) 落地轉化為企業可實際運用之</div>
+</div>
+<div class="card" onclick="window.location='../reports/6791.html'">
+  <div class="card-top">
+    <span class="ticker">6791</span>
+    <span class="company-name">虎門科技</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>23.73</strong> P/E</div>
+    <div class="metric"><strong>4.23</strong> P/B</div>
+  </div>
+  <div class="card-summary">虎門科技股份有限公司 (6791) 為台灣工業軟體與計算機輔助工程 (CAE) 平台領導廠商。核心業務為代理及開發 CAE 軟體，協助客戶於電腦上進行結構、流體、散熱、電磁與光學之模擬分析，大幅降低研發成本。公司為 Ansys 台灣核心代理商，並引進德國 Polytec 高階量測設備。業務亦涵蓋商管</div>
+</div>
+<div class="card" onclick="window.location='../reports/5212.html'">
+  <div class="card-top">
+    <span class="ticker">5212</span>
+    <span class="company-name">凌網</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>11.37</strong> P/E</div>
+    <div class="metric"><strong>2.96</strong> P/B</div>
+  </div>
+  <div class="card-summary">凌網科技 (Hyweb) 為台灣專業 軟體資訊服務商，深耕政府與金融領域。 主要業務三大支柱： 1. 電子化政府 (E-Gov): 承攬政府大型資訊系統標案 (網站/行政系統)。 2. 智慧圖書館 (Smart Library): HyRead 電子書平台 (市佔第一)、圖書館自動化系統、自助借還書</div>
+</div>
+<div class="card" onclick="window.location='../reports/6925.html'">
+  <div class="card-top">
+    <span class="ticker">6925</span>
+    <span class="company-name">意藍</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>24.07</strong> P/E</div>
+    <div class="metric"><strong>3.83</strong> P/B</div>
+  </div>
+  <div class="card-summary">意藍資訊股份有限公司 (6925) 為台灣「大數據語意分析」與「AI 社群聲量監測」領域市佔第一之 SaaS 軟體商。核心產品「OpView 社群口碑資料庫」能全天候自動爬梳全台各大論壇、新聞及社群媒體，利用自然語言處理 (NLP) 及大語言模型 (LLM) 精準判讀網民情緒與關鍵字。2024 年營</div>
+</div>
+<div class="card" onclick="window.location='../reports/8298.html'">
+  <div class="card-top">
+    <span class="ticker">8298</span>
+    <span class="company-name">威睿</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>351.88</strong> P/E</div>
+    <div class="metric"><strong>6.28</strong> P/B</div>
+  </div>
+  <div class="card-summary">威睿科技股份有限公司 (8298，Genie Networks) 成立於 1990 年，為台灣網路流量分析與 DDoS 防護之專業軟體廠商，產品銷售遍及全球逾 40 國。核心產品 GenieATM 為企業級網路流量分析管理系統，結合大數據分析能力優化 IP 網路效能並即時偵測網路攻擊。產品線涵蓋 G</div>
+</div>
+<div class="card" onclick="window.location='../reports/6878.html'">
+  <div class="card-top">
+    <span class="ticker">6878</span>
+    <span class="company-name">歐付寶</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>799M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.44</strong> P/B</div>
+  </div>
+  <div class="card-summary">歐付寶電子支付股份有限公司 (6878) 隸屬於綠界科技 (6763) 母集團，為台灣第一家取得金管會核發專營「電子支付」機構營業執照之先驅企業 (2015 年)。公司為中小型商家提供線上與線下多元收款方案，串接信用卡、銀行帳戶綁定及 P2P 轉帳服務。整合電子發票開立功能，並支援 TWQR 共通支</div>
+</div>
+<div class="card" onclick="window.location='../reports/6565.html'">
+  <div class="card-top">
+    <span class="ticker">6565</span>
+    <span class="company-name">物聯</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>522M</strong> 市值</div>
+    <div class="metric"><strong>19.30</strong> P/E</div>
+    <div class="metric"><strong>4.65</strong> P/B</div>
+  </div>
+  <div class="card-summary">物聯智慧股份有限公司 (6565，ThroughTek) 專注於物聯網 與 AIoT 領域之雲端軟體平台服務商 (PaaS/SaaS)。核心產品為自主研發之「Kalay」雲端平台，專精於海量高畫質影像資料的安全連線與跨裝置整合，已授權全球超過 40 億台影像監控設備連線，服務遍及 120 餘國。物聯</div>
+</div></div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

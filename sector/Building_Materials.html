@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Building Materials | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="sector-header">
+  <h1>Building Materials</h1>
+  <div class="subtitle">14 家公司 | 按市值排序</div>
+</div>
+<div class="container">
+  <div style="margin-bottom:12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">← 返回首頁</a>
+  </div>
+  <div class="cards-grid">
+<div class="card" onclick="window.location='../reports/1101.html'">
+  <div class="card-top">
+    <span class="ticker">1101</span>
+    <span class="company-name">台泥</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>177B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.75</strong> P/B</div>
+  </div>
+  <div class="card-summary">台灣水泥股份有限公司 (1101，TCC Group) 成立於 1946 年，為台灣第一家股票上市公司，已從傳統水泥製造廠轉型為「綠色環境工程集團」。核心業務涵蓋三大板塊：(1) 低碳建材 — 生產低碳水泥、預拌混凝土，為台積電南科建廠主力低碳混凝土供應商；(2) 資源循環 — 利用水泥窯協同處理廢</div>
+</div>
+<div class="card" onclick="window.location='../reports/1802.html'">
+  <div class="card-top">
+    <span class="ticker">1802</span>
+    <span class="company-name">台玻</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>158B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>3.51</strong> P/B</div>
+  </div>
+  <div class="card-summary">## 業務簡介 台玻 (Taiwan Glass Ind. Corp.) 成立於 1964 年，總部位於台灣台北，為國內最大、全球名列前茅的玻璃製造集團。公司產品線涵蓋平板玻璃、玻璃器皿及玻璃纖維。平板玻璃廣泛應用於建築帷幕牆與汽車領域；近年台玻積極轉型，大力發展高階電子級玻璃纖維布 (如 Low </div>
+</div>
+<div class="card" onclick="window.location='../reports/1102.html'">
+  <div class="card-top">
+    <span class="ticker">1102</span>
+    <span class="company-name">亞泥</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>122B</strong> 市值</div>
+    <div class="metric"><strong>11.54</strong> P/E</div>
+    <div class="metric"><strong>0.68</strong> P/B</div>
+  </div>
+  <div class="card-summary">亞洲水泥股份有限公司 (1102，Asia Cement) 成立於 1957 年，為遠東集團旗下核心企業。公司以「高品質、高效率、高環保、低成本」為經營策略，主要產品包括水泥、熟料、爐石粉及預拌混凝土。亞泥深耕台灣與中國市場 (透過子公司亞泥中國)，並建立「全產全銷」模式，擁有完整的產銷體系及自有運</div>
+</div>
+<div class="card" onclick="window.location='../reports/2504.html'">
+  <div class="card-top">
+    <span class="ticker">2504</span>
+    <span class="company-name">國產</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>46B</strong> 市值</div>
+    <div class="metric"><strong>11.61</strong> P/E</div>
+    <div class="metric"><strong>1.69</strong> P/B</div>
+  </div>
+  <div class="card-summary">國產建材實業股份有限公司 (Goldsun Building Materials Co., Ltd.) 成立於 1954 年，總部位於台灣台北。公司為台灣 預拌混凝土 (Ready-Mixed Concrete) 龍頭，市占率全台第一。近年受惠於全台科技廠辦 (如 台積電) 建廠需求及房市熱絡，業績</div>
+</div>
+<div class="card" onclick="window.location='../reports/1104.html'">
+  <div class="card-top">
+    <span class="ticker">1104</span>
+    <span class="company-name">環泥</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>20B</strong> 市值</div>
+    <div class="metric"><strong>12.70</strong> P/E</div>
+    <div class="metric"><strong>0.88</strong> P/B</div>
+  </div>
+  <div class="card-summary">環球水泥股份有限公司 (Universal Cement Corporation) 成立於 1959 年，總部位於台灣台北，為「台南幫」企業之一。公司深耕南台灣，主要產品為水泥、預拌混凝土及石膏板 (市佔率全台第一，約 90%)。近年環泥積極跨足電子科技領域，透過子公司利永環球發展軟性觸覺感測器 (</div>
+</div>
+<div class="card" onclick="window.location='../reports/9930.html'">
+  <div class="card-top">
+    <span class="ticker">9930</span>
+    <span class="company-name">中聯資源</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>18B</strong> 市值</div>
+    <div class="metric"><strong>14.29</strong> P/E</div>
+    <div class="metric"><strong>2.66</strong> P/B</div>
+  </div>
+  <div class="card-summary">## 業務簡介 中聯資源股份有限公司 (CHC Resources Corporation) 成立於 1991 年，由中國鋼鐵、台泥、亞泥等巨頭合資設立，總部位於台灣高雄。公司為台灣規模最大之高爐石粉專業產銷業者，在循環經濟領域扮演樞紐角色。主要業務涵蓋水淬爐石加工、高爐水泥製造，以及處理鋼廠轉爐石</div>
+</div>
+<div class="card" onclick="window.location='../reports/1103.html'">
+  <div class="card-top">
+    <span class="ticker">1103</span>
+    <span class="company-name">嘉泥</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>9B</strong> 市值</div>
+    <div class="metric"><strong>16.37</strong> P/E</div>
+    <div class="metric"><strong>0.50</strong> P/B</div>
+  </div>
+  <div class="card-summary">嘉新水泥股份有限公司 (Chia Hsin Cement Corporation) 成立於 1954 年，總部位於台灣台北。嘉泥為台灣老牌水泥業者，近年積極推動轉型與資產活化，業務版圖已從單純之水泥產銷延伸至旅宿服務、健康照護及資產管理。旗下擁有沖繩國際通地標飯店「Hotel Collective」</div>
+</div>
+<div class="card" onclick="window.location='../reports/1110.html'">
+  <div class="card-top">
+    <span class="ticker">1110</span>
+    <span class="company-name">東泥</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>9B</strong> 市值</div>
+    <div class="metric"><strong>42.08</strong> P/E</div>
+    <div class="metric"><strong>0.92</strong> P/B</div>
+  </div>
+  <div class="card-summary">東南水泥股份有限公司 (1110，Southeast Cement) 簡稱東泥，成立於 1956 年。公司早期以生產水泥為主，近年積極轉型為多元化資產控股公司，佈局土地開發、資源再生及資產租賃等領域。高雄廠區已轉型為熟料研磨與水泥儲運中心。透過子公司東泥建設進行房地產開發，以及與美商好市多 (Cos</div>
+</div>
+<div class="card" onclick="window.location='../reports/1108.html'">
+  <div class="card-top">
+    <span class="ticker">1108</span>
+    <span class="company-name">幸福</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>6B</strong> 市值</div>
+    <div class="metric"><strong>6.44</strong> P/E</div>
+    <div class="metric"><strong>1.07</strong> P/B</div>
+  </div>
+  <div class="card-summary">幸福水泥股份有限公司 (1108，Lucky Cement) 成立於 1974 年，擁有自有宜蘭東澳礦山，為台灣少數具備從採礦到水泥生產完整一貫化作業能力之廠商。主要產品包括波特蘭一型水泥、爐石粉及預拌混凝土。幸福水泥以「幸福牌」水泥聞名，產品廣泛應用於建築、水利及交通工程。近年積極強化預拌混凝土佈</div>
+</div>
+<div class="card" onclick="window.location='../reports/5520.html'">
+  <div class="card-top">
+    <span class="ticker">5520</span>
+    <span class="company-name">力泰</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>9.30</strong> P/E</div>
+    <div class="metric"><strong>1.76</strong> P/B</div>
+  </div>
+  <div class="card-summary">力泰建設 (5520，Lih Tai) 專注於預拌混凝土生產與銷售，服務範圍集中於大台北與桃園地區。核心競爭力為高強度混凝土技術，曾供應台北101、南山廣場等摩天大樓所需之 10,000 psi 以上高強度混凝土。力泰品質穩定，為豪宅與指標建案首選供應商。公司具備垂直整合能力，透過轉投資擁有砂石船隊</div>
+</div>
+<div class="card" onclick="window.location='../reports/1109.html'">
+  <div class="card-top">
+    <span class="ticker">1109</span>
+    <span class="company-name">信大</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>14.81</strong> P/E</div>
+    <div class="metric"><strong>0.62</strong> P/B</div>
+  </div>
+  <div class="card-summary">信大水泥股份有限公司 (1109，Hsing Ta Cement) 成立於 1964 年，秉持「誠信務實」之經營理念。主要業務為水泥與熟料之產銷，產品包括各型波特蘭水泥及低鹼水泥，並自產石灰石原料。信大水泥深耕台灣建材市場，同時透過子公司江蘇信寧新型建材拓展中國大陸南京市場 (當地市佔率約 15%)</div>
+</div>
+<div class="card" onclick="window.location='../reports/8463.html'">
+  <div class="card-top">
+    <span class="ticker">8463</span>
+    <span class="company-name">潤泰材</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>12.43</strong> P/E</div>
+    <div class="metric"><strong>1.39</strong> P/B</div>
+  </div>
+  <div class="card-summary">潤泰精密材料股份有限公司 (8463，Ruentex Materials) 成立於 1992 年，隸屬於潤泰集團。公司已由傳統水泥廠成功轉型為特殊建材與系統解決方案供應商。核心產品包括「泰固美特耐」預拌砂漿、波特蘭水泥，以及近期蓬勃發展的離岸風電基座水下灌漿材與低碳環保建材。透過子公司潤德設計跨足高</div>
+</div>
+<div class="card" onclick="window.location='../reports/8424.html'">
+  <div class="card-top">
+    <span class="ticker">8424</span>
+    <span class="company-name">惠普</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>13.93</strong> P/E</div>
+    <div class="metric"><strong>2.30</strong> P/B</div>
+  </div>
+  <div class="card-summary">惠普股份有限公司 (8424，Wellpool) 成立於 1981 年，為國產建材實業集團關係企業。公司為台灣最大之矽酸鈣板製造商，主要從事無石棉矽酸鈣板及纖維水泥板等防火環保建材的生產、進口與銷售。產品廣泛應用於建築物室內天花板與隔間牆，具備優異的防火、防潮與隔音特性，深受國內裝潢與營建市場青睞。</div>
+</div>
+<div class="card" onclick="window.location='../reports/5546.html'">
+  <div class="card-top">
+    <span class="ticker">5546</span>
+    <span class="company-name">永固-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.77</strong> P/B</div>
+  </div>
+  <div class="card-summary">永固-KY (5546，Yonggu) 為深耕中國重慶的預拌混凝土大廠。核心業務為供應重慶主城區各項基礎建設與房地產項目之預拌混凝土，市佔率領先。公司具備垂直整合優勢，擁有國浩粉磨站，可自產水泥與粉煤灰，大幅提升成本競爭力。受惠於中國西部大開發及成渝雙城經濟圈建設，永固參與多項重慶跨江大橋、軌道交通</div>
+</div></div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

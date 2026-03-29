@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Solar | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="sector-header">
+  <h1>Solar</h1>
+  <div class="subtitle">13 家公司 | 按市值排序</div>
+</div>
+<div class="container">
+  <div style="margin-bottom:12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">← 返回首頁</a>
+  </div>
+  <div class="cards-grid">
+<div class="card" onclick="window.location='../reports/3576.html'">
+  <div class="card-top">
+    <span class="ticker">3576</span>
+    <span class="company-name">聯合再生</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>37B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>3.51</strong> P/B</div>
+  </div>
+  <div class="card-summary">聯合再生能源股份有限公司 (3576) 為台灣最大的太陽能模組品牌與系統整合廠，由新日光、昱晶、昇陽光電三家合併而成。主要業務包括： 1. 太陽能模組： 經營自有品牌，主攻台灣內需市場，連續多年維持台灣模組銷售市占率第一。 2. 太陽能電站 (EPC)： 下游電廠開發、投資與維運 (IPP)，提供統</div>
+</div>
+<div class="card" onclick="window.location='../reports/6443.html'">
+  <div class="card-top">
+    <span class="ticker">6443</span>
+    <span class="company-name">元晶</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>24B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>6.47</strong> P/B</div>
+  </div>
+  <div class="card-summary">元晶太陽能科技股份有限公司 (6443) 為台灣產能規模最大、技術領先的太陽能電池與模組製造商。主要業務包括： 1. 太陽能電池： 生產高轉換效率之大尺寸太陽能電池，成功打入Tesla太陽能屋瓦 (Solar Roof) 供應鏈。 2. 太陽能模組： 針對台灣高溫、高濕、多颱風之嚴苛環境，開發抗鹽害</div>
+</div>
+<div class="card" onclick="window.location='../reports/2406.html'">
+  <div class="card-top">
+    <span class="ticker">2406</span>
+    <span class="company-name">國碩</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>13B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>3.57</strong> P/B</div>
+  </div>
+  <div class="card-summary">國碩科技工業股份有限公司 (2406) 成立於1997年，為台灣太陽能材料與系統整合企業，業務涵蓋上游材料、中游模組零組件及下游電廠開發。主要業務包括： 1. 太陽能導電銲帶 (PV Ribbon)： 為太陽能電池串焊之關鍵材料，佔營收約四成，供應國內外電池與模組廠。 2. 太陽能電廠工程 (EPC</div>
+</div>
+<div class="card" onclick="window.location='../reports/6244.html'">
+  <div class="card-top">
+    <span class="ticker">6244</span>
+    <span class="company-name">茂迪</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>11B</strong> 市值</div>
+    <div class="metric"><strong>211.79</strong> P/E</div>
+    <div class="metric"><strong>2.63</strong> P/B</div>
+  </div>
+  <div class="card-summary">茂迪股份有限公司 (6244) 為台灣綠能產業先驅，知名太陽能電池及模組製造商。主要業務涵蓋： 1. 太陽能電池 (Solar Cell)： 積極研發次世代高效N型TOPCon太陽能電池，轉換效率超過22%，訂單已排滿至次年上半年。計畫將全數PERC產能轉換為TOPCon。 2. 太陽能模組： 製造</div>
+</div>
+<div class="card" onclick="window.location='../reports/3691.html'">
+  <div class="card-top">
+    <span class="ticker">3691</span>
+    <span class="company-name">碩禾</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>11B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.84</strong> P/B</div>
+  </div>
+  <div class="card-summary">碩禾電子材料股份有限公司 (3691) 為全球領先的太陽能導電漿製造商，核心產品涵蓋背面鋁漿、背面銀漿及正面銀漿。公司技術源自母公司國碩 (2406)，目前積極從傳統漿料供應商轉型為多元化的綠能與AI 伺服器散熱材料服務商。主要業務與發展亮點： 1. 高階導電漿： 針對新世代高效N型太陽能電池（TO</div>
+</div>
+<div class="card" onclick="window.location='../reports/4949.html'">
+  <div class="card-top">
+    <span class="ticker">4949</span>
+    <span class="company-name">有成精密</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>32.27</strong> P/E</div>
+    <div class="metric"><strong>2.67</strong> P/B</div>
+  </div>
+  <div class="card-summary">有成精密股份有限公司 (4949) 為橫跨半導體設備耗材與太陽能模組之雙引擎企業。主要業務包括： 1. 半導體精密耗材： 離子植入機等製程設備之精密零組件（石墨、陶瓷、鎢鉬金屬件），提供維修與翻修服務，關鍵耗材自製率高。近年半導體業務連續三年雙位數成長，並已獲車用IC製造商認證。 2. 太陽能模組（</div>
+</div>
+<div class="card" onclick="window.location='../reports/6477.html'">
+  <div class="card-top">
+    <span class="ticker">6477</span>
+    <span class="company-name">安集</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>1765.00</strong> P/E</div>
+    <div class="metric"><strong>0.60</strong> P/B</div>
+  </div>
+  <div class="card-summary">安集科技股份有限公司 (6477) 為台灣太陽能模組製造與電廠營運之中堅企業，近年更跨界發展金屬3D列印技術。主要業務包括： 1. 太陽能電廠營運： 投資自營綠能電廠，售電收入佔營收約七成，包含浮水型與雙面發電模組。 2. 太陽能模組製造： 提供客製化模組，聚焦利基型產品如離岸與建築整合模組。 3.</div>
+</div>
+<div class="card" onclick="window.location='../reports/4934.html'">
+  <div class="card-top">
+    <span class="ticker">4934</span>
+    <span class="company-name">太極</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.63</strong> P/B</div>
+  </div>
+  <div class="card-summary">太極能源科技股份有限公司 (4934) 為廣運 (6125) 集團旗下之太陽能電池製造商，同時透過轉投資積極布局碳化矽 第三代半導體。主要業務包括： 1. 太陽能電池 (Solar Cell)： 專注於單晶矽太陽能電池之研發與製造，主力產品為PERC電池。 2. 太陽能模組： 台灣與越南設有產線，越</div>
+</div>
+<div class="card" onclick="window.location='../reports/4582.html'">
+  <div class="card-top">
+    <span class="ticker">4582</span>
+    <span class="company-name">聚恆</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>20.41</strong> P/E</div>
+    <div class="metric"><strong>1.85</strong> P/B</div>
+  </div>
+  <div class="card-summary">聚恆科技股份有限公司 (4582) 為台灣太陽能系統整合商 (EPC) 與維運服務商。主要從事太陽能電廠之開發、規劃、設計、施工及後續維運。主要業務包括： 1. 太陽能電廠EPC： 提供屋頂型、地面型及農漁電共生案場之統包工程服務。 2. 電廠維運 (O&M)： 為國內唯一通過德國萊因TÜVO&M認</div>
+</div>
+<div class="card" onclick="window.location='../reports/6692.html'">
+  <div class="card-top">
+    <span class="ticker">6692</span>
+    <span class="company-name">進能服</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>131.74</strong> P/E</div>
+    <div class="metric"><strong>1.66</strong> P/B</div>
+  </div>
+  <div class="card-summary">進能服股份有限公司 (6692，Acmepoint) 為台灣專業太陽能光電系統開發、銷售與安裝服務商，成立於1994年，總部位於台北。主要業務包括： 1. 太陽能電廠EPC： 提供屋頂型、浮水型及地面型太陽能光電系統之規劃設計、設備採購與施工安裝。 2. 電廠維運 (O&M)： 為已建置之太陽能電廠</div>
+</div>
+<div class="card" onclick="window.location='../reports/3713.html'">
+  <div class="card-top">
+    <span class="ticker">3713</span>
+    <span class="company-name">新晶投控</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.27</strong> P/B</div>
+  </div>
+  <div class="card-summary">新晶投控股份有限公司 (3713) 為太陽能電廠開發、投資與營運之控股公司。業務涵蓋太陽能發電系統之規劃、設計、安裝及維運，同時持有自有電廠進行長期售電。主要業務包括： 1. 太陽能電廠EPC： 承攬太陽能電站之統包工程，從設計到施工一條龍服務。 2. 自有電廠 (IPP)： 持有自有電廠資產進行售</div>
+</div>
+<div class="card" onclick="window.location='../reports/3686.html'">
+  <div class="card-top">
+    <span class="ticker">3686</span>
+    <span class="company-name">達能</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.16</strong> P/B</div>
+  </div>
+  <div class="card-summary">達能科技股份有限公司 (3686) 原為專業太陽能矽晶圓製造商，2019年因產業供需失衡進行重大轉型。目前公司業務聚焦於綠色低碳產業佈局： 1. 綠能資產經營： 結束矽晶圓生產後，轉向電廠投資與資產管理。子公司明育能源專注於再生能源設備發電與能源技術顧問服務。 2. 太陽能電廠維運： 持有自有電廠進</div>
+</div>
+<div class="card" onclick="window.location='../reports/6839.html'">
+  <div class="card-top">
+    <span class="ticker">6839</span>
+    <span class="company-name">開陽能源</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.61</strong> P/B</div>
+  </div>
+  <div class="card-summary">開陽能源股份有限公司 (6839) 為台灣知名在地綠能集團，全方位太陽光電系統投資與建置商。主要業務涵蓋五大板塊： 1. 太陽能電廠EPC： 提供從案場開發、申請、施工到併網之統包工程服務，能因應台灣土地特性推動農電共生與漁電共生案場。未來2-3年EPC工程建設容量預計超過300MW。 2. 電廠維</div>
+</div></div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

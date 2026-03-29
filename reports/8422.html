@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>8422 可寧衛 | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="container">
+  <div style="margin:16px 0 12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">首頁</a> &rsaquo;
+    <a href="../sector/Waste_Management.html">Waste Management</a> &rsaquo;
+    8422 可寧衛
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+    <span class="ticker" style="font-size:16px;padding:4px 12px">8422</span>
+    <h1 style="font-size:22px;font-weight:700">可寧衛</h1>
+  </div>
+  <div class="report-layout">
+    <div>
+      <div class="report-content"><h1>8422 - <a href="../index.html?wl=可寧衛" class="wl">可寧衛</a></h1>
+<h2 id="section-desc">業務簡介</h2>
+<p><strong>板塊:</strong> Industrials<br />
+<strong>產業:</strong> Waste Management<br />
+<strong>市值:</strong> 34,331 百萬台幣<br />
+<strong>企業價值:</strong> 43,154 百萬台幣</p>
+<p>可寧衛股份有限公司 (8422，CleanWay) 設立於1999年，為國內有害事業廢棄物清除處理業務龍頭，可處理700多種廢棄物代號中的400多種。主要業務包括：</p>
+<ol>
+<li><strong>有害廢棄物固化與掩埋：</strong> 國內最大有害事業廢棄物固化及掩埋處理廠。</li>
+<li><strong>環境整治：</strong> 受污染場址清理與修復，合約金額30.7億元之<a href="../index.html?wl=中油" class="wl">中油</a>高雄煉油廠北二區標案預期2025年完工。</li>
+<li><strong>B2B整合平台：</strong> 建立「中衛大平台」整合40多家合作夥伴，可處理600多種廢棄物代碼。</li>
+<li><strong>循環經濟：</strong> 製造銷售牛皮紙、電子載板用紙、紙管用紙。</li>
+<li><strong>再生能源：</strong> 太陽能發電與售電。</li>
+<li><strong>預拌混凝土：</strong> 製造銷售預拌混凝土。</li>
+</ol>
+<h2 id="section-supply">供應鏈位置</h2>
+<p><strong>上游 (廢棄物來源):</strong><br />
+- <strong>石化產業：</strong> <a href="../index.html?wl=中油" class="wl">中油</a>等石化廠之有害廢棄物<br />
+- <strong>科技產業：</strong> <a href="../index.html?wl=半導體" class="wl">半導體</a>與電子廠之有害廢液<br />
+- <strong>營建業：</strong> 建築廢棄物</p>
+<p><strong>中游 (處理與掩埋):</strong><br />
+- <strong>可寧衛 (8422)：</strong> 有害事業廢棄物固化掩埋處理、環境整治、紙品製造、預拌混凝土生產</p>
+<p><strong>下游 (服務與產品):</strong><br />
+- <strong>掩埋：</strong> 固化後廢棄物之最終掩埋處置<br />
+- <strong>環境整治：</strong> <a href="../index.html?wl=中油" class="wl">中油</a>等國營事業之污染場址修復<br />
+- <strong>紙品：</strong> 牛皮紙、電子載板用紙銷售<br />
+- <strong>售電：</strong> <a href="../index.html?wl=台電" class="wl">台電</a>（太陽能發電）</p>
+<h2 id="section-clients">主要客戶及供應商</h2>
+<h3>主要客戶</h3>
+<ul>
+<li><strong>環境整治：</strong> <a href="../index.html?wl=中油" class="wl">中油</a>（高雄煉油廠北二區標案，合約30.7億元）</li>
+<li><strong>有害廢棄物：</strong> <a href="../index.html?wl=台積電" class="wl">台積電</a>、<a href="../index.html?wl=聯電" class="wl">聯電</a>等半導體廠之有害廢棄物處理</li>
+<li><strong>B2B平台：</strong> 透過「中衛大平台」服務之600多種廢棄物代碼客戶</li>
+<li><strong>售電：</strong> <a href="../index.html?wl=台電" class="wl">台電</a></li>
+</ul>
+<h3>主要供應商</h3>
+<ul>
+<li><strong>固化材料：</strong> 水泥、化學固化藥劑供應商</li>
+<li><strong>合作夥伴：</strong> 中衛大平台40多家廢棄物處理合作業者</li>
+</ul><h2 id="section-finance">財務概況</h2>
+<p>(單位: 百萬台幣, 只有 Margin 為 %)</p>
+<h3>估值指標 (股價 $30.20 as of 2026-03-26 | TTM 截至 2025-12-31 | Forward 預估至 2026-12-31)</h3>
+<table>
+<thead>
+<tr>
+<th>P/E (TTM)</th>
+<th>Forward P/E</th>
+<th>P/S (TTM)</th>
+<th>P/B</th>
+<th>EV/EBITDA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>27.21</td>
+<td>2.36</td>
+<td>7.18</td>
+<td>4.07</td>
+<td>18.48</td>
+</tr>
+</tbody>
+</table>
+<h3>年度關鍵財務數據 (近 3 年)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">2025-12-31</th>
+<th style="text-align: right;">2024-12-31</th>
+<th style="text-align: right;">2023-12-31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Revenue</td>
+<td style="text-align: right;">4779.81</td>
+<td style="text-align: right;">5168.91</td>
+<td style="text-align: right;">4265.27</td>
+</tr>
+<tr>
+<td style="text-align: left;">Gross Profit</td>
+<td style="text-align: right;">2539.60</td>
+<td style="text-align: right;">2027.52</td>
+<td style="text-align: right;">1809.38</td>
+</tr>
+<tr>
+<td style="text-align: left;">Gross Margin (%)</td>
+<td style="text-align: right;">53.13</td>
+<td style="text-align: right;">39.23</td>
+<td style="text-align: right;">42.42</td>
+</tr>
+<tr>
+<td style="text-align: left;">Selling &amp; Marketing Exp</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">R&amp;D Exp</td>
+<td style="text-align: right;">31.80</td>
+<td style="text-align: right;">39.37</td>
+<td style="text-align: right;">32.55</td>
+</tr>
+<tr>
+<td style="text-align: left;">General &amp; Admin Exp</td>
+<td style="text-align: right;">567.37</td>
+<td style="text-align: right;">548.61</td>
+<td style="text-align: right;">516.43</td>
+</tr>
+<tr>
+<td style="text-align: left;">Operating Income</td>
+<td style="text-align: right;">1940.43</td>
+<td style="text-align: right;">1439.54</td>
+<td style="text-align: right;">1260.40</td>
+</tr>
+<tr>
+<td style="text-align: left;">Operating Margin (%)</td>
+<td style="text-align: right;">40.60</td>
+<td style="text-align: right;">27.85</td>
+<td style="text-align: right;">29.55</td>
+</tr>
+<tr>
+<td style="text-align: left;">Net Income</td>
+<td style="text-align: right;">1458.86</td>
+<td style="text-align: right;">1172.13</td>
+<td style="text-align: right;">993.99</td>
+</tr>
+<tr>
+<td style="text-align: left;">Net Margin (%)</td>
+<td style="text-align: right;">30.52</td>
+<td style="text-align: right;">22.68</td>
+<td style="text-align: right;">23.30</td>
+</tr>
+<tr>
+<td style="text-align: left;">Op Cash Flow</td>
+<td style="text-align: right;">2124.70</td>
+<td style="text-align: right;">1215.77</td>
+<td style="text-align: right;">473.33</td>
+</tr>
+<tr>
+<td style="text-align: left;">Investing Cash Flow</td>
+<td style="text-align: right;">-2228.69</td>
+<td style="text-align: right;">-2857.01</td>
+<td style="text-align: right;">-3782.42</td>
+</tr>
+<tr>
+<td style="text-align: left;">Financing Cash Flow</td>
+<td style="text-align: right;">1017.89</td>
+<td style="text-align: right;">2472.45</td>
+<td style="text-align: right;">1397.36</td>
+</tr>
+<tr>
+<td style="text-align: left;">CAPEX</td>
+<td style="text-align: right;">-2253.82</td>
+<td style="text-align: right;">-2838.82</td>
+<td style="text-align: right;">-3745.49</td>
+</tr>
+</tbody>
+</table>
+<h3>季度關鍵財務數據 (近 4 季)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">2025-12-31</th>
+<th style="text-align: right;">2025-06-30</th>
+<th style="text-align: right;">2025-03-31</th>
+<th style="text-align: right;">2024-12-31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Revenue</td>
+<td style="text-align: right;">994.33</td>
+<td style="text-align: right;">1268.69</td>
+<td style="text-align: right;">1461.13</td>
+<td style="text-align: right;">1296.51</td>
+</tr>
+<tr>
+<td style="text-align: left;">Gross Profit</td>
+<td style="text-align: right;">493.60</td>
+<td style="text-align: right;">756.32</td>
+<td style="text-align: right;">775.11</td>
+<td style="text-align: right;">571.84</td>
+</tr>
+<tr>
+<td style="text-align: left;">Gross Margin (%)</td>
+<td style="text-align: right;">49.64</td>
+<td style="text-align: right;">59.61</td>
+<td style="text-align: right;">53.05</td>
+<td style="text-align: right;">44.11</td>
+</tr>
+<tr>
+<td style="text-align: left;">Selling &amp; Marketing Exp</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;">R&amp;D Exp</td>
+<td style="text-align: right;">8.41</td>
+<td style="text-align: right;">9.46</td>
+<td style="text-align: right;">6.19</td>
+<td style="text-align: right;">10.26</td>
+</tr>
+<tr>
+<td style="text-align: left;">General &amp; Admin Exp</td>
+<td style="text-align: right;">135.71</td>
+<td style="text-align: right;">133.56</td>
+<td style="text-align: right;">155.78</td>
+<td style="text-align: right;">139.81</td>
+</tr>
+<tr>
+<td style="text-align: left;">Operating Income</td>
+<td style="text-align: right;">349.48</td>
+<td style="text-align: right;">613.30</td>
+<td style="text-align: right;">613.14</td>
+<td style="text-align: right;">421.77</td>
+</tr>
+<tr>
+<td style="text-align: left;">Operating Margin (%)</td>
+<td style="text-align: right;">35.15</td>
+<td style="text-align: right;">48.34</td>
+<td style="text-align: right;">41.96</td>
+<td style="text-align: right;">32.53</td>
+</tr>
+<tr>
+<td style="text-align: left;">Net Income</td>
+<td style="text-align: right;">279.52</td>
+<td style="text-align: right;">452.88</td>
+<td style="text-align: right;">444.72</td>
+<td style="text-align: right;">367.80</td>
+</tr>
+<tr>
+<td style="text-align: left;">Net Margin (%)</td>
+<td style="text-align: right;">28.11</td>
+<td style="text-align: right;">35.70</td>
+<td style="text-align: right;">30.44</td>
+<td style="text-align: right;">28.37</td>
+</tr>
+<tr>
+<td style="text-align: left;">Op Cash Flow</td>
+<td style="text-align: right;">1353.07</td>
+<td style="text-align: right;">-299.42</td>
+<td style="text-align: right;">754.85</td>
+<td style="text-align: right;">39.62</td>
+</tr>
+<tr>
+<td style="text-align: left;">Investing Cash Flow</td>
+<td style="text-align: right;">-764.85</td>
+<td style="text-align: right;">-786.86</td>
+<td style="text-align: right;">-410.03</td>
+<td style="text-align: right;">-286.85</td>
+</tr>
+<tr>
+<td style="text-align: left;">Financing Cash Flow</td>
+<td style="text-align: right;">437.14</td>
+<td style="text-align: right;">-711.96</td>
+<td style="text-align: right;">536.71</td>
+<td style="text-align: right;">1016.88</td>
+</tr>
+<tr>
+<td style="text-align: left;">CAPEX</td>
+<td style="text-align: right;">-775.40</td>
+<td style="text-align: right;">-809.95</td>
+<td style="text-align: right;">-331.83</td>
+<td style="text-align: right;">-218.01</td>
+</tr>
+</tbody>
+</table></div>
+    </div>
+    <div>
+<div class="report-meta">
+  <div class="meta-item">
+    <span class="meta-label">板塊 / 產業</span>
+    <span class="meta-value" style="font-size:13px">Industrials / Waste Management</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">市值</span>
+    <span class="meta-value">34B 百萬台幣</span>
+  </div>
+  <table class="val-table">
+    <tr><td>P/E (TTM)</td><td>27.21</td></tr>
+    <tr><td>P/B</td><td>4.07</td></tr>
+    <tr><td>EV/EBITDA</td><td>18.48</td></tr>
+  </table>
+</div>
+<div class="toc">
+  <h4>目錄</h4>
+  <a href="#section-desc">業務簡介</a>
+  <a href="#section-supply">供應鏈位置</a>
+  <a href="#section-clients">主要客戶及供應商</a>
+  <a href="#section-finance">財務概況</a>
+</div>
+<div class="report-meta" style="margin-top:12px">
+  <h4 style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Wikilinks (6)</h4>
+  <a href="../index.html?wl=中油" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">中油</a><a href="../index.html?wl=半導體" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">半導體</a><a href="../index.html?wl=可寧衛" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">可寧衛</a><a href="../index.html?wl=台積電" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">台積電</a><a href="../index.html?wl=台電" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">台電</a><a href="../index.html?wl=聯電" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">聯電</a>
+</div>
+<div class="related-box"><h4>相關公司</h4><div class="related-item"><span class="ticker" style="font-size:10px">1503</span> <a href="1503.html" style="font-size:12px">亞泥</a></div><div class="related-item"><span class="ticker" style="font-size:10px">1514</span> <a href="1514.html" style="font-size:12px">亞泥</a></div><div class="related-item"><span class="ticker" style="font-size:10px">4565</span> <a href="4565.html" style="font-size:12px">亞泥</a></div><div class="related-item"><span class="ticker" style="font-size:10px">6923</span> <a href="6923.html" style="font-size:12px">亞泥</a></div><div class="related-item"><span class="ticker" style="font-size:10px">5209</span> <a href="5209.html" style="font-size:12px">亞泥</a></div><div class="related-item"><span class="ticker" style="font-size:10px">3713</span> <a href="3713.html" style="font-size:12px">亞泥</a></div><div class="related-item"><span class="ticker" style="font-size:10px">4754</span> <a href="4754.html" style="font-size:12px">亞泥</a></div><div class="related-item"><span class="ticker" style="font-size:10px">6803</span> <a href="6803.html" style="font-size:12px">亞泥</a></div></div></div>
+  </div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

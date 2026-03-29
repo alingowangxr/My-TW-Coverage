@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Engineering & Construction | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="sector-header">
+  <h1>Engineering & Construction</h1>
+  <div class="subtitle">39 家公司 | 按市值排序</div>
+</div>
+<div class="container">
+  <div style="margin-bottom:12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">← 返回首頁</a>
+  </div>
+  <div class="cards-grid">
+<div class="card" onclick="window.location='../reports/2404.html'">
+  <div class="card-top">
+    <span class="ticker">2404</span>
+    <span class="company-name">漢唐</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>178B</strong> 市值</div>
+    <div class="metric"><strong>19.61</strong> P/E</div>
+    <div class="metric"><strong>11.35</strong> P/B</div>
+  </div>
+  <div class="card-summary">漢唐集成為台灣高科技廠房機電系統整合龍頭，提供整廠建廠、無塵室統包工程、機電（M&E）整合及製程設備系統連結（Hook-up）服務。應用領域以半導體、先進封裝與記憶體等高規格產業為主，其中半導體占比最高。核心客戶為 台積電，同時服務 Micron新加坡廠、ASML 及 聯發科 等。在手訂單金額達 1</div>
+</div>
+<div class="card" onclick="window.location='../reports/6139.html'">
+  <div class="card-top">
+    <span class="ticker">6139</span>
+    <span class="company-name">亞翔</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>154B</strong> 市值</div>
+    <div class="metric"><strong>21.51</strong> P/E</div>
+    <div class="metric"><strong>7.91</strong> P/B</div>
+  </div>
+  <div class="card-summary">亞翔工程為台灣無塵室工程龍頭，專營半導體、光電、高科技電子、生技醫藥、航太及食品製造等產業之潔淨室設計建造。服務涵蓋無塵室隔間牆、天花板、灑水系統、加濕系統及室外空調機組等整廠建置。公司為 台積電 長期合作夥伴，隨 台積電 2 奈米先進製程及 CoWoS 先進封裝製程擴產，對潔淨室潔淨度、穩定性與複</div>
+</div>
+<div class="card" onclick="window.location='../reports/5536.html'">
+  <div class="card-top">
+    <span class="ticker">5536</span>
+    <span class="company-name">聖暉</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>99B</strong> 市值</div>
+    <div class="metric"><strong>26.46</strong> P/E</div>
+    <div class="metric"><strong>7.57</strong> P/B</div>
+  </div>
+  <div class="card-summary">聖暉工程科技為無塵室機電整合大廠，專營高科技產業廠房之潔淨室設計建造及機電空調系統統包工程。服務範圍涵蓋半導體晶圓廠、封測廠、面板廠、生技醫藥廠及物流中心等。公司原以封裝廠無塵室為主，近年業務擴展至晶圓製造廠層級，與 漢唐集成 及洋基工程形成三強競爭格局。核心客戶包括 台積電（無塵室與機電工程）、日</div>
+</div>
+<div class="card" onclick="window.location='../reports/6691.html'">
+  <div class="card-top">
+    <span class="ticker">6691</span>
+    <span class="company-name">洋基工程</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>74B</strong> 市值</div>
+    <div class="metric"><strong>24.88</strong> P/E</div>
+    <div class="metric"><strong>9.77</strong> P/B</div>
+  </div>
+  <div class="card-summary">洋基工程股份有限公司為台灣高科技廠房無塵室與機電空調統包工程（EPC）龍頭。公司專精於對微塵、溫濕度有極嚴苛要求之半導體晶圓廠及PCB載板廠廠房建設，提供從工程設計、材料採購到施工管理之一條龍 Turnkey 服務。營收主力來自無塵室（Clean Room）建置及機電空調配置（MEP），同時涵蓋消防</div>
+</div>
+<div class="card" onclick="window.location='../reports/9945.html'">
+  <div class="card-top">
+    <span class="ticker">9945</span>
+    <span class="company-name">潤泰新</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>72B</strong> 市值</div>
+    <div class="metric"><strong>6.45</strong> P/E</div>
+    <div class="metric"><strong>0.68</strong> P/B</div>
+  </div>
+  <div class="card-summary">潤泰創新國際股份有限公司（原名潤泰建設）成立於1977年，為潤泰集團旗下核心上市公司，跨足營建與生活事業。營建事業以集團獨有之預鑄工法（以工廠預製鋼筋混凝土構件，現場組裝，工期快、品質優）為競爭利器，開發住宅建案，營造工程則由關係企業潤弘精密承包執行，曾創下「百日建廠」紀錄。生活事業透過 BOT 模</div>
+</div>
+<div class="card" onclick="window.location='../reports/2597.html'">
+  <div class="card-top">
+    <span class="ticker">2597</span>
+    <span class="company-name">潤弘</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>48B</strong> 市值</div>
+    <div class="metric"><strong>14.10</strong> P/E</div>
+    <div class="metric"><strong>5.28</strong> P/B</div>
+  </div>
+  <div class="card-summary">潤弘精密工程為潤泰集團旗下甲級營造廠，以自主研發之預鑄工法為核心競爭力，擁有超過 700 項預鑄相關專利。公司具備高精密預鑄生產工廠及專業機電事業部門，能高度整合營建工程各環節，提供業主「百日建廠」之快速營建服務。目前接單占比以高科技廠房建設達 40-45% 為最高，其餘涵蓋商辦、住宅（含社會住宅）</div>
+</div>
+<div class="card" onclick="window.location='../reports/2072.html'">
+  <div class="card-top">
+    <span class="ticker">2072</span>
+    <span class="company-name">世紀風電</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>42B</strong> 市值</div>
+    <div class="metric"><strong>20.50</strong> P/E</div>
+    <div class="metric"><strong>2.13</strong> P/B</div>
+  </div>
+  <div class="card-summary">世紀風電為世紀鋼鐵結構（9958）旗下子公司，專營離岸風電水下基礎結構之製造與安裝，為台灣本土製造量能最大之水下基礎供應商。公司生產基地位於台北港，具備管架式（jacket）水下基礎之大型鋼構製造能力。世紀風電已完成台灣最多座數之國產水下基礎交付實績，客戶涵蓋國內外主要離岸風電開發商。隨著離岸風電第</div>
+</div>
+<div class="card" onclick="window.location='../reports/9933.html'">
+  <div class="card-top">
+    <span class="ticker">9933</span>
+    <span class="company-name">中鼎</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>35B</strong> 市值</div>
+    <div class="metric"><strong>22.91</strong> P/E</div>
+    <div class="metric"><strong>1.74</strong> P/B</div>
+  </div>
+  <div class="card-summary">中鼎工程股份有限公司成立於1979年，由財團法人中技社籌設，為台灣最大統包工程公司（以總資產及年營收計）。公司提供工程、採購、施工（EPC）全方位服務，業務涵蓋煉油石化、LNG接收站、電力、環境、交通、科技廠房及一般工業市場。近年積極拓展海外業務，於美國亞利桑那州承攬台灣領先半導體廠（台積電）及其供</div>
+</div>
+<div class="card" onclick="window.location='../reports/2543.html'">
+  <div class="card-top">
+    <span class="ticker">2543</span>
+    <span class="company-name">皇昌</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>35B</strong> 市值</div>
+    <div class="metric"><strong>23.56</strong> P/E</div>
+    <div class="metric"><strong>3.49</strong> P/B</div>
+  </div>
+  <div class="card-summary">皇昌營造成立於民國 70 年，為甲級營造廠，主要承攬大型土木與建築工程。公司工程實績涵蓋捷運工程（台北捷運環狀線東環段 CF720、CF710 區段標，萬大-中和-樹林線 CQ860 區段標）、能源基礎設施（第三座液化天然氣接收站建港及圍堤造地工程）、鐵路地下化（台鐵都會區捷運化桃園段 CJ13 標</div>
+</div>
+<div class="card" onclick="window.location='../reports/8926.html'">
+  <div class="card-top">
+    <span class="ticker">8926</span>
+    <span class="company-name">台汽電</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>34B</strong> 市值</div>
+    <div class="metric"><strong>18.91</strong> P/E</div>
+    <div class="metric"><strong>2.13</strong> P/B</div>
+  </div>
+  <div class="card-summary">台灣汽電共生股份有限公司成立於1992年，為台灣最大民營電力集團之一。公司以汽電共生技術為核心，透過獨資、合資或 BOT 等模式投資興建發電廠，將蒸汽與電力售予合作工廠或鄰近用戶。旗下擁有官田汽電共生廠等五座汽電共生廠（3座BOT、1座合資、1座獨資），並透過18家電力相關轉投資公司（含星能電力、森</div>
+</div>
+<div class="card" onclick="window.location='../reports/2515.html'">
+  <div class="card-top">
+    <span class="ticker">2515</span>
+    <span class="company-name">中工</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>22B</strong> 市值</div>
+    <div class="metric"><strong>35.38</strong> P/E</div>
+    <div class="metric"><strong>0.94</strong> P/B</div>
+  </div>
+  <div class="card-summary">中華工程（中工）為威京總部集團旗下民營上市公司，前身為經濟部所屬國營事業，1950 年成立，歷史悠久。主要業務涵蓋營造工程、開發建設、都市更新及工業區開發。營造實績包括高速公路、橋樑、隧道、捷運系統、台灣高鐵 土建工程及軍事設施等大型公共建設。近年積極參與都市更新與 BOT/OT 案，並投入產業園區</div>
+</div>
+<div class="card" onclick="window.location='../reports/2530.html'">
+  <div class="card-top">
+    <span class="ticker">2530</span>
+    <span class="company-name">華建</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>21B</strong> 市值</div>
+    <div class="metric"><strong>10.08</strong> P/E</div>
+    <div class="metric"><strong>1.97</strong> P/B</div>
+  </div>
+  <div class="card-summary">大華建設（華建）成立於民國 49 年，為台北內湖總部之老牌建設公司。主要業務為委託營造廠興建商業大樓及國民住宅之開發銷售與租賃，以及特定區域之土地開發業務。公司定位為不動產開發商（建設公司），非營造廠，係以建案規劃、銷售及租賃管理為主。近年聚焦於台北市精華地段之住宅與商辦開發案。 ## 供應鏈位置 </div>
+</div>
+<div class="card" onclick="window.location='../reports/6903.html'">
+  <div class="card-top">
+    <span class="ticker">6903</span>
+    <span class="company-name">巨漢</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>21B</strong> 市值</div>
+    <div class="metric"><strong>30.12</strong> P/E</div>
+    <div class="metric"><strong>6.41</strong> P/B</div>
+  </div>
+  <div class="card-summary">巨漢系統科技股份有限公司為專攻高科技建廠「機電空調與無塵室統包工程」之專業工程公司，總部位於新竹市。公司擁有三十餘年經驗，以扁平化、高效率之管理團隊，為半導體晶圓廠整合高規無塵室氣體管線、電力給水與空調消防系統。核心客戶涵蓋台積電（TSMC）、日月光投控、力積電、京元電子等半導體龍頭，工程管理之嚴謹</div>
+</div>
+<div class="card" onclick="window.location='../reports/2535.html'">
+  <div class="card-top">
+    <span class="ticker">2535</span>
+    <span class="company-name">達欣工</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>19B</strong> 市值</div>
+    <div class="metric"><strong>11.28</strong> P/E</div>
+    <div class="metric"><strong>1.86</strong> P/B</div>
+  </div>
+  <div class="card-summary">達欣工程為台灣老牌甲級營造廠，主要承攬公共工程與民間廠房建設、商辦大樓及住宅等工程。近年業務重心從住宅興建轉向科技廠房，成功取得 台積電 南科 18P3 FAB 廠上部結構工程等高科技廠房訂單。公共工程方面，曾承攬台北捷運萬大線工程。海外業務以新加坡及越南市場為主，在當地設有分支機構，承攬當地營建工</div>
+</div>
+<div class="card" onclick="window.location='../reports/3703.html'">
+  <div class="card-top">
+    <span class="ticker">3703</span>
+    <span class="company-name">欣陸</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>19B</strong> 市值</div>
+    <div class="metric"><strong>12.65</strong> P/E</div>
+    <div class="metric"><strong>0.68</strong> P/B</div>
+  </div>
+  <div class="card-summary">欣陸投控（Continental Holdings）為投資控股公司，2010 年由大陸工程以 1:1 股份轉換設立，旗下涵蓋三大事業群：營造工程（大陸工程）、不動產開發（大陸建設）及環境工程（欣達環工）。大陸工程自 1945 年成立，為台灣歷史最悠久之營造廠之一，實績涵蓋軍事設施、工廠、高速公路、隧</div>
+</div>
+<div class="card" onclick="window.location='../reports/6873.html'">
+  <div class="card-top">
+    <span class="ticker">6873</span>
+    <span class="company-name">泓德能源</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>13B</strong> 市值</div>
+    <div class="metric"><strong>25.47</strong> P/E</div>
+    <div class="metric"><strong>1.26</strong> P/B</div>
+  </div>
+  <div class="card-summary">泓德能源科技股份有限公司以「智慧電力公司」自我定位，為全方位綠能整合生態系平台。業務涵蓋太陽能光電與儲能系統案場之開發及統包建置（EPC）、維運（O&M），並自主研發名為「TITAN」之 AI 智慧綠電管理系統，導入演算法分析發用電數據，模擬最佳電力調度模型。旗下子公司星星電力為台灣綠電市佔率極高之</div>
+</div>
+<div class="card" onclick="window.location='../reports/2546.html'">
+  <div class="card-top">
+    <span class="ticker">2546</span>
+    <span class="company-name">根基</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>11B</strong> 市值</div>
+    <div class="metric"><strong>8.77</strong> P/E</div>
+    <div class="metric"><strong>1.81</strong> P/B</div>
+  </div>
+  <div class="card-summary">根基營造為冠德建設（冠德集團）旗下甲級營造廠，成立於 1982 年。公司以集團內部優質建案及高科技廠房工程為主要承攬業務，近年深耕高科技廠房領域，長期服務 台積電、Micron、ASML（艾司摩爾）及 聯發科 等半導體大廠之廠房新建與擴建工程。高科技廠房工程貢獻穩定且較高之營收與毛利率。同時承攬集團</div>
+</div>
+<div class="card" onclick="window.location='../reports/5531.html'">
+  <div class="card-top">
+    <span class="ticker">5531</span>
+    <span class="company-name">鄉林</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>9B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.91</strong> P/B</div>
+  </div>
+  <div class="card-summary">鄉林建設由董事長賴正鎰於 1990 年創立，從台中發跡，為台灣知名豪宅建商。公司以高端住宅開發為核心業務，建案遍及台中、台北、高雄等主要都會區，近年積極投入都市更新，於台北中山區推出「鄉林中山賦」等指標建案，並於萬華、北投等區域布局都更案。旗下亦經營觀光旅館事業，包括日月潭 涵碧樓 酒店（屬 雲朗觀</div>
+</div>
+<div class="card" onclick="window.location='../reports/5511.html'">
+  <div class="card-top">
+    <span class="ticker">5511</span>
+    <span class="company-name">德昌</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>9B</strong> 市值</div>
+    <div class="metric"><strong>7.09</strong> P/E</div>
+    <div class="metric"><strong>1.24</strong> P/B</div>
+  </div>
+  <div class="card-summary">德昌營造為台中地區大型甲級營造廠，主要營業項目為綜合營造業、營建規劃設計及管理業務。公司業務多元，除大量承接民間醫院建物外，亦辦理工業區及產業園區之開發業務。工程業主涵蓋政府機關與民間單位，並需處理營造工程以外之行銷與標售等業務。在手訂單規模約 800 億元，為近年台灣營造業中具代表性之成長標的。 </div>
+</div>
+<div class="card" onclick="window.location='../reports/5515.html'">
+  <div class="card-top">
+    <span class="ticker">5515</span>
+    <span class="company-name">建國</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>8B</strong> 市值</div>
+    <div class="metric"><strong>8.50</strong> P/E</div>
+    <div class="metric"><strong>1.46</strong> P/B</div>
+  </div>
+  <div class="card-summary">建國工程為台灣老牌甲級營造廠，業務主要分為工程事業與混凝土事業（已縮減）。工程核心涵蓋公共工程（捷運、社會住宅）、科技廠房及商辦大樓。公司積極發展系統鋁模板技術，取代傳統木模板，提升施工效率與 ESG 環保效益。亦引進外籍移工以緩解缺工問題。總承攬金額達 552 億元，在手未完成案量約 383 億元</div>
+</div>
+<div class="card" onclick="window.location='../reports/5519.html'">
+  <div class="card-top">
+    <span class="ticker">5519</span>
+    <span class="company-name">隆大</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>6.88</strong> P/E</div>
+    <div class="metric"><strong>1.19</strong> P/B</div>
+  </div>
+  <div class="card-summary">隆大營建成立於 1982 年，為高雄在地老牌建商，深耕大高雄地區超過 40 年。公司原名「隆大營造」，後改組為營建事業公司，自 2009 年起將業務整合為不動產開發（約占營收 90%）與營造工程（約占 10%）兩大事業。建案產品以高雄地區住宅為主，逐步拓展至北部與東部。營造事業承攬範圍涵蓋南北各區。</div>
+</div>
+<div class="card" onclick="window.location='../reports/5521.html'">
+  <div class="card-top">
+    <span class="ticker">5521</span>
+    <span class="company-name">工信</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>26.44</strong> P/E</div>
+    <div class="metric"><strong>1.16</strong> P/B</div>
+  </div>
+  <div class="card-summary">工信工程原創辦於 1941 年上海，1947 年來台登記設立，為承攬大型公共工程為主之老牌甲級營造廠。主要業務包括道路、橋樑、隧道、碼頭及捷運等土木工程，以及房屋建築工程營造與地質鑽探工程。公司具備重大公共建設之豐富施工經驗，早期曾參與多項交通基礎設施工程，近年持續承攬政府公共工程標案。 ## 供應</div>
+</div>
+<div class="card" onclick="window.location='../reports/1472.html'">
+  <div class="card-top">
+    <span class="ticker">1472</span>
+    <span class="company-name">三洋實業</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>15.95</strong> P/E</div>
+    <div class="metric"><strong>2.22</strong> P/B</div>
+  </div>
+  <div class="card-summary">三洋實業（原三洋紡織）過去為 PP 纖維大廠，現已完全轉型為營建工程公司。核心業務涵蓋公共工程統包、社會住宅興建、土地開發及機電工程。2021 年更名後，透過子公司上騰營造（甲級營造廠）積極承攬政府標案與民間建案。主要工程類型包括國家住宅及都市更新中心之社會住宅案、地方政府公共建設，以及民間住宅與廠</div>
+</div>
+<div class="card" onclick="window.location='../reports/2514.html'">
+  <div class="card-top">
+    <span class="ticker">2514</span>
+    <span class="company-name">龍邦</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>7.34</strong> P/E</div>
+    <div class="metric"><strong>0.39</strong> P/B</div>
+  </div>
+  <div class="card-summary">龍邦國際為多角化經營之控股公司，總部位於台北，業務橫跨不動產開發、營造工程、殯葬事業、休閒娛樂及食品加工等五大事業群。不動產開發與營造為核心事業，包括住宅建案之開發銷售、商業大樓租售及營建工程承攬。殯葬事業經營納骨塔與生前契約業務。休閒娛樂事業涵蓋餐飲與娛樂場所。食品事業則從事加工與銷售。 ## 供</div>
+</div>
+<div class="card" onclick="window.location='../reports/6179.html'">
+  <div class="card-top">
+    <span class="ticker">6179</span>
+    <span class="company-name">亞通</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>16.50</strong> P/E</div>
+    <div class="metric"><strong>1.35</strong> P/B</div>
+  </div>
+  <div class="card-summary">亞通利大能源（ATE Energy）主要從事能源工程統包與循環經濟相關業務，服務涵蓋電廠工程之設計、施工與維護，以及非屬公用之發電、汽電共生、能源技術服務。公司具備機械設備製造、配管防蝕工程、起重工程、熔爐安裝及儀器儀表安裝等工程能力，並於印尼及菲律賓設有分公司經營海外能源工程。主要在手訂單包括菲律</div>
+</div>
+<div class="card" onclick="window.location='../reports/4113.html'">
+  <div class="card-top">
+    <span class="ticker">4113</span>
+    <span class="company-name">聯上</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>248.57</strong> P/E</div>
+    <div class="metric"><strong>0.94</strong> P/B</div>
+  </div>
+  <div class="card-summary">聯上開發為高雄起家之建設開發公司，主要從事住宅建案之規劃、開發與銷售。建案產品涵蓋大樓住宅與透天別墅，早期以高雄地區為主要市場，近年逐步拓展至桃園及北台灣科學園區周邊等區域。公司亦投入商辦與土地開發業務。 ## 供應鏈位置 上游 (建材與土地): - 建材: 台灣水泥、亞洲水泥、鋼鐵廠 - 鋼筋: </div>
+</div>
+<div class="card" onclick="window.location='../reports/9906.html'">
+  <div class="card-top">
+    <span class="ticker">9906</span>
+    <span class="company-name">欣巴巴</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>481.11</strong> P/E</div>
+    <div class="metric"><strong>3.46</strong> P/B</div>
+  </div>
+  <div class="card-summary">欣巴巴事業股份有限公司成立於1967年，總部位於高雄市前鎮區，為南台灣知名不動產開發商。核心業務為住宅大樓之規劃、興建與銷售，專注於高雄地區之集合住宅建案。旗下透過子公司江城建設參與多項大型開發案，包括高雄捷運橘線O9站（C基地）土地開發案，獲選為最優申請人。近年推出之建案包括「欣巴巴幸福豐收區」、</div>
+</div>
+<div class="card" onclick="window.location='../reports/6122.html'">
+  <div class="card-top">
+    <span class="ticker">6122</span>
+    <span class="company-name">擎邦</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>10.76</strong> P/E</div>
+    <div class="metric"><strong>2.03</strong> P/B</div>
+  </div>
+  <div class="card-summary">擎邦國際科技工程成立於 1982 年，為機電統包工程公司，累積多年代理國外製程技術與整廠設備之設計、安裝、試車及維護經驗。服務範圍涵蓋煉油、石化、化工、氣體、生物技術及製藥行業之製程管道、設備、電氣及控制統包，亦為高科技產業規劃設計無塵室、HVAC 系統、超純水系統、廢水處理及氣體化學品系統。公司與</div>
+</div>
+<div class="card" onclick="window.location='../reports/2516.html'">
+  <div class="card-top">
+    <span class="ticker">2516</span>
+    <span class="company-name">新建</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>11.54</strong> P/E</div>
+    <div class="metric"><strong>1.54</strong> P/B</div>
+  </div>
+  <div class="card-summary">新建（新亞建設）為老牌甲級營造廠，以重機械從事土木工程承包為核心業務。主要承攬道路、橋樑、隧道、運河等土木工程，以及辦公大樓、住宅、學校、廠房、醫院、運動場館等建築工程，並承攬核能電廠及各類工廠建廠工程。亦經營預拌混凝土與瀝青混凝土製造銷售、土地與社區開發、國民住宅及商業大樓興建出租出售，以及重機械</div>
+</div>
+<div class="card" onclick="window.location='../reports/6750.html'">
+  <div class="card-top">
+    <span class="ticker">6750</span>
+    <span class="company-name">泰創工程</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>17.85</strong> P/E</div>
+    <div class="metric"><strong>3.28</strong> P/B</div>
+  </div>
+  <div class="card-summary">泰創工程股份有限公司為專業無塵室與機電整合工程統包商，業務涵蓋高科技廠房無塵室建置、一般機電整合，以及近年積極投入之太陽能電廠與儲能系統（EPC）整合服務。公司不僅深耕台灣市場，更隨台商腳步長期佈局中國大陸、印度、泰國及越南等東協國家，具備跨國專案管理能力。印度實績包括為緯創於 Mahindra W</div>
+</div>
+<div class="card" onclick="window.location='../reports/3313.html'">
+  <div class="card-top">
+    <span class="ticker">3313</span>
+    <span class="company-name">斐成</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.32</strong> P/B</div>
+  </div>
+  <div class="card-summary">斐成為台南地區之營造與建設公司，主要經營住宅及大樓開發租售業務、建材批發及綜合營造。營收結構以營造工程占約 83.5%、建材銷售占約 11.8%、投資性不動產租金收入占約 4.7%。公司同時自行開發建案並對外承攬營造工程，具備建設開發與營造施工之垂直整合能力。 ## 供應鏈位置 上游 (建材與設備)</div>
+</div>
+<div class="card" onclick="window.location='../reports/7590.html'">
+  <div class="card-top">
+    <span class="ticker">7590</span>
+    <span class="company-name">怡和國際</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>269.29</strong> P/E</div>
+    <div class="metric"><strong>1.51</strong> P/B</div>
+  </div>
+  <div class="card-summary">怡和國際股份有限公司從傳統設備租賃轉型為全方位綠能整合服務商。公司結合金融租賃專長，鎖定台灣亟需減碳卻缺乏建置資金之製造業，提供「表後儲能系統」建置及台電電力交易代操服務，並首創「零出資、零利率」之智慧儲能租賃模式，讓用電大戶無痛導入 AI 綠能管理系統。業務涵蓋企業用地太陽能光電 EPC 統包、表</div>
+</div>
+<div class="card" onclick="window.location='../reports/3052.html'">
+  <div class="card-top">
+    <span class="ticker">3052</span>
+    <span class="company-name">夆典</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>10.09</strong> P/E</div>
+    <div class="metric"><strong>0.64</strong> P/B</div>
+  </div>
+  <div class="card-summary">夆典科技開發成立於 1976 年，為多角化工程與開發公司，旗下四大事業群包括建設與營建工程、機電工程（機械與儀電）、光電事業及產業園區開發。土木與建築工程以廠房、廠辦及公共建設為主，未完工可認列金額約 50.93 億元。機電工程專注於工業設施之機械、管線與儀電統包，未完工約 24.92 億元。光電事</div>
+</div>
+<div class="card" onclick="window.location='../reports/3521.html'">
+  <div class="card-top">
+    <span class="ticker">3521</span>
+    <span class="company-name">台鋼建設</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.30</strong> P/B</div>
+  </div>
+  <div class="card-summary">台鋼建設（前身鴻翊，櫃買代碼 3521）為台灣鋼鐵集團（台鋼集團）旗下「建設工程」事業群之掛牌公司。台鋼集團為台灣第三大民營鋼鐵集團，僅次於 中國鋼鐵 及 義联集團，旗下涵蓋建築鋼材、特殊鋼材、盤元扣件、精密環保、網通設備、建設工程、資訊服務、餐飲健康、旅遊觀光、娛樂文創、運動賽事及人力資源等 12</div>
+</div>
+<div class="card" onclick="window.location='../reports/5547.html'">
+  <div class="card-top">
+    <span class="ticker">5547</span>
+    <span class="company-name">久舜</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>7.43</strong> P/E</div>
+    <div class="metric"><strong>1.31</strong> P/B</div>
+  </div>
+  <div class="card-summary">久舜營造為台北內湖總部之甲級營造廠，主要承攬住宅大樓、商辦及公共工程之營建施工。公司業務以台北都會區為核心市場，承攬建設公司委託之住宅與商辦大樓營造工程，亦參與政府公共建設標案。 ## 供應鏈位置 上游 (建材與設備): - 鋼筋: 東和鋼鐵、豐興鋼鐵 - 水泥: 台灣水泥、亞洲水泥 - 預拌混凝土</div>
+</div>
+<div class="card" onclick="window.location='../reports/4550.html'">
+  <div class="card-top">
+    <span class="ticker">4550</span>
+    <span class="company-name">長佳</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>929M</strong> 市值</div>
+    <div class="metric"><strong>18.46</strong> P/E</div>
+    <div class="metric"><strong>0.97</strong> P/B</div>
+  </div>
+  <div class="card-summary">長佳智能（EverFortune.ai）為中國醫藥大學衍生新創公司，隸屬晟德大藥廠集團，專注於醫療人工智慧（AI）與大數據應用。公司以醫療 AI、雲端生醫平台與醫療大數據為三大核心發展方向，提供臨床輔助診斷、醫學研究、醫務核保理賠自動化審查、營養保健及體重管理等解決方案。已取得 49 張國際醫療器材</div>
+</div>
+<div class="card" onclick="window.location='../reports/3018.html'">
+  <div class="card-top">
+    <span class="ticker">3018</span>
+    <span class="company-name">隆銘綠能</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>897M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.59</strong> P/B</div>
+  </div>
+  <div class="card-summary">隆銘綠能（原隆銘電腦）為營造暨機電系統整合公司，業務涵蓋營建工程與機電系統整合。營造業務承攬公共工程及民間廠房、住宅等建案。機電業務提供水電、消防、空調等系統整合服務。近年積極拓展綠能工程，跨入太陽能電廠建置與再生能源相關工程領域，對應政府推動綠電政策之市場需求。 ## 供應鏈位置 上游 (建材與設</div>
+</div>
+<div class="card" onclick="window.location='../reports/5516.html'">
+  <div class="card-top">
+    <span class="ticker">5516</span>
+    <span class="company-name">雙喜</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>657M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.46</strong> P/B</div>
+  </div>
+  <div class="card-summary">雙喜營造為新竹地區之甲級營造廠，主要從事綜合營造業務。公司承攬建築工程與土木工程，服務範圍以新竹及北台灣地區為主。業務涵蓋住宅大樓、商辦及公共工程之營造施工。 ## 供應鏈位置 上游 (建材與設備): - 鋼筋: 東和鋼鐵、豐興鋼鐵 - 水泥: 台灣水泥、亞洲水泥 - 預拌混凝土: 區域預拌廠 中游</div>
+</div>
+<div class="card" onclick="window.location='../reports/1594.html'">
+  <div class="card-top">
+    <span class="ticker">1594</span>
+    <span class="company-name">日高</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>259M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.72</strong> P/B</div>
+  </div>
+  <div class="card-summary">日高工程實業為高雄起家之機械與機電工程統包商，成立於民國 63 年，資本額新台幣 6.5 億元。核心業務涵蓋各種機械與電氣工程之設計施工，包括水力發電設備、各型泵浦與抽水站設施、垃圾焚化處理設備、水及污水處理工程、起重設備與閘門、油槽壓力容器及配管工程、空污與噪音防治設備、各型輸送帶設備、冷凍空調及</div>
+</div></div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Auto Parts | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="sector-header">
+  <h1>Auto Parts</h1>
+  <div class="subtitle">49 家公司 | 按市值排序</div>
+</div>
+<div class="container">
+  <div style="margin-bottom:12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">← 返回首頁</a>
+  </div>
+  <div class="cards-grid">
+<div class="card" onclick="window.location='../reports/2105.html'">
+  <div class="card-top">
+    <span class="ticker">2105</span>
+    <span class="company-name">正新</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>96B</strong> 市值</div>
+    <div class="metric"><strong>20.24</strong> P/E</div>
+    <div class="metric"><strong>1.11</strong> P/B</div>
+  </div>
+  <div class="card-summary">正新橡膠 (2105，Cheng Shin Rubber) 為台灣最大輪胎集團，全球前十大輪胎廠。旗艦品牌Maxxis (瑪吉斯) 為全球知名運動輪胎品牌，另有 CHENG SHIN、CST 及 PRESA 等品牌。OEM 客戶涵蓋BMW (1/2/5/7 系列、MINI、X1/X3/X4 原廠配胎</div>
+</div>
+<div class="card" onclick="window.location='../reports/1319.html'">
+  <div class="card-top">
+    <span class="ticker">1319</span>
+    <span class="company-name">東陽</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>50B</strong> 市值</div>
+    <div class="metric"><strong>13.23</strong> P/E</div>
+    <div class="metric"><strong>1.79</strong> P/B</div>
+  </div>
+  <div class="card-summary">東陽實業 (1319，Tong Yang Group) 成立於 1967 年，為全球最大汽車 AM 塑膠件製造商，全球塑膠件市佔約 70%、鈑金件市佔約 35%，產品行銷逾 200 國、服務 2,300+ 客戶。北美 AM 通路以LKQ及Keystone Automotive為最大經銷夥伴，間接受惠</div>
+</div>
+<div class="card" onclick="window.location='../reports/2101.html'">
+  <div class="card-top">
+    <span class="ticker">2101</span>
+    <span class="company-name">南港</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>25B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.26</strong> P/B</div>
+  </div>
+  <div class="card-summary">南港輪胎 (2101，Nankang Rubber Tire) 創立於 1959 年，為台灣歷史最悠久之輪胎製造商。自有品牌 Nankang、SONAR (速耐) 及 Luccini (路馳凌) 行銷全球 189 國。近年積極布局電動車輪胎市場，推出 AS-3EV 電動車專用胎鎖定Tesla Mod</div>
+</div>
+<div class="card" onclick="window.location='../reports/2106.html'">
+  <div class="card-top">
+    <span class="ticker">2106</span>
+    <span class="company-name">建大</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>17B</strong> 市值</div>
+    <div class="metric"><strong>136.15</strong> P/E</div>
+    <div class="metric"><strong>0.90</strong> P/B</div>
+  </div>
+  <div class="card-summary">建大工業 (2106，Kenda Rubber Industrial) 為全球前 30 大輪胎廠，自有品牌Kenda行銷全球。產品線涵蓋自行車胎、機車胎、汽車胎、輕型卡車胎及工業用胎。自行車胎為巨大機械 (Giant) 及美利達 (Merida) 之 OEM 供應商。運動行銷贊助NBA克里夫蘭騎士隊</div>
+</div>
+<div class="card" onclick="window.location='../reports/4551.html'">
+  <div class="card-top">
+    <span class="ticker">4551</span>
+    <span class="company-name">智伸科</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>15B</strong> 市值</div>
+    <div class="metric"><strong>21.24</strong> P/E</div>
+    <div class="metric"><strong>1.72</strong> P/B</div>
+  </div>
+  <div class="card-summary">智伸科技 (4551) 為精密 CNC 金屬加工廠，產品應用於汽車煞車、燃油噴射、變速箱、轉向及溫控系統。主要客戶為全球汽車 Tier 1 — Continental、Bosch、Cummins、BorgWarner、ZF、Delphi，終端 OEM 涵蓋BMW、Stellantis、Tesla。近</div>
+</div>
+<div class="card" onclick="window.location='../reports/1536.html'">
+  <div class="card-top">
+    <span class="ticker">1536</span>
+    <span class="company-name">和大</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>14B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.81</strong> P/B</div>
+  </div>
+  <div class="card-summary">和大工業 (1536，Hota Industrial) 為台灣最大汽車齒輪與傳動零件製造商。第一大客戶BorgWarner (佔營收約 40%)，透過其出貨油泵齒輪及扭力轉換系統。第二大客戶Tesla (佔營收約 20%)，為其電動車減速齒輪箱獨家供應商，供應 Model S/X、Semi 電動卡車</div>
+</div>
+<div class="card" onclick="window.location='../reports/2231.html'">
+  <div class="card-top">
+    <span class="ticker">2231</span>
+    <span class="company-name">為升</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>14B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>4.17</strong> P/B</div>
+  </div>
+  <div class="card-summary">為升電裝 (2231，CUB Elecparts) 為台灣汽車電子龍頭，核心產品為 TPMS 胎壓偵測系統 (AM 市佔約 90%) 及 77GHz 毫米波雷達。TPMS AM 最大客戶為Standard Motor Products (SMP，北美最大 AM 經銷商)。毫米波雷達已開發 CPD 座</div>
+</div>
+<div class="card" onclick="window.location='../reports/1522.html'">
+  <div class="card-top">
+    <span class="ticker">1522</span>
+    <span class="company-name">堤維西</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>10B</strong> 市值</div>
+    <div class="metric"><strong>19.19</strong> P/E</div>
+    <div class="metric"><strong>1.54</strong> P/B</div>
+  </div>
+  <div class="card-summary">堤維西 (1522，TYC Brother Industrial) 為全球知名 AM 車燈領導製造商，品牌「TYC」在北美 AM 車燈市場市佔約 12%，位居全球前五大。受惠於State Farm等北美保險公司擴大採用 AM 碰撞零件政策。子公司儒億科技提供精密模具與 OEM 燈具，迪比恩科技供應反</div>
+</div>
+<div class="card" onclick="window.location='../reports/2102.html'">
+  <div class="card-top">
+    <span class="ticker">2102</span>
+    <span class="company-name">泰豐</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>9B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.55</strong> P/B</div>
+  </div>
+  <div class="card-summary">泰豐輪胎 (2102，Federal Corporation) 以自有品牌Federal (飛德勒)、HERO (英雄) 及 MAXON (美克森) 行銷全球逾 100 國。公司已從製造商轉型為品牌營運商，關閉台灣工廠後委託南港輪胎及越南/泰國工廠代工生產。Federal Motorsports 部</div>
+</div>
+<div class="card" onclick="window.location='../reports/1563.html'">
+  <div class="card-top">
+    <span class="ticker">1563</span>
+    <span class="company-name">巧新</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>9B</strong> 市值</div>
+    <div class="metric"><strong>28.42</strong> P/E</div>
+    <div class="metric"><strong>1.02</strong> P/B</div>
+  </div>
+  <div class="card-summary">巧新科技 (1563，SuperAlloy Industrial / SAI) 為全球第二大鍛造鋁合金輪圈製造商 (僅次於德國Otto Fuchs)，專攻超跑、豪華車與電動車市場。累積逾 40 家國際豪車客戶、2,225 款輪圈設計、出貨逾 1,000 萬顆。客戶涵蓋Porsche、BMW、Merc</div>
+</div>
+<div class="card" onclick="window.location='../reports/3162.html'">
+  <div class="card-top">
+    <span class="ticker">3162</span>
+    <span class="company-name">精確</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>8B</strong> 市值</div>
+    <div class="metric"><strong>32.94</strong> P/E</div>
+    <div class="metric"><strong>2.37</strong> P/B</div>
+  </div>
+  <div class="card-summary">精確科技 (3162) 為鋁合金壓鑄件專業廠，主攻電動車電池盒。全球8廠 (台1/中6/塞爾維亞1)。三大電池廠客戶：寧德時代 (最大)、蜂巢能源、億緯鋰能。已打入比亞迪供應鏈。歐美聚焦壓鑄件。2025H1營收37.33億 (年增127%)。隸屬敏實集團。另供Volkswagen、BMW。 ## 供</div>
+</div>
+<div class="card" onclick="window.location='../reports/2228.html'">
+  <div class="card-top">
+    <span class="ticker">2228</span>
+    <span class="company-name">劍麟</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>17.20</strong> P/E</div>
+    <div class="metric"><strong>1.41</strong> P/B</div>
+  </div>
+  <div class="card-summary">劍麟 (2228，Jian Lin) 為全球汽車安全零組件隱形冠軍，氣囊充氣器殼體及預縮器管件全球市佔率逾 90%。主要客戶為全球三大汽車安全 Tier 1 — Autoliv、ZF及均勝電子 (Joyson Safety Systems)。另跨足零售展示架 (供應H&M、大創、UNIQLO) 及 </div>
+</div>
+<div class="card" onclick="window.location='../reports/2114.html'">
+  <div class="card-top">
+    <span class="ticker">2114</span>
+    <span class="company-name">鑫永銓</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>15.34</strong> P/E</div>
+    <div class="metric"><strong>2.18</strong> P/B</div>
+  </div>
+  <div class="card-summary">鑫永銓 (2114，HYC) 以橡膠輸送帶製造起家 (品牌 HYC/KING)，現積極轉型為熱塑性碳纖維複合材料供應商。核心業務：(1) 橡膠輸送帶 — 供應礦業、水泥、物流產業；(2) 橡皮壩 — 日本進口第一大供應商，應用於水利基礎設施；(3) 乳牛水床墊 — 外銷歐美大型酪農場；(4) PCB</div>
+</div>
+<div class="card" onclick="window.location='../reports/2497.html'">
+  <div class="card-top">
+    <span class="ticker">2497</span>
+    <span class="company-name">怡利電</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>6B</strong> 市值</div>
+    <div class="metric"><strong>18.24</strong> P/E</div>
+    <div class="metric"><strong>2.23</strong> P/B</div>
+  </div>
+  <div class="card-summary">怡利電子 (2497，E-Lead Electronic) 為車用抬頭顯示器 (HUD) 及AR-HUD之 Tier 1 供應商，中國 HUD 市場排名前三。核心產品涵蓋HUD、AR-HUD、3D HUD及車載資通訊系統。主要 OEM 客戶涵蓋吉利汽車、一汽紅旗、長城汽車、奇瑞汽車。印度市場拓展中，</div>
+</div>
+<div class="card" onclick="window.location='../reports/1524.html'">
+  <div class="card-top">
+    <span class="ticker">1524</span>
+    <span class="company-name">耿鼎</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>15.26</strong> P/E</div>
+    <div class="metric"><strong>1.63</strong> P/B</div>
+  </div>
+  <div class="card-summary">耿鼎企業 (1524，Gordon Auto Body Parts) 專注於汽車 AM 鈑金件製造，產品涵蓋引擎蓋、葉子板、保險桿、車門等車體鈑金零件，在北美 AM 鈑金件領域擁有逾 30 年經驗。已通過 CAPA 國際品質認證項目達 1,241 項。最大客戶為LKQ (北美 AM 鈑金市佔近 40</div>
+</div>
+<div class="card" onclick="window.location='../reports/3552.html'">
+  <div class="card-top">
+    <span class="ticker">3552</span>
+    <span class="company-name">同致</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>67.57</strong> P/E</div>
+    <div class="metric"><strong>1.03</strong> P/B</div>
+  </div>
+  <div class="card-summary">同致電子 (3552，TungThih Electronic) 為亞洲最大、全球第三大 (僅次於Bosch及Valeo) 停車感測器供應商，以 Tier 1 身分直供全球 48 家以上 OEM、行銷逾 50 國。核心產品涵蓋超音波感測器、車用攝影機、環景影像系統 (AVM)、自動停車 (APA) 及</div>
+</div>
+<div class="card" onclick="window.location='../reports/2254.html'">
+  <div class="card-top">
+    <span class="ticker">2254</span>
+    <span class="company-name">巨鎧精密-創</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>4.02</strong> P/B</div>
+  </div>
+  <div class="card-summary">巨鎧精密-創 (2254) 為北美 AM 汽車 LED 照明領導品牌，產品涵蓋 LED 頭燈、尾燈、格柵燈等。主要透過北美 AM 經銷通路銷售，客戶涵蓋Meyer Distributing、Turn 14 Distribution、Keystone Automotive等北美主要經銷商。另為豪車改裝</div>
+</div>
+<div class="card" onclick="window.location='../reports/1525.html'">
+  <div class="card-top">
+    <span class="ticker">1525</span>
+    <span class="company-name">江申</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>18.91</strong> P/E</div>
+    <div class="metric"><strong>0.89</strong> P/B</div>
+  </div>
+  <div class="card-summary">江申工業 (1525，Kian Shen) 為台灣最大商用車車架製造商，3.5 噸以上大貨車/巴士國產車架市佔率 100%。隸屬裕隆集團 (中華汽車持股 44%、國瑞汽車持股 33%)。主要生產大貨車和巴士車架、小貨車後車身及底盤懸吊鈑金零件。近年轉型開發電動巴士車架，供應華德動能及鴻華先進。中國子</div>
+</div>
+<div class="card" onclick="window.location='../reports/2109.html'">
+  <div class="card-top">
+    <span class="ticker">2109</span>
+    <span class="company-name">華豐</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>11.93</strong> P/E</div>
+    <div class="metric"><strong>1.22</strong> P/B</div>
+  </div>
+  <div class="card-summary">華豐橡膠 (2109，Hwa Fong Rubber) 創立於 1945 年，為台灣最早之輪胎廠，自有品牌DURO。營收結構以機車胎 (50%+) 及自行車胎 (20%+) 為主。住友橡膠 (Sumitomo Rubber) 自 1979 年起進行資本與技術合作，為重要策略夥伴。機車胎 OEM 客戶</div>
+</div>
+<div class="card" onclick="window.location='../reports/1506.html'">
+  <div class="card-top">
+    <span class="ticker">1506</span>
+    <span class="company-name">正道</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>189.17</strong> P/E</div>
+    <div class="metric"><strong>1.30</strong> P/B</div>
+  </div>
+  <div class="card-summary">正道工業 (1506，Right Way Industrial) 為精密金屬鍛造、鑄造及 CNC 加工專業廠，擁有逾 50 年供應美日車廠經驗。公司取得美國 NASA 授權耐高溫鋁合金技術，為全球唯一具量產實績之 NASA 鍛造鋁合金活塞專業廠，年產逾 20 萬顆。產品線涵蓋汽車/ATV/雪車/遊艇</div>
+</div>
+<div class="card" onclick="window.location='../reports/2241.html'">
+  <div class="card-top">
+    <span class="ticker">2241</span>
+    <span class="company-name">艾姆勒</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.37</strong> P/B</div>
+  </div>
+  <div class="card-summary">艾姆勒熱能科技 (2241，Amulaire Thermal Technology) 專注於高功率晶片散熱解決方案，核心技術為粉末冶金及MIM (金屬射出成型)。產品涵蓋：(1) 電動車 IGBT 逆變器散熱器 — 供應Infineon (英飛凌) 及 Tier 1 Continental；(2) </div>
+</div>
+<div class="card" onclick="window.location='../reports/2249.html'">
+  <div class="card-top">
+    <span class="ticker">2249</span>
+    <span class="company-name">湧盛</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>10.53</strong> P/E</div>
+    <div class="metric"><strong>2.45</strong> P/B</div>
+  </div>
+  <div class="card-summary">湧盛精密工業 (2249) 為台灣最大汽車空調壓縮機製造商，佔台灣壓縮機出口量逾 95%。產品以 AM (售後市場) 為主，生產相容於Denso及Sanden規格之壓縮機，適用於Mercedes-Benz、BMW、Audi、Porsche、Volvo、Toyota、Honda等歐日系車款。產品行銷全</div>
+</div>
+<div class="card" onclick="window.location='../reports/1339.html'">
+  <div class="card-top">
+    <span class="ticker">1339</span>
+    <span class="company-name">昭輝</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>17.10</strong> P/E</div>
+    <div class="metric"><strong>0.76</strong> P/B</div>
+  </div>
+  <div class="card-summary">昭輝實業 (1339，Y.C.C. Parts) 專注於汽車 AM 塑膠碰撞替換件製造，核心產品為保險桿、水箱護罩及下飾板等大型塑膠件。約 90% 營收來自美國市場，毛利率維持約 30%。公司已通過 CAPA 國際品質認證，最大客戶為LKQ (N Group 旗下北美最大 AM 經銷商)，前兩大客戶</div>
+</div>
+<div class="card" onclick="window.location='../reports/1533.html'">
+  <div class="card-top">
+    <span class="ticker">1533</span>
+    <span class="company-name">車王電</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>52.16</strong> P/E</div>
+    <div class="metric"><strong>1.34</strong> P/B</div>
+  </div>
+  <div class="card-summary">車王電子 (1533，Mobiletron Electronics) 深耕汽車電子逾 41 年，為台灣唯一引擎關鍵零組件製造商。業務涵蓋：(1) 傳統汽車電子 — 引擎點火器、感知器等；(2) 電動車三電技術 — 電池/電機/電控，子公司華德動能 (2237) 為台灣電動巴士龍頭，國產自製率逾 65</div>
+</div>
+<div class="card" onclick="window.location='../reports/1587.html'">
+  <div class="card-top">
+    <span class="ticker">1587</span>
+    <span class="company-name">吉茂</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>95.68</strong> P/E</div>
+    <div class="metric"><strong>1.88</strong> P/B</div>
+  </div>
+  <div class="card-summary">吉茂精密 (1587，Cryomax Cooling) 成立於 1984 年，主營汽車散熱系統，核心產品為鋁製/銅製水箱、冷凝器及散熱片，主力市場為北美 AM。墨西哥廠已量產 (月產能 1.7 萬件)，2024 年通過USMCA認證取得銷美零關稅資格，較中國競爭者享有 72% 關稅優勢。公司憑藉熱交</div>
+</div>
+<div class="card" onclick="window.location='../reports/4557.html'">
+  <div class="card-top">
+    <span class="ticker">4557</span>
+    <span class="company-name">永新-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.12</strong> P/B</div>
+  </div>
+  <div class="card-summary">永新應用科技-KY (4557) 為北美最大 AM 煞車總泵/分泵供應商，正拓展煞車卡鉗及 OEM 煞車來令片 (中國電動車市場)。北美 AM 客戶涵蓋四大汽車零件連鎖 — AutoZone、Genuine Parts (NAPA)、O'Reilly、Advance Auto Parts，另為Bos</div>
+</div>
+<div class="card" onclick="window.location='../reports/2239.html'">
+  <div class="card-top">
+    <span class="ticker">2239</span>
+    <span class="company-name">英利-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.24</strong> P/B</div>
+  </div>
+  <div class="card-summary">英利汽車零部件 (2239，Yingli Auto，英利-KY) 為中國汽車車身結構件 Tier 1/Tier 2 供應商，產品涵蓋儀錶板骨架、前端框架、保險桿、沖壓/熱成型安全件。核心客戶為一汽大眾 (FAW-VW，最大客戶)、北京奔馳 (Beijing Benz)、上汽大眾 (SAIC-VW)，</div>
+</div>
+<div class="card" onclick="window.location='../reports/2256.html'">
+  <div class="card-top">
+    <span class="ticker">2256</span>
+    <span class="company-name">歐特明</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>—</strong> P/B</div>
+  </div>
+  <div class="card-summary">歐特明智能科技 (2256，oToBrite) 為視覺 AI 演算法與車規相機模組之 Tier 1 供應商，專精 L2+ 至 L4 自動駕駛技術。核心產品涵蓋ADAS視覺系統、自動停車 (APA/AVP)、域控制器及車規相機模組。最大客戶為小鵬汽車 (XPeng，歷史營收佔比逾 80%，目標降至 5</div>
+</div>
+<div class="card" onclick="window.location='../reports/4305.html'">
+  <div class="card-top">
+    <span class="ticker">4305</span>
+    <span class="company-name">世坤</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>11.50</strong> P/E</div>
+    <div class="metric"><strong>1.93</strong> P/B</div>
+  </div>
+  <div class="card-summary">世坤股份有限公司 (4305) 為 PVC 軟質布料及反光布專業製造商，產品外銷逾 50 國。PVC 原料採購自台塑及南亞塑膠，可塑劑來源包含聯成化科及南帝化工。產品應用涵蓋文具用品 (書包/資料夾)、戶外休閒用品 (帳篷/雨衣)、醫療器材 (充氣床墊/防護衣) 及汽車 AM 配件 (座椅皮/車用腳</div>
+</div>
+<div class="card" onclick="window.location='../reports/2248.html'">
+  <div class="card-top">
+    <span class="ticker">2248</span>
+    <span class="company-name">華勝-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>9.61</strong> P/E</div>
+    <div class="metric"><strong>1.58</strong> P/B</div>
+  </div>
+  <div class="card-summary">華勝-KY (2248) 為汽車 LED 氛圍燈、閱讀燈及內外飾電子件之 Tier 1 供應商，2007 年起成為General Motors全球供應商。主要客戶涵蓋傳統車廠General Motors、Toyota、Ford、BMW及中國車廠上汽、北汽、一汽、奇瑞、吉利汽車、長城汽車，新能源品牌客</div>
+</div>
+<div class="card" onclick="window.location='../reports/1568.html'">
+  <div class="card-top">
+    <span class="ticker">1568</span>
+    <span class="company-name">倉佑</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>16.54</strong> P/E</div>
+    <div class="metric"><strong>1.23</strong> P/B</div>
+  </div>
+  <div class="card-summary">倉佑實業 (1568，Tsangyow Industrial) 專精自動變速箱 (AT/CVT/DCT) 金屬零組件製造，產品涵蓋油壓幫浦、行星齒輪組、殼件、離合器轂及扭力轉換器零件。同時供應 OEM 與 AM 市場。主要客戶為全球 Tier 1 傳動系統整合商 — BorgWarner、Valeo</div>
+</div>
+<div class="card" onclick="window.location='../reports/3346.html'">
+  <div class="card-top">
+    <span class="ticker">3346</span>
+    <span class="company-name">麗清</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>172.27</strong> P/E</div>
+    <div class="metric"><strong>0.62</strong> P/B</div>
+  </div>
+  <div class="card-summary">麗清科技 (3346) 是專業車用 LED 照明模組製造商，1999 年成立以來深耕 LED 汽車照明，產品成功打入全球汽車 OEM 原廠供應鏈 (Tier 1/Tier 2)。產品涵蓋 LED 尾燈、煞車燈、霧燈、方向燈及 DRL (日行燈) 模組。已獲北美前三大車廠之一十年千萬顆長約。設有上海廠</div>
+</div>
+<div class="card" onclick="window.location='../reports/3685.html'">
+  <div class="card-top">
+    <span class="ticker">3685</span>
+    <span class="company-name">元創精密</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>3.20</strong> P/B</div>
+  </div>
+  <div class="card-summary">元創精密 (3685) 專營汽車導光板、LED 車燈及金屬沖壓焊接件，兼營再生能源 EPC 工程。車用照明客戶涵蓋Audi、BMW、東風日產、上汽大眾、北京汽車集團，並積極拓展新能源車照明專案。 ## 供應鏈位置 上游 (原料): - 金屬原料: 鋼材供應商 - 光學塑膠: 塑膠光學原料 - LED</div>
+</div>
+<div class="card" onclick="window.location='../reports/2115.html'">
+  <div class="card-top">
+    <span class="ticker">2115</span>
+    <span class="company-name">六暉-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>13.61</strong> P/E</div>
+    <div class="metric"><strong>0.70</strong> P/B</div>
+  </div>
+  <div class="card-summary">六暉-KY (2115，Liou Hwei) 為全球氣嘴 (valve stem) 領導廠商，全球市佔率約 10%。公司從橡膠配方到精密金屬加工垂直整合，產品供應全球主要輪胎廠及 TPMS 廠商。主要客戶涵蓋輪胎三巨頭普利司通 (Bridgestone)、米其林 (Michelin)、固特異 (Go</div>
+</div>
+<div class="card" onclick="window.location='../reports/2230.html'">
+  <div class="card-top">
+    <span class="ticker">2230</span>
+    <span class="company-name">泰茂</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>47.00</strong> P/E</div>
+    <div class="metric"><strong>1.85</strong> P/B</div>
+  </div>
+  <div class="card-summary">泰茂實業 (2230，Thai Mao) 經營三大事業：(1) 活塞環 — 以 BLACK DIAMOND 品牌外銷全球 110 餘國售後市場；(2) 儲能系統 — 採用台塑新智能電芯，開發工廠/家用儲能方案，宜蘭設有 5.5MW 大型儲能場站；(3) 中國白酒經銷 — 透過中溢匯通取得五糧液全國電</div>
+</div>
+<div class="card" onclick="window.location='../reports/2252.html'">
+  <div class="card-top">
+    <span class="ticker">2252</span>
+    <span class="company-name">為昇科</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.91</strong> P/B</div>
+  </div>
+  <div class="card-summary">為昇科技 (2252) 為為升電裝 (2231) 子公司，專注於 24/60/77/79 GHz 毫米波雷達開發，應用於ADAS先進駕駛輔助系統。核心產品涵蓋AEB (自動緊急煞車)、BSD (盲點偵測)、RCTA (後方交叉警示) 及4D成像雷達。自主設計 77GHz CMOS 雷達晶片，從天線設</div>
+</div>
+<div class="card" onclick="window.location='../reports/4535.html'">
+  <div class="card-top">
+    <span class="ticker">4535</span>
+    <span class="company-name">至興</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>21.40</strong> P/E</div>
+    <div class="metric"><strong>0.84</strong> P/B</div>
+  </div>
+  <div class="card-summary">至興精機 (4535) 隸屬全興集團 (東陽集團)，為台灣最大精密沖壓零組件製造商。產品涵蓋座椅傾斜器、安全帶零件、手煞車零件、氣囊框架及機車碟煞。供應全球汽車安全 Tier 1 — Autoliv、ZF、Joyson Safety Systems (均勝) 之安全帶及氣囊零組件。另以 Tier 1</div>
+</div>
+<div class="card" onclick="window.location='../reports/4543.html'">
+  <div class="card-top">
+    <span class="ticker">4543</span>
+    <span class="company-name">萬在</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>60.09</strong> P/E</div>
+    <div class="metric"><strong>1.08</strong> P/B</div>
+  </div>
+  <div class="card-summary">萬在工業 (4543) 專營熱交換器與散熱模組，以汽車 AM/OES 為主，正跨足AI 伺服器散熱、電動車熱管理及資料中心液冷系統。產品涵蓋汽車散熱器、冷凝器及蒸發器等。技術延伸至浸沒式冷卻散熱方案。 ## 供應鏈位置 上游 (原料): - 鋁錠: 鋁材供應商 - 風扇馬達: 散熱風扇馬達零組件 中</div>
+</div>
+<div class="card" onclick="window.location='../reports/1521.html'">
+  <div class="card-top">
+    <span class="ticker">1521</span>
+    <span class="company-name">大億</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>28.68</strong> P/E</div>
+    <div class="metric"><strong>1.02</strong> P/B</div>
+  </div>
+  <div class="card-summary">大億交通 (1521，Ta Yih Industrial) 為台灣 OEM 車燈龍頭，國內市佔率高達 72%。產品涵蓋高階LED自適應頭燈 (ADB)、貫穿式尾燈、IML 氛圍燈等。日商小糸製作所 (KOITO) 為重要技術合作夥伴與股東。台灣 OEM 客戶涵蓋國瑞汽車 (Toyota)、中華汽車、</div>
+</div>
+<div class="card" onclick="window.location='../reports/4581.html'">
+  <div class="card-top">
+    <span class="ticker">4581</span>
+    <span class="company-name">光隆精密-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>12.83</strong> P/E</div>
+    <div class="metric"><strong>1.35</strong> P/B</div>
+  </div>
+  <div class="card-summary">光隆精密-KY (4581) 專精商用車引擎精密加工零組件，產品涵蓋排放減量件、渦輪增壓器彎管、飛輪殼、排氣歧管及氣壓碟煞卡鉗。最大客戶為Cummins (北美柴油引擎龍頭)，透過 Cummins 間接供應北美四大卡車 OEM — PACCAR、Daimler Truck (市佔 30%)、Volv</div>
+</div>
+<div class="card" onclick="window.location='../reports/4528.html'">
+  <div class="card-top">
+    <span class="ticker">4528</span>
+    <span class="company-name">江興鍛</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.62</strong> P/B</div>
+  </div>
+  <div class="card-summary">江興鍛壓工業 (4528) 為台灣冷/溫/熱鍛汽車傳動及底盤零組件專業廠，汽車佔營收逾 80%，定位為 Tier 2 供應商。主要客戶為全球傳動系統 Tier 1 — NTN (最大客戶，透過廣州 NTN)、Dana、AAM (American Axle)，台灣客戶包含和大工業及中華台亞。上游鋼材採</div>
+</div>
+<div class="card" onclick="window.location='../reports/2243.html'">
+  <div class="card-top">
+    <span class="ticker">2243</span>
+    <span class="company-name">宏旭-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>15.84</strong> P/E</div>
+    <div class="metric"><strong>1.78</strong> P/B</div>
+  </div>
+  <div class="card-summary">宏旭-KY (2243，Hong Xu) 為汽車車身鈑金模具與治具製造商，約 90% 營收來自 OEM 車廠訂單，專精於「四門三蓋」大型車身面板模具。積極布局鋁合金模具以因應電動車輕量化趨勢。核心客戶涵蓋比亞迪 (BYD)、吉利、東風日產、長安福特，並為華為 AITO 問界系列約 70% 車身鈑金模</div>
+</div>
+<div class="card" onclick="window.location='../reports/2235.html'">
+  <div class="card-top">
+    <span class="ticker">2235</span>
+    <span class="company-name">謚源</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>35.53</strong> P/E</div>
+    <div class="metric"><strong>1.00</strong> P/B</div>
+  </div>
+  <div class="card-summary">謚源企業 (2235，I Yuan Precision) 專營汽車散熱風扇總成、空調鼓風機馬達及電動窗升降器，深耕北美 AM 市場。策略夥伴為堤維西 (TYC，1522)，產品透過 TYC 北美子公司GENERA銷售，終端通路涵蓋LKQ (美國最大汽車零件商)、Amazon及 General Par</div>
+</div>
+<div class="card" onclick="window.location='../reports/1338.html'">
+  <div class="card-top">
+    <span class="ticker">1338</span>
+    <span class="company-name">廣華-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.20</strong> P/B</div>
+  </div>
+  <div class="card-summary">廣華-KY (1338，Hiroca Holdings) 為汽車內外飾件 Tier 1/Tier 2 供應商，專精水轉印、IMD (模內裝飾) 及光電整合技術，產品涵蓋儀表板、車門飾板、方向盤加飾件及氛圍燈/發光車標等高附加價值光電件。客戶結構已從日系為主轉型為多元分散：日系 46% — Nissa</div>
+</div>
+<div class="card" onclick="window.location='../reports/1336.html'">
+  <div class="card-top">
+    <span class="ticker">1336</span>
+    <span class="company-name">台翰</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>20.64</strong> P/E</div>
+    <div class="metric"><strong>0.60</strong> P/B</div>
+  </div>
+  <div class="card-summary">台翰精密 (1336，Taiwan Precision) 成立於 1987 年，專精精密模具設計製造與塑膠零組件射出成型、塗裝及部品組裝。深耕日系多功能事務機 (MFP) 精密塑膠件市場逾 30 年，事務機零組件佔營收約 89%、電子零組件約 11%。主要客戶為Brother、Canon、Kyoce</div>
+</div>
+<div class="card" onclick="window.location='../reports/2255.html'">
+  <div class="card-top">
+    <span class="ticker">2255</span>
+    <span class="company-name">凱銳光電</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.19</strong> P/B</div>
+  </div>
+  <div class="card-summary">凱銳光電 (2255) 為全球前三大車用後座娛樂系統 (RSE) 供應商，專營車載多媒體 HMI (人機介面) 系統。以 Tier 1 身分直供豪華車 OEM，客戶涵蓋Lamborghini、Bentley、Porsche、Audi、General Motors、Ford、Stellantis及Ni</div>
+</div>
+<div class="card" onclick="window.location='../reports/2245.html'">
+  <div class="card-top">
+    <span class="ticker">2245</span>
+    <span class="company-name">詠勝昌</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>949M</strong> 市值</div>
+    <div class="metric"><strong>11.67</strong> P/E</div>
+    <div class="metric"><strong>1.74</strong> P/B</div>
+  </div>
+  <div class="card-summary">詠勝昌 (2245，Yong Sheng Chang) 專營汽車點火線圈總成及橡膠零組件 (線圈靴套、防塵蓋、端子) 之製造，深耕全球 AM 市場。產品生命週期長，不受車型頻繁改款影響，營收跨經濟週期穩定。主要客戶涵蓋Standard Motor Products (SMP，北美最大 AM 經銷商)</div>
+</div>
+<div class="card" onclick="window.location='../reports/1512.html'">
+  <div class="card-top">
+    <span class="ticker">1512</span>
+    <span class="company-name">瑞利</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>757M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.24</strong> P/B</div>
+  </div>
+  <div class="card-summary">瑞利企業 (1512，Jui Li) 已從傳統汽車鈑金廠實質轉型為運動用品零售通路商。旗下子公司新哈林運動 (哈林運動世界) 經營全台數十家運動用品門市，另有恆欣運動 (摩曼頓 Momentum) 品牌通路。代理銷售Nike、Adidas、New Balance、PUMA、Under Armour等</div>
+</div>
+<div class="card" onclick="window.location='../reports/4559.html'">
+  <div class="card-top">
+    <span class="ticker">4559</span>
+    <span class="company-name">久裕興</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>466M</strong> 市值</div>
+    <div class="metric"><strong>777.00</strong> P/E</div>
+    <div class="metric"><strong>0.83</strong> P/B</div>
+  </div>
+  <div class="card-summary">久裕興業 (4559) 為台灣首家以冷鍛鋁合金製造自行車花鼓 (hub) 之專業廠，產品涵蓋自行車花鼓及輪組。鋁合金原料採購自中鋼鋁業，碳纖維輪組材料來自台塑碳纖等供應商。主要服務全球自行車組車廠，潛在客戶涵蓋巨大機械 (Giant) 及美利達 (Merida) 等台灣自行車品牌。產品亦應用於電動自</div>
+</div></div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

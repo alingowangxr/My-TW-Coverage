@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Auto Manufacturers | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="sector-header">
+  <h1>Auto Manufacturers</h1>
+  <div class="subtitle">7 家公司 | 按市值排序</div>
+</div>
+<div class="container">
+  <div style="margin-bottom:12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">← 返回首頁</a>
+  </div>
+  <div class="cards-grid">
+<div class="card" onclick="window.location='../reports/2258.html'">
+  <div class="card-top">
+    <span class="ticker">2258</span>
+    <span class="company-name">鴻華先進-創</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>53B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>3.99</strong> P/B</div>
+  </div>
+  <div class="card-summary">鴻華先進科技 (2258，Foxtron Vehicle Technologies) 為鴻海集團 (持股 45.62%) 與裕隆集團 (持股 43.83%) 合資之電動車設計製造公司，以 CDMS (委託設計製造服務) 模式營運，基於開放式MIH平台開發電動車。已收購納智捷 100% 股權，推出自有</div>
+</div>
+<div class="card" onclick="window.location='../reports/2206.html'">
+  <div class="card-top">
+    <span class="ticker">2206</span>
+    <span class="company-name">三陽工業</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>45B</strong> 市值</div>
+    <div class="metric"><strong>10.05</strong> P/E</div>
+    <div class="metric"><strong>1.85</strong> P/B</div>
+  </div>
+  <div class="card-summary">三陽工業 (2206) 是台灣唯一同時具備機車與汽車製造能力的重量級車廠。機車事業方面，公司以自有品牌「SYM」穩居台灣機車市佔率龍頭，並外銷至全球市場，同時替歐洲品牌 (如 Peugeot、Lambretta) 代工。汽車事業方面，三陽長期作為韓國 現代汽車 (Hyundai) 在台灣的獨家總代理</div>
+</div>
+<div class="card" onclick="window.location='../reports/2204.html'">
+  <div class="card-top">
+    <span class="ticker">2204</span>
+    <span class="company-name">中華</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>30B</strong> 市值</div>
+    <div class="metric"><strong>10.54</strong> P/E</div>
+    <div class="metric"><strong>0.83</strong> P/B</div>
+  </div>
+  <div class="card-summary">中華汽車 (2204，China Motor Corporation) 為裕隆集團核心製造企業，台灣輕型商用車龍頭。主要合作夥伴包含三菱汽車 (Mitsubishi Motors) 及三菱扶桑 (FUSO)。近年成功引進上汽集團旗下MG品牌，MG HS 車款銷售亮眼。產品線涵蓋：(1) 乘用車 — </div>
+</div>
+<div class="card" onclick="window.location='../reports/2201.html'">
+  <div class="card-top">
+    <span class="ticker">2201</span>
+    <span class="company-name">裕隆</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>29B</strong> 市值</div>
+    <div class="metric"><strong>29.84</strong> P/E</div>
+    <div class="metric"><strong>0.47</strong> P/B</div>
+  </div>
+  <div class="card-summary">裕隆汽車 (2201，Yulon Motor) 為台灣歷史最悠久之汽車集團，與日產汽車 (Nissan) 長期合資合作。核心業務涵蓋：(1) 整車組裝 — 苗栗三義廠為台灣主要汽車組裝基地；(2) 電動車合資 — 與鴻海集團共同創立鴻華先進 (2258，鴻海持股 45.62%、裕隆 43.83%)，</div>
+</div>
+<div class="card" onclick="window.location='../reports/2227.html'">
+  <div class="card-top">
+    <span class="ticker">2227</span>
+    <span class="company-name">裕日車</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>15B</strong> 市值</div>
+    <div class="metric"><strong>38.33</strong> P/E</div>
+    <div class="metric"><strong>0.84</strong> P/B</div>
+  </div>
+  <div class="card-summary">裕隆日產汽車 (2227，Yulon Nissan Motor) 為裕隆汽車與日產汽車 (Nissan，持股約 40%) 之合資企業，獨家負責 Nissan 及Infiniti品牌在台灣之行銷與經銷。整車製造委由母公司裕隆汽車苗栗三義廠組裝。業外收益中，中國東風日產持股權益為重要獲利來源。主力車款涵</div>
+</div>
+<div class="card" onclick="window.location='../reports/2237.html'">
+  <div class="card-top">
+    <span class="ticker">2237</span>
+    <span class="company-name">華德動能</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>74.64</strong> P/E</div>
+    <div class="metric"><strong>3.47</strong> P/B</div>
+  </div>
+  <div class="card-summary">華德動能科技 (2237，RAC Electric Vehicles) 為台灣電動巴士領導製造商，國內市佔率約 30%，累計逾 500 輛電動巴士營運中，為台灣首家通過認證之純電動巴士廠商。母公司為車王電子 (持股約 55%)，提供 BMS 電池管理系統整合，電池芯採用日本AESC，通過歐洲 ECE</div>
+</div>
+<div class="card" onclick="window.location='../reports/1599.html'">
+  <div class="card-top">
+    <span class="ticker">1599</span>
+    <span class="company-name">宏佳騰</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.03</strong> P/B</div>
+  </div>
+  <div class="card-summary">宏佳騰動力科技 (1599，Aeon Motor) 為台灣 ATV/UTV (全地形車) 及電動機車製造商，自有品牌「AEON」。業務結構：(1) ATV/UTV 代工與外銷 (佔營收約 73%) — 為北美 ATV 龍頭Polaris代工 (佔營收約 30%)；(2) 電動機車 — 加入Gogor</div>
+</div></div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

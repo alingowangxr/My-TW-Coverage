@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Real Estate Services | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="sector-header">
+  <h1>Real Estate Services</h1>
+  <div class="subtitle">19 家公司 | 按市值排序</div>
+</div>
+<div class="container">
+  <div style="margin-bottom:12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">← 返回首頁</a>
+  </div>
+  <div class="cards-grid">
+<div class="card" onclick="window.location='../reports/2540.html'">
+  <div class="card-top">
+    <span class="ticker">2540</span>
+    <span class="company-name">愛山林</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>45B</strong> 市值</div>
+    <div class="metric"><strong>69.85</strong> P/E</div>
+    <div class="metric"><strong>2.73</strong> P/B</div>
+  </div>
+  <div class="card-summary">愛山林建設開發股份有限公司 (2540，iSenLin) 前身成立於 1986 年，2013 年由甲山林機構入主後更為現名，轉型為房地產代銷與開發複合型公司。公司營收結構中代銷勞務約佔 46%、建設營收佔 19%、營造業務佔 34%。甲山林機構為台灣知名房地產代銷品牌，接案版圖涵蓋全台六都。2024</div>
+</div>
+<div class="card" onclick="window.location='../reports/5213.html'">
+  <div class="card-top">
+    <span class="ticker">5213</span>
+    <span class="company-name">亞昕</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>20B</strong> 市值</div>
+    <div class="metric"><strong>8.86</strong> P/E</div>
+    <div class="metric"><strong>1.21</strong> P/B</div>
+  </div>
+  <div class="card-summary">亞昕國際開發股份有限公司 (5213，Asia Shin Development) 為台灣中型建設公司，專注於大台北地區及桃園之住宅大樓開發。公司深耕雙北與桃園房市，以中價位住宅為主力產品，服務首購族與年輕家庭。近年積極佈局東南亞不動產市場，於菲律賓、日本等地投資開發住宅與商業不動產。主要營造合作夥</div>
+</div>
+<div class="card" onclick="window.location='../reports/9940.html'">
+  <div class="card-top">
+    <span class="ticker">9940</span>
+    <span class="company-name">信義</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>15B</strong> 市值</div>
+    <div class="metric"><strong>71.96</strong> P/E</div>
+    <div class="metric"><strong>1.15</strong> P/B</div>
+  </div>
+  <div class="card-summary">信義房屋股份有限公司 (9940，Sinyi Realty) 成立於 1987 年，為台灣最大房屋仲介品牌，全台擁有超過 500 間直營門市。公司以「信義」品牌深植台灣房仲市場，主要業務涵蓋：(1) 房屋仲介 — 住宅、商辦、工業用地之買賣與租賃仲介；(2) 不動產開發 — 透過子公司信義開發從事住</div>
+</div>
+<div class="card" onclick="window.location='../reports/2348.html'">
+  <div class="card-top">
+    <span class="ticker">2348</span>
+    <span class="company-name">海悅</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>12B</strong> 市值</div>
+    <div class="metric"><strong>16.42</strong> P/E</div>
+    <div class="metric"><strong>1.60</strong> P/B</div>
+  </div>
+  <div class="card-summary">海悅國際開發股份有限公司 (2348，Hi-Yes International) 前身為力捷電腦，2013 年由代銷業者海悅廣告接手後轉型為房地產代銷公司。海悅廣告創立於 1996 年，已連續六年蟬聯台灣代銷龍頭，2024 年接案量達 2,402 億元。公司提供土地規畫、建築設計、平面配置、公共空間</div>
+</div>
+<div class="card" onclick="window.location='../reports/2528.html'">
+  <div class="card-top">
+    <span class="ticker">2528</span>
+    <span class="company-name">皇普</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>12B</strong> 市值</div>
+    <div class="metric"><strong>7.77</strong> P/E</div>
+    <div class="metric"><strong>1.48</strong> P/B</div>
+  </div>
+  <div class="card-summary">皇普建設 (2528，Huang Pu Construction) 為台灣中型建設公司，主要從事住宅大樓之投資興建與銷售。建案分佈於全台各大都會區及重劃區，包括大台北地區、新竹竹北、桃園青埔重劃區、台中及高雄。公司秉持「以人為本」理念，產品以中價位住宅為主，服務首購族與換屋族群。土地取得方式涵蓋自行</div>
+</div>
+<div class="card" onclick="window.location='../reports/2527.html'">
+  <div class="card-top">
+    <span class="ticker">2527</span>
+    <span class="company-name">宏璟</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>8B</strong> 市值</div>
+    <div class="metric"><strong>31.00</strong> P/E</div>
+    <div class="metric"><strong>0.46</strong> P/B</div>
+  </div>
+  <div class="card-summary">宏璟建設股份有限公司 (2527，Hung Ching Development) 為台灣知名建設公司，與日月光[[半導體]]集團具有關聯。公司專注於台灣北部地區之住宅與商辦大樓開發，產品定位偏向中高階市場。主要業務涵蓋住宅大樓、商辦大樓之投資興建與銷售，以及不動產租賃收入。公司深耕大台北精華地段，以</div>
+</div>
+<div class="card" onclick="window.location='../reports/1437.html'">
+  <div class="card-top">
+    <span class="ticker">1437</span>
+    <span class="company-name">勤益控</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>6B</strong> 市值</div>
+    <div class="metric"><strong>12.81</strong> P/E</div>
+    <div class="metric"><strong>0.75</strong> P/B</div>
+  </div>
+  <div class="card-summary">勤益投資控股股份有限公司 (1437，GTM Holdings) 已轉型為控股公司，旗下三大核心事業群：(1) 電子事業 — 子公司勤益電子 (GTM Electronics) 從事半導體封測通路及電子零組件代理，代理Renesas、Microchip等國際半導體品牌；(2) 不動產 — 資產開發與</div>
+</div>
+<div class="card" onclick="window.location='../reports/3266.html'">
+  <div class="card-top">
+    <span class="ticker">3266</span>
+    <span class="company-name">昇陽</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>22.71</strong> P/E</div>
+    <div class="metric"><strong>0.74</strong> P/B</div>
+  </div>
+  <div class="card-summary">昇陽建設開發股份有限公司 (3266，Sunty Development) 為台灣北部知名房地產開發商，深耕台北市與新北市精華區。公司專注於都市更新與合建分售，品牌強調「昇陽品質」，以施工細膩與售後服務著稱，產品定位偏向中高階住宅。透過子公司新東陽營造掌握營建工程品質。經營風格穩健，重視建案利潤與品</div>
+</div>
+<div class="card" onclick="window.location='../reports/5523.html'">
+  <div class="card-top">
+    <span class="ticker">5523</span>
+    <span class="company-name">豐謙</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.56</strong> P/B</div>
+  </div>
+  <div class="card-summary">豐謙建設股份有限公司 (5523，Feng Chian Construction) 為台灣中部區域型建設公司，主要在台中及彰化地區從事住宅大樓開發。公司走穩健路線，推案規模適中，產品以中價位住宅為主。豐謙在台中房市具有一定品牌知名度，近年受惠於台中都會區擴張與人口移入帶動之住宅需求。營造合作以台中在</div>
+</div>
+<div class="card" onclick="window.location='../reports/1316.html'">
+  <div class="card-top">
+    <span class="ticker">1316</span>
+    <span class="company-name">上曜</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.03</strong> P/B</div>
+  </div>
+  <div class="card-summary">上曜建設開發股份有限公司 (1316，Sun Yad Construction) 成立於 1979 年，前身為 PU 合成皮製造廠，2010 年起轉型為地產開發商。公司採雙軌營運模式，結合「地產建設」與「化工」事業。地產部門專注於台南地區之豪宅與透天建案開發 (如「湖美帝堡」、「湖美帝璟」)。化工部</div>
+</div>
+<div class="card" onclick="window.location='../reports/5533.html'">
+  <div class="card-top">
+    <span class="ticker">5533</span>
+    <span class="company-name">皇鼎</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>25.71</strong> P/E</div>
+    <div class="metric"><strong>0.42</strong> P/B</div>
+  </div>
+  <div class="card-summary">皇鼎建設開發股份有限公司 (5533，Royal Crown Construction) 為台灣中型建設公司，主要在大台北及桃園地區從事住宅大樓開發。公司產品以中高價位住宅為主，注重建築品質與社區規劃。近年推案集中於新北市重劃區及桃園地區，受惠於雙北房價外溢效應帶動之桃園購屋需求。營造合作以知名營造</div>
+</div>
+<div class="card" onclick="window.location='../reports/5514.html'">
+  <div class="card-top">
+    <span class="ticker">5514</span>
+    <span class="company-name">三豐</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.17</strong> P/B</div>
+  </div>
+  <div class="card-summary">三豐建設股份有限公司 (5514，San Fong Construction) 為台灣中部知名建設公司，深耕台中房地產市場。公司專注於台中市區及七期重劃區之住宅大樓開發，產品定位涵蓋首購宅至豪宅，以「三豐品質」建立口碑。主要營造合作夥伴為麗明營造等台中在地營造廠。代銷方面與在地代銷業者合作。近年推案</div>
+</div>
+<div class="card" onclick="window.location='../reports/2509.html'">
+  <div class="card-top">
+    <span class="ticker">2509</span>
+    <span class="company-name">全坤建</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.83</strong> P/B</div>
+  </div>
+  <div class="card-summary">全坤建設開發股份有限公司 (2509，Chuan Kun Construction) 為台灣北部知名建設公司，專注於大台北地區住宅大樓開發。公司以「全坤品質」著稱，產品定位為中高階住宅。主要推案區域涵蓋台北市、新北市及桃園地區。近年代表建案包括「全坤威峰」、「全坤尊峰」等。公司與知名營造廠達欣工程、</div>
+</div>
+<div class="card" onclick="window.location='../reports/5529.html'">
+  <div class="card-top">
+    <span class="ticker">5529</span>
+    <span class="company-name">鉅陞</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>12.92</strong> P/E</div>
+    <div class="metric"><strong>1.80</strong> P/B</div>
+  </div>
+  <div class="card-summary">鉅陞建設股份有限公司 (5529，Ju Sheng Construction) 為台灣中部區域型建設公司，專注於台中地區住宅大樓開發。產品以中小坪數住宅為主，服務首購族與小家庭客群。公司在台中房市耕耘多年，推案節奏穩健。近年受惠於台中都會區持續擴張及中科效應帶動之住宅需求。營造合作以台中在地營造廠為</div>
+</div>
+<div class="card" onclick="window.location='../reports/3512.html'">
+  <div class="card-top">
+    <span class="ticker">3512</span>
+    <span class="company-name">皇龍</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>8.74</strong> P/E</div>
+    <div class="metric"><strong>0.91</strong> P/B</div>
+  </div>
+  <div class="card-summary">皇龍開發股份有限公司 (3512，Royal Dragon Development) 為台灣不動產開發與營建公司。主要業務涵蓋住宅大樓、商辦及廠辦之投資興建與銷售，以及不動產租賃。推案區域以大台北地區及桃園為主。公司亦涉足營造工程，具備自有營造能力。近年聚焦於工業地產及廠辦開發，受惠於台灣製造業回流</div>
+</div>
+<div class="card" onclick="window.location='../reports/9902.html'">
+  <div class="card-top">
+    <span class="ticker">9902</span>
+    <span class="company-name">台火</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.17</strong> P/B</div>
+  </div>
+  <div class="card-summary">台火開發股份有限公司 (9902，Tidehold Development) 前身為台灣火柴公司 (1938 年成立)，已從火柴製造完全轉型為不動產開發與投資控股公司。主要業務涵蓋住宅及商業大樓之開發、租賃與銷售，以及設備租賃 (含小客車出租及電動垃圾車銷售)。公司持有台北精華地段不動產資產，以穩定</div>
+</div>
+<div class="card" onclick="window.location='../reports/1456.html'">
+  <div class="card-top">
+    <span class="ticker">1456</span>
+    <span class="company-name">怡華</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>4.37</strong> P/E</div>
+    <div class="metric"><strong>0.72</strong> P/B</div>
+  </div>
+  <div class="card-summary">怡華實業股份有限公司 (1456) 為台灣老牌多元化控股公司，業務涵蓋不動產開發與租賃、電子材料及工程顧問。不動產方面，公司持有並開發台北精華地段商辦與住宅資產，以租賃收入為穩定現金流來源。電子材料事業透過子公司經營PCB銅箔基板 (CCL) 及電子化學品之貿易代理。工程顧問事業提供大型公共工程之規</div>
+</div>
+<div class="card" onclick="window.location='../reports/4416.html'">
+  <div class="card-top">
+    <span class="ticker">4416</span>
+    <span class="company-name">三圓</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>878M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.56</strong> P/B</div>
+  </div>
+  <div class="card-summary">三圓建設股份有限公司 (4416) 為專注於大台北地區之精緻不動產開發商，以興建高品質豪宅與商辦大樓聞名。近年代表作為台北東區之指標豪宅案「Diamond Towers」。公司主要採取先建後售或預售模式，鎖定高資產客群，並長期持有部分精華地段資產以獲取穩定租金收益。主要委託海悅國際等代銷業者進行銷售</div>
+</div>
+<div class="card" onclick="window.location='../reports/6264.html'">
+  <div class="card-top">
+    <span class="ticker">6264</span>
+    <span class="company-name">富裔</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>859M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.25</strong> P/B</div>
+  </div>
+  <div class="card-summary">富裔實業股份有限公司 (6264，Fuyi Development) 前身為鑫麗科技，後轉型為不動產開發公司。主要業務涵蓋住宅大樓之投資興建與銷售，以及不動產租賃。推案區域以大台北地區及新竹為主。公司近年聚焦於都市更新案及危老重建案，受惠於政府推動都更政策。產品定位涵蓋中高階住宅至豪宅。營造合作以知</div>
+</div></div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

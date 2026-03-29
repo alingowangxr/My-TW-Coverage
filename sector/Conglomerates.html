@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Conglomerates | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="sector-header">
+  <h1>Conglomerates</h1>
+  <div class="subtitle">7 家公司 | 按市值排序</div>
+</div>
+<div class="container">
+  <div style="margin-bottom:12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">← 返回首頁</a>
+  </div>
+  <div class="cards-grid">
+<div class="card" onclick="window.location='../reports/2371.html'">
+  <div class="card-top">
+    <span class="ticker">2371</span>
+    <span class="company-name">大同</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>64B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.42</strong> P/B</div>
+  </div>
+  <div class="card-summary">大同股份有限公司創立於1918年，為台灣歷史最悠久的工業集團之一，總部位於台北市。公司以電力設備為核心，橫跨重電、馬達、電纜、太陽能、系統整合、智慧電錶、先端電子及家電等八大事業體。重電事業群為主要獲利引擎，產品涵蓋電力變壓器、配電變壓器、電抗器、配電盤及氣體絕緣開關（GIS），是台灣唯一同時具備變</div>
+</div>
+<div class="card" onclick="window.location='../reports/2547.html'">
+  <div class="card-top">
+    <span class="ticker">2547</span>
+    <span class="company-name">日勝生</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>11B</strong> 市值</div>
+    <div class="metric"><strong>3.80</strong> P/E</div>
+    <div class="metric"><strong>0.79</strong> P/B</div>
+  </div>
+  <div class="card-summary">日勝生活科技股份有限公司成立於1980年，總部位於台北市，以「軌道經濟」及「循環經濟」為雙核心策略。房地產開發主攻捷運聯合開發案（TOD模式），代表作包含位於台北車站之京站時尚廣場（Q Square，五鐵共構聯開案）、新北市新店之美河市（捷運小碧潭站共構住宅），以及近期之鑄慕（RADIUM ONE）</div>
+</div>
+<div class="card" onclick="window.location='../reports/5288.html'">
+  <div class="card-top">
+    <span class="ticker">5288</span>
+    <span class="company-name">豐祥-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>10B</strong> 市值</div>
+    <div class="metric"><strong>11.37</strong> P/E</div>
+    <div class="metric"><strong>1.58</strong> P/B</div>
+  </div>
+  <div class="card-summary">豐祥控股（Eurocharm Holdings，KY公司）成立於1974年，在開曼群島註冊，主要生產據點位於台灣及越南。公司為專業金屬零組件製造商，核心能力涵蓋沖壓、焊接、電鍍、塗裝等金屬加工之垂直整合製程，並取得 ISO 9001、IATF 16949（汽車產業品質管理）及 ISO 13485（醫</div>
+</div>
+<div class="card" onclick="window.location='../reports/2614.html'">
+  <div class="card-top">
+    <span class="ticker">2614</span>
+    <span class="company-name">東森</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>10.32</strong> P/E</div>
+    <div class="metric"><strong>1.60</strong> P/B</div>
+  </div>
+  <div class="card-summary">東森國際股份有限公司成立於1975年，前身為遠東倉儲，目前為橫跨新媒體、電商購物及倉儲貿易之多角化控股公司。三大核心事業：（1）新媒體事業： 擁有ETtoday新聞雲（台灣流量最大之網路新聞媒體）及衛星電視頻道，數位廣告營收持續成長；（2）電商購物事業： 旗下東森購物（Eastern Home Sh</div>
+</div>
+<div class="card" onclick="window.location='../reports/1435.html'">
+  <div class="card-top">
+    <span class="ticker">1435</span>
+    <span class="company-name">中福</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.33</strong> P/B</div>
+  </div>
+  <div class="card-summary">中福國際股份有限公司成立於1971年，早期以紡織為主業（曾為聚酯纖維及成衣製造商），後因產業變遷全面轉型為資產管理及土地活化公司。目前主要收益來源為位於桃園市中壢區之大面積丁種建地工業用地（約21,000坪）之廠房出租與資產處分。公司曾委託第一太平戴維斯（Savills）以公開標售方式處分中壢廠土地</div>
+</div>
+<div class="card" onclick="window.location='../reports/3027.html'">
+  <div class="card-top">
+    <span class="ticker">3027</span>
+    <span class="company-name">盛達</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.05</strong> P/B</div>
+  </div>
+  <div class="card-summary">盛達電業股份有限公司（Billion Electric）創立於1973年，早期以電源供應器與通訊設備起家，近年全面轉型為綠能與儲能系統服務商。旗下子公司盛齊綠能（Billion Watts）為轉型核心，提供一站式太陽光電與儲能解決方案，業務涵蓋太陽能逆變器代理、儲能系統建置（EPC）、維運（O&M）</div>
+</div>
+<div class="card" onclick="window.location='../reports/6969.html'">
+  <div class="card-top">
+    <span class="ticker">6969</span>
+    <span class="company-name">成信實業-創</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>3.76</strong> P/B</div>
+  </div>
+  <div class="card-summary">成信實業股份有限公司成立於2019年，核心經營團隊多出身國立成功大學資源工程學系，以「零廢棄」為核心理念，運用先進「都市採礦」技術，專注將工業廢棄物轉化為可再利用之再生產品。五大循環再生產品線：（1）半導體封裝膠邊料純化之球形二氧化矽；（2）矽晶廠廢晶矽泥轉化之矽粉矽碇（煉鋼輔材）；（3）晶圓CMP</div>
+</div></div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

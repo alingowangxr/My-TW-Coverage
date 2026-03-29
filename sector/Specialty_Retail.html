@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Specialty Retail | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="sector-header">
+  <h1>Specialty Retail</h1>
+  <div class="subtitle">11 家公司 | 按市值排序</div>
+</div>
+<div class="container">
+  <div style="margin-bottom:12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">← 返回首頁</a>
+  </div>
+  <div class="cards-grid">
+<div class="card" onclick="window.location='../reports/3045.html'">
+  <div class="card-top">
+    <span class="ticker">3045</span>
+    <span class="company-name">台灣大</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>330B</strong> 市值</div>
+    <div class="metric"><strong>23.29</strong> P/E</div>
+    <div class="metric"><strong>3.83</strong> P/B</div>
+  </div>
+  <div class="card-summary">台灣大哥大股份有限公司為台灣第二大電信營運商，與 中華電信、遠傳電信 並稱「電信三雄」。主要業務涵蓋：(1) 電信本業：5G 行動通訊及寬頻上網，2023 年併購台灣之星後頻譜效益提升；(2) 電子商務：持有 富邦媒（momo 購物，8454）約 45% 股權，貢獻集團過半營收；(3) 家用娛樂：整</div>
+</div>
+<div class="card" onclick="window.location='../reports/9937.html'">
+  <div class="card-top">
+    <span class="ticker">9937</span>
+    <span class="company-name">全國</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>17B</strong> 市值</div>
+    <div class="metric"><strong>24.09</strong> P/E</div>
+    <div class="metric"><strong>3.01</strong> P/B</div>
+  </div>
+  <div class="card-summary">全國加油站股份有限公司成立於 1988 年，總部位於台灣台北。公司為國內民營加油站龍頭品牌，全台設有逾 100 座直營加油站，規模僅次於 中油 及台亞石油，位居全國第三。主要業務為汽、柴油零售，並提供洗車及潤滑油銷售等附加服務。全國加油站以優質服務及會員經營聞名，並積極導入 EV 充電 設施，朝複合</div>
+</div>
+<div class="card" onclick="window.location='../reports/8927.html'">
+  <div class="card-top">
+    <span class="ticker">8927</span>
+    <span class="company-name">北基</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>10B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>—</strong> P/B</div>
+  </div>
+  <div class="card-summary">北基國際股份有限公司成立於 1988 年，總部位於新北市。公司業務涵蓋三大板塊：(1) 加油站：經營油品零售、洗車及車輛保養等服務；(2) 土地建設開發：2024 年前三季土建業務營收佔比達 40%，預售案「水律川」、「拓真」交屋入帳帶動獲利創高；(3) 綠色能源：透過子公司 三地能源 積極投入太陽</div>
+</div>
+<div class="card" onclick="window.location='../reports/6281.html'">
+  <div class="card-top">
+    <span class="ticker">6281</span>
+    <span class="company-name">全國電</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>6B</strong> 市值</div>
+    <div class="metric"><strong>15.75</strong> P/E</div>
+    <div class="metric"><strong>1.98</strong> P/B</div>
+  </div>
+  <div class="card-summary">全國電子股份有限公司成立於 1975 年，總部位於新北市，為台灣主要家電及 3C 零售連鎖通路之一，以「足感心A」品牌形象深植人心。全國電子於全台經營數百家門市，銷售電視、冰箱、洗衣機、冷氣等家電產品以及手機、電腦等 3C 商品，並提供配送安裝與售後維修服務。公司近年積極導入品牌專區模式，設置 LG</div>
+</div>
+<div class="card" onclick="window.location='../reports/8433.html'">
+  <div class="card-top">
+    <span class="ticker">8433</span>
+    <span class="company-name">弘帆</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>20.30</strong> P/E</div>
+    <div class="metric"><strong>1.41</strong> P/B</div>
+  </div>
+  <div class="card-summary">弘帆股份有限公司成立於 1974 年（原名 1985 年），總部位於台北市內湖區，為全球髮飾、梳鏡及時尚配件之領導製造商。公司以 OEM/ODM 模式為主，產品涵蓋髮飾、梳子、鏡子、首飾、手提包及運動配件等。弘帆為美國髮飾市場最大製造商，美國前三大髮飾通路品牌 Goody、Conair、Scunci</div>
+</div>
+<div class="card" onclick="window.location='../reports/2430.html'">
+  <div class="card-top">
+    <span class="ticker">2430</span>
+    <span class="company-name">燦坤</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>31.74</strong> P/E</div>
+    <div class="metric"><strong>0.58</strong> P/B</div>
+  </div>
+  <div class="card-summary">燦坤實業股份有限公司成立於 1978 年，總部位於台灣台北。公司為台灣主要 3C 家電零售連鎖通路，經營「燦坤 3C」門市品牌，全台門市約 200 家，並營運電商平台「燦坤快3」。主要銷售產品涵蓋手機、電腦、家電、影音及周邊配件等 3C 商品，同時提供維修售後服務。燦坤曾為台灣最大 3C 零售通路，</div>
+</div>
+<div class="card" onclick="window.location='../reports/2616.html'">
+  <div class="card-top">
+    <span class="ticker">2616</span>
+    <span class="company-name">山隆</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.86</strong> P/B</div>
+  </div>
+  <div class="card-summary">山隆通運股份有限公司成立於 1976 年，隸屬 正隆（1904）紙業集團。公司為國內少數同時跨足加油站與汽車貨運之業者。加油站業務方面，山隆全台擁有約 70 座以上加油站，為國內最大民營柴油發油商，主力客群為柴油車隊（貨卡車）。運輸物流方面，擁有龐大車隊，除承運 正隆 集團之紙類產品外，亦承接超商通</div>
+</div>
+<div class="card" onclick="window.location='../reports/2937.html'">
+  <div class="card-top">
+    <span class="ticker">2937</span>
+    <span class="company-name">集雅社</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>11.99</strong> P/E</div>
+    <div class="metric"><strong>1.88</strong> P/B</div>
+  </div>
+  <div class="card-summary">集雅社股份有限公司為台灣知名百貨家電通路商，專注於中高階影音家電市場。營運模式主打百貨專櫃（如 新光三越、遠東百貨 內之專櫃），銷售國際一線品牌 Sony、Samsung、LG、Panasonic 等電視、音響、冰箱、洗衣機等產品。集雅社強調體驗式行銷與專業顧問服務，鎖定重視生活品味之百貨客群，客單</div>
+</div>
+<div class="card" onclick="window.location='../reports/2947.html'">
+  <div class="card-top">
+    <span class="ticker">2947</span>
+    <span class="company-name">振宇五金</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>24.54</strong> P/E</div>
+    <div class="metric"><strong>2.13</strong> P/B</div>
+  </div>
+  <div class="card-summary">振宇五金股份有限公司為台灣五金連鎖通路領導品牌，首創「開放式、自助式」五金賣場模式。前身為聯達五金批發倉儲，1989 年於台中市南屯區成立第一家門市。截至 2024 年底全台約 85 家直營門市，目標達成「一鄉鎮一振宇」。客群涵蓋專業師傅（B2B）與 DIY 家庭客（B2C），特色在於數位化管理（自</div>
+</div>
+<div class="card" onclick="window.location='../reports/6195.html'">
+  <div class="card-top">
+    <span class="ticker">6195</span>
+    <span class="company-name">詩肯</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>25.26</strong> P/E</div>
+    <div class="metric"><strong>0.94</strong> P/B</div>
+  </div>
+  <div class="card-summary">詩肯股份有限公司為源自新加坡、深耕台灣之跨國連鎖家具品牌集團。旗下擁有「詩肯柚木（Scanteak）」、「詩肯居家（Scan Living）」及「詩肯睡眠」等品牌，並於 2019 年收購新加坡第二大家具零售商 NOVA Furnishing。詩肯以高品質柚木家具及全牛皮沙發聞名，採取「東南亞分區採購</div>
+</div>
+<div class="card" onclick="window.location='../reports/9960.html'">
+  <div class="card-top">
+    <span class="ticker">9960</span>
+    <span class="company-name">邁達康</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>769M</strong> 市值</div>
+    <div class="metric"><strong>13.16</strong> P/E</div>
+    <div class="metric"><strong>1.16</strong> P/B</div>
+  </div>
+  <div class="card-summary">邁達康國際股份有限公司成立於 2000 年，總部位於台灣高雄。公司為台灣高爾夫用品連鎖通路第一品牌，亦為台灣唯一高爾夫用品通路上櫃公司。邁達康由網路起家，創建華人最大高爾夫中文網站 GolfShop.com.tw，再發展為實體門市通路，採取線上線下整合之 O2O 經營模式。產品涵蓋高爾夫球桿、球袋、</div>
+</div></div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

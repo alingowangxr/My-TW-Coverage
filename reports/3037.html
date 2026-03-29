@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>3037 欣興 | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="container">
+  <div style="margin:16px 0 12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">首頁</a> &rsaquo;
+    <a href="../sector/Electronic_Components.html">Electronic Components</a> &rsaquo;
+    3037 欣興
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+    <span class="ticker" style="font-size:16px;padding:4px 12px">3037</span>
+    <h1 style="font-size:22px;font-weight:700">欣興</h1>
+  </div>
+  <div class="report-layout">
+    <div>
+      <div class="report-content"><h1>3037 - <a href="../index.html?wl=欣興" class="wl">欣興</a></h1>
+<h2 id="section-desc">業務簡介</h2>
+<p><strong>板塊:</strong> Technology<br />
+<strong>產業:</strong> Electronic Components<br />
+<strong>市值:</strong> 796,742 百萬台幣<br />
+<strong>企業價值:</strong> 785,295 百萬台幣</p>
+<p><a href="../index.html?wl=欣興" class="wl">欣興</a>電子 (<a href="../index.html?wl=Unimicron_Technology" class="wl">Unimicron Technology</a>) 為全球最大 <a href="../index.html?wl=PCB" class="wl">PCB</a> 與 IC 載板製造商之一，隸屬 <a href="../index.html?wl=聯電" class="wl">聯電</a> 集團。在 <a href="../index.html?wl=ABF_載板" class="wl">ABF 載板</a>領域具統治地位，為 <a href="../index.html?wl=AI_伺服器" class="wl">AI 伺服器</a>與高效能運算晶片之關鍵供應商。</p>
+<p>核心競爭優勢：(1) <a href="../index.html?wl=ABF_載板" class="wl">ABF 載板</a> — 全球市佔率約 18%，僅次於日本 <a href="../index.html?wl=Ibiden" class="wl">Ibiden</a>，為 <a href="../index.html?wl=NVIDIA" class="wl">NVIDIA</a>、<a href="../index.html?wl=AMD" class="wl">AMD</a>、<a href="../index.html?wl=Intel" class="wl">Intel</a> 等高階晶片封裝之核心供應商；(2) HDI 高密度互連板 — 應用於智慧型手機與車用電子；(3) 軟硬結合板 — 應用於穿戴與手機。近年資本支出維持 200 億元以上水準，超過 65% 資金投入 <a href="../index.html?wl=ABF_載板" class="wl">ABF 載板</a>產能擴充。受惠 <a href="../index.html?wl=CoWoS" class="wl">CoWoS</a> 先進封裝產能吃緊，高階載板需求強勁。</p>
+<h2 id="section-supply">供應鏈位置</h2>
+<p><strong>上游 (材料與設備):</strong><br />
+- <strong>ABF 膜:</strong> <a href="../index.html?wl=Ajinomoto" class="wl">Ajinomoto</a> (Ajinomoto) — <a href="../index.html?wl=ABF" class="wl">ABF</a> 積層絕緣膜獨家供應<br />
+- <strong>銅箔基板:</strong> <a href="../index.html?wl=台光電" class="wl">台光電</a>、<a href="../index.html?wl=聯茂" class="wl">聯茂</a>、<a href="../index.html?wl=台燿" class="wl">台燿</a> — <a href="../index.html?wl=CCL" class="wl">CCL</a> 銅箔基板<br />
+- <strong><a href="../index.html?wl=銅箔" class="wl">銅箔</a>:</strong> 銅箔供應商<br />
+- <strong><a href="../index.html?wl=玻纖布" class="wl">玻纖布</a>:</strong> 玻纖布供應商</p>
+<p><strong>中游 (PCB/載板製造):</strong><br />
+- <strong><a href="../index.html?wl=ABF_載板" class="wl">ABF 載板</a>:</strong> <strong><a href="../index.html?wl=欣興" class="wl">欣興</a></strong> (AI/HPC 晶片 IC 載板)<br />
+- <strong>HDI:</strong> <strong><a href="../index.html?wl=欣興" class="wl">欣興</a></strong> (手機與車用高密度互連板)<br />
+- <strong>軟硬結合板:</strong> <strong><a href="../index.html?wl=欣興" class="wl">欣興</a></strong> (穿戴裝置與手機應用)</p>
+<p><strong>下游 (IC 設計/封測與終端):</strong><br />
+- <strong>AI/HPC:</strong> <a href="../index.html?wl=NVIDIA" class="wl">NVIDIA</a>、<a href="../index.html?wl=AMD" class="wl">AMD</a>、<a href="../index.html?wl=Intel" class="wl">Intel</a> — 高階晶片 <a href="../index.html?wl=ABF_載板" class="wl">ABF 載板</a><br />
+- <strong>手機:</strong> <a href="../index.html?wl=Apple" class="wl">Apple</a> — iPhone 用 HDI/軟硬結合板<br />
+- <strong>封裝整合:</strong> <a href="../index.html?wl=台積電" class="wl">台積電</a> — <a href="../index.html?wl=CoWoS" class="wl">CoWoS</a> 先進封裝配合<br />
+- <strong>車用:</strong> 車用電子板</p>
+<h2 id="section-clients">主要客戶及供應商</h2>
+<h3>主要客戶</h3>
+<ul>
+<li><strong>AI/HPC:</strong> <a href="../index.html?wl=NVIDIA" class="wl">NVIDIA</a>、<a href="../index.html?wl=AMD" class="wl">AMD</a>、<a href="../index.html?wl=Intel" class="wl">Intel</a> — 高階晶片 <a href="../index.html?wl=ABF_載板" class="wl">ABF 載板</a></li>
+<li><strong>手機:</strong> <a href="../index.html?wl=Apple" class="wl">Apple</a> — HDI 與軟硬結合板</li>
+<li><strong>封裝:</strong> <a href="../index.html?wl=台積電" class="wl">台積電</a> — <a href="../index.html?wl=CoWoS" class="wl">CoWoS</a> 先進封裝配合</li>
+<li><strong>記憶體:</strong> <a href="../index.html?wl=Samsung" class="wl">Samsung</a>、<a href="../index.html?wl=SK_Hynix" class="wl">SK Hynix</a> — 記憶體模組板</li>
+</ul>
+<h3>主要供應商</h3>
+<ul>
+<li><strong>ABF 膜:</strong> <a href="../index.html?wl=Ajinomoto" class="wl">Ajinomoto</a> (Ajinomoto) — <a href="../index.html?wl=ABF" class="wl">ABF</a> 積層絕緣膜</li>
+<li><strong>銅箔基板:</strong> <a href="../index.html?wl=台光電" class="wl">台光電</a>、<a href="../index.html?wl=聯茂" class="wl">聯茂</a>、<a href="../index.html?wl=台燿" class="wl">台燿</a> — <a href="../index.html?wl=CCL" class="wl">CCL</a></li>
+<li><strong><a href="../index.html?wl=銅箔" class="wl">銅箔</a>:</strong> 銅箔供應商</li>
+<li><strong><a href="../index.html?wl=玻纖布" class="wl">玻纖布</a>:</strong> 玻纖布供應商</li>
+</ul><h2 id="section-finance">財務概況</h2>
+<p>(單位: 百萬台幣, 只有 Margin 為 %)</p>
+<h3>估值指標 (股價 $506.00 as of 2026-03-26 | TTM 截至 2025-12-31 | Forward 預估至 2026-12-31)</h3>
+<table>
+<thead>
+<tr>
+<th>P/E (TTM)</th>
+<th>Forward P/E</th>
+<th>P/S (TTM)</th>
+<th>P/B</th>
+<th>EV/EBITDA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>106.30</td>
+<td>24.78</td>
+<td>6.07</td>
+<td>7.69</td>
+<td>31.82</td>
+</tr>
+</tbody>
+</table>
+<h3>年度關鍵財務數據 (近 3 年)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">2025-12-31</th>
+<th style="text-align: right;">2024-12-31</th>
+<th style="text-align: right;">2023-12-31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Revenue</td>
+<td style="text-align: right;">131240.88</td>
+<td style="text-align: right;">115373.28</td>
+<td style="text-align: right;">104036.15</td>
+</tr>
+<tr>
+<td style="text-align: left;">Gross Profit</td>
+<td style="text-align: right;">18292.26</td>
+<td style="text-align: right;">16315.16</td>
+<td style="text-align: right;">20301.60</td>
+</tr>
+<tr>
+<td style="text-align: left;">Gross Margin (%)</td>
+<td style="text-align: right;">13.94</td>
+<td style="text-align: right;">14.14</td>
+<td style="text-align: right;">19.51</td>
+</tr>
+<tr>
+<td style="text-align: left;">Selling &amp; Marketing Exp</td>
+<td style="text-align: right;">1606.89</td>
+<td style="text-align: right;">1637.39</td>
+<td style="text-align: right;">1423.60</td>
+</tr>
+<tr>
+<td style="text-align: left;">R&amp;D Exp</td>
+<td style="text-align: right;">4998.73</td>
+<td style="text-align: right;">5042.90</td>
+<td style="text-align: right;">4923.25</td>
+</tr>
+<tr>
+<td style="text-align: left;">General &amp; Admin Exp</td>
+<td style="text-align: right;">5176.19</td>
+<td style="text-align: right;">4584.36</td>
+<td style="text-align: right;">5130.51</td>
+</tr>
+<tr>
+<td style="text-align: left;">Operating Income</td>
+<td style="text-align: right;">6674.37</td>
+<td style="text-align: right;">5116.68</td>
+<td style="text-align: right;">8919.92</td>
+</tr>
+<tr>
+<td style="text-align: left;">Operating Margin (%)</td>
+<td style="text-align: right;">5.09</td>
+<td style="text-align: right;">4.43</td>
+<td style="text-align: right;">8.57</td>
+</tr>
+<tr>
+<td style="text-align: left;">Net Income</td>
+<td style="text-align: right;">6673.14</td>
+<td style="text-align: right;">5082.06</td>
+<td style="text-align: right;">11980.05</td>
+</tr>
+<tr>
+<td style="text-align: left;">Net Margin (%)</td>
+<td style="text-align: right;">5.08</td>
+<td style="text-align: right;">4.40</td>
+<td style="text-align: right;">11.52</td>
+</tr>
+<tr>
+<td style="text-align: left;">Op Cash Flow</td>
+<td style="text-align: right;">14967.09</td>
+<td style="text-align: right;">10293.59</td>
+<td style="text-align: right;">30900.03</td>
+</tr>
+<tr>
+<td style="text-align: left;">Investing Cash Flow</td>
+<td style="text-align: right;">-23017.61</td>
+<td style="text-align: right;">-29229.83</td>
+<td style="text-align: right;">-21099.17</td>
+</tr>
+<tr>
+<td style="text-align: left;">Financing Cash Flow</td>
+<td style="text-align: right;">19072.91</td>
+<td style="text-align: right;">8336.11</td>
+<td style="text-align: right;">-18059.68</td>
+</tr>
+<tr>
+<td style="text-align: left;">CAPEX</td>
+<td style="text-align: right;">-26055.89</td>
+<td style="text-align: right;">-26729.24</td>
+<td style="text-align: right;">-23282.39</td>
+</tr>
+</tbody>
+</table>
+<h3>季度關鍵財務數據 (近 4 季)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">2025-12-31</th>
+<th style="text-align: right;">2025-06-30</th>
+<th style="text-align: right;">2025-03-31</th>
+<th style="text-align: right;">2024-12-31</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Revenue</td>
+<td style="text-align: right;">34690.89</td>
+<td style="text-align: right;">32466.04</td>
+<td style="text-align: right;">30089.53</td>
+<td style="text-align: right;">29380.91</td>
+</tr>
+<tr>
+<td style="text-align: left;">Gross Profit</td>
+<td style="text-align: right;">5472.13</td>
+<td style="text-align: right;">4245.52</td>
+<td style="text-align: right;">4026.09</td>
+<td style="text-align: right;">3398.12</td>
+</tr>
+<tr>
+<td style="text-align: left;">Gross Margin (%)</td>
+<td style="text-align: right;">15.77</td>
+<td style="text-align: right;">13.08</td>
+<td style="text-align: right;">13.38</td>
+<td style="text-align: right;">11.57</td>
+</tr>
+<tr>
+<td style="text-align: left;">Selling &amp; Marketing Exp</td>
+<td style="text-align: right;">376.69</td>
+<td style="text-align: right;">449.33</td>
+<td style="text-align: right;">383.70</td>
+<td style="text-align: right;">338.91</td>
+</tr>
+<tr>
+<td style="text-align: left;">R&amp;D Exp</td>
+<td style="text-align: right;">1286.54</td>
+<td style="text-align: right;">1190.56</td>
+<td style="text-align: right;">1236.74</td>
+<td style="text-align: right;">1176.37</td>
+</tr>
+<tr>
+<td style="text-align: left;">General &amp; Admin Exp</td>
+<td style="text-align: right;">1532.08</td>
+<td style="text-align: right;">1103.12</td>
+<td style="text-align: right;">1192.65</td>
+<td style="text-align: right;">1226.62</td>
+</tr>
+<tr>
+<td style="text-align: left;">Operating Income</td>
+<td style="text-align: right;">2365.66</td>
+<td style="text-align: right;">1509.36</td>
+<td style="text-align: right;">1266.82</td>
+<td style="text-align: right;">679.37</td>
+</tr>
+<tr>
+<td style="text-align: left;">Operating Margin (%)</td>
+<td style="text-align: right;">6.82</td>
+<td style="text-align: right;">4.65</td>
+<td style="text-align: right;">4.21</td>
+<td style="text-align: right;">2.31</td>
+</tr>
+<tr>
+<td style="text-align: left;">Net Income</td>
+<td style="text-align: right;">3534.50</td>
+<td style="text-align: right;">29.61</td>
+<td style="text-align: right;">914.54</td>
+<td style="text-align: right;">56.06</td>
+</tr>
+<tr>
+<td style="text-align: left;">Net Margin (%)</td>
+<td style="text-align: right;">10.19</td>
+<td style="text-align: right;">0.09</td>
+<td style="text-align: right;">3.04</td>
+<td style="text-align: right;">0.19</td>
+</tr>
+<tr>
+<td style="text-align: left;">Op Cash Flow</td>
+<td style="text-align: right;">4006.75</td>
+<td style="text-align: right;">5735.89</td>
+<td style="text-align: right;">2991.48</td>
+<td style="text-align: right;">3564.36</td>
+</tr>
+<tr>
+<td style="text-align: left;">Investing Cash Flow</td>
+<td style="text-align: right;">-3427.93</td>
+<td style="text-align: right;">-4753.61</td>
+<td style="text-align: right;">-6780.42</td>
+<td style="text-align: right;">-4878.32</td>
+</tr>
+<tr>
+<td style="text-align: left;">Financing Cash Flow</td>
+<td style="text-align: right;">9646.68</td>
+<td style="text-align: right;">3947.89</td>
+<td style="text-align: right;">3975.02</td>
+<td style="text-align: right;">4643.48</td>
+</tr>
+<tr>
+<td style="text-align: left;">CAPEX</td>
+<td style="text-align: right;">-5821.12</td>
+<td style="text-align: right;">-6667.31</td>
+<td style="text-align: right;">-6878.59</td>
+<td style="text-align: right;">-7341.75</td>
+</tr>
+</tbody>
+</table></div>
+    </div>
+    <div>
+<div class="report-meta">
+  <div class="meta-item">
+    <span class="meta-label">板塊 / 產業</span>
+    <span class="meta-value" style="font-size:13px">Technology / Electronic Components</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">市值</span>
+    <span class="meta-value">797B 百萬台幣</span>
+  </div>
+  <table class="val-table">
+    <tr><td>P/E (TTM)</td><td>106.30</td></tr>
+    <tr><td>P/B</td><td>7.69</td></tr>
+    <tr><td>EV/EBITDA</td><td>31.82</td></tr>
+  </table>
+</div>
+<div class="toc">
+  <h4>目錄</h4>
+  <a href="#section-desc">業務簡介</a>
+  <a href="#section-supply">供應鏈位置</a>
+  <a href="#section-clients">主要客戶及供應商</a>
+  <a href="#section-finance">財務概況</a>
+</div>
+<div class="report-meta" style="margin-top:12px">
+  <h4 style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Wikilinks (23)</h4>
+  <a href="../index.html?wl=ABF" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">ABF</a><a href="../index.html?wl=ABF_載板" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">ABF 載板</a><a href="../index.html?wl=AI_伺服器" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">AI 伺服器</a><a href="../index.html?wl=AMD" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">AMD</a><a href="../index.html?wl=Ajinomoto" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">Ajinomoto</a><a href="../index.html?wl=Apple" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">Apple</a><a href="../index.html?wl=CCL" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">CCL</a><a href="../index.html?wl=CoWoS" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">CoWoS</a><a href="../index.html?wl=Ibiden" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">Ibiden</a><a href="../index.html?wl=Intel" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">Intel</a><a href="../index.html?wl=NVIDIA" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">NVIDIA</a><a href="../index.html?wl=PCB" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">PCB</a><a href="../index.html?wl=SK_Hynix" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">SK Hynix</a><a href="../index.html?wl=Samsung" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">Samsung</a><a href="../index.html?wl=Unimicron_Technology" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">Unimicron Technology</a><a href="../index.html?wl=台光電" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">台光電</a><a href="../index.html?wl=台燿" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">台燿</a><a href="../index.html?wl=台積電" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">台積電</a><a href="../index.html?wl=欣興" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">欣興</a><a href="../index.html?wl=玻纖布" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">玻纖布</a><a href="../index.html?wl=聯茂" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">聯茂</a><a href="../index.html?wl=聯電" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">聯電</a><a href="../index.html?wl=銅箔" class="wl" style="display:inline-block;margin:2px 2px 2px 0;font-size:11px">銅箔</a>
+</div>
+<div class="related-box"><h4>相關公司</h4><div class="related-item"><span class="ticker" style="font-size:10px">8046</span> <a href="8046.html" style="font-size:12px">欣興</a></div><div class="related-item"><span class="ticker" style="font-size:10px">3044</span> <a href="3044.html" style="font-size:12px">連宇</a></div><div class="related-item"><span class="ticker" style="font-size:10px">1303</span> <a href="1303.html" style="font-size:12px">華航</a></div><div class="related-item"><span class="ticker" style="font-size:10px">4958</span> <a href="4958.html" style="font-size:12px">華航</a></div><div class="related-item"><span class="ticker" style="font-size:10px">5340</span> <a href="5340.html" style="font-size:12px">連宇</a></div><div class="related-item"><span class="ticker" style="font-size:10px">3189</span> <a href="3189.html" style="font-size:12px">欣興</a></div><div class="related-item"><span class="ticker" style="font-size:10px">8358</span> <a href="8358.html" style="font-size:12px">連宇</a></div><div class="related-item"><span class="ticker" style="font-size:10px">5475</span> <a href="5475.html" style="font-size:12px">連宇</a></div></div></div>
+  </div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

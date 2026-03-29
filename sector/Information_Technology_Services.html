@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Information Technology Services | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="sector-header">
+  <h1>Information Technology Services</h1>
+  <div class="subtitle">19 家公司 | 按市值排序</div>
+</div>
+<div class="container">
+  <div style="margin-bottom:12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">← 返回首頁</a>
+  </div>
+  <div class="cards-grid">
+<div class="card" onclick="window.location='../reports/6214.html'">
+  <div class="card-top">
+    <span class="ticker">6214</span>
+    <span class="company-name">精誠</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>28B</strong> 市值</div>
+    <div class="metric"><strong>13.94</strong> P/E</div>
+    <div class="metric"><strong>1.64</strong> P/B</div>
+  </div>
+  <div class="card-summary">精誠資訊 (6214，SYSTEX) 成立於 1997 年，為台灣最大資訊服務上市公司，員工約 5,000 人，全球據點逾 50 處，涵蓋台灣、中國、香港、日本、越南、新加坡等地。精誠定位為全方位 IT 服務供應商與加值代理商，業務涵蓋軟硬體代理、系統整合、雲端服務、資安防護、大數據分析與行動支付解</div>
+</div>
+<div class="card" onclick="window.location='../reports/7765.html'">
+  <div class="card-top">
+    <span class="ticker">7765</span>
+    <span class="company-name">中華資安</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>9B</strong> 市值</div>
+    <div class="metric"><strong>19.46</strong> P/E</div>
+    <div class="metric"><strong>4.40</strong> P/B</div>
+  </div>
+  <div class="card-summary">中華資安國際 (7765) 為中華電信 (2412) 轉投資之資安子公司，於 2025 年 9 月正式上市，成為國內首家上市資安公司。公司擁有得天獨厚之 ISP 網路閘口優勢，透過電信線路直接為近百萬家庭與四萬餘家中小企業進行源頭阻斷與 DDoS 防護 (守門員服務)。針對政府機關與關鍵基礎設施，提</div>
+</div>
+<div class="card" onclick="window.location='../reports/6112.html'">
+  <div class="card-top">
+    <span class="ticker">6112</span>
+    <span class="company-name">邁達特</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>8B</strong> 市值</div>
+    <div class="metric"><strong>24.81</strong> P/E</div>
+    <div class="metric"><strong>1.96</strong> P/B</div>
+  </div>
+  <div class="card-summary">邁達特數位股份有限公司 (6112，舊名為聚碩科技) 是一家定位為『IT智能化最佳夥伴』的專業資訊應用服務商。公司已從傳統的軟硬體代理商，成功轉型為整合雲端與地端資源的雲地整合專家。主要業務涵蓋ICT基礎架構建置、公有雲/混合雲服務(AWS/Google/Azure)、AI大數據分析以及全方位資訊安</div>
+</div>
+<div class="card" onclick="window.location='../reports/4953.html'">
+  <div class="card-top">
+    <span class="ticker">4953</span>
+    <span class="company-name">緯軟</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>8B</strong> 市值</div>
+    <div class="metric"><strong>13.83</strong> P/E</div>
+    <div class="metric"><strong>2.00</strong> P/B</div>
+  </div>
+  <div class="card-summary">緯創軟體 (緯創 ITS) 為 緯創 (緯創) 集團旗下之全球 資訊技術服務 (IT Services) 供應商。 主要提供 IT 委外服務 (Outsourcing) 與 產品工程服務。 服務範疇： 1. 軟體開發/測試: AI, Big Data, Cloud, 物聯網 等技術開發與維護。 2.</div>
+</div>
+<div class="card" onclick="window.location='../reports/6811.html'">
+  <div class="card-top">
+    <span class="ticker">6811</span>
+    <span class="company-name">宏�硌穈T</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>8B</strong> 市值</div>
+    <div class="metric"><strong>13.35</strong> P/E</div>
+    <div class="metric"><strong>3.33</strong> P/B</div>
+  </div>
+  <div class="card-summary">宏碁資訊 (6811) 成立於 2012 年，為宏碁 (Acer) 集團持股約 72% 之子公司，被譽為「最懂地端的雲端公司」。公司為台灣數位轉型及雲端服務之技術領導平台，同時也是 Microsoft 在台灣層級最高的合作夥伴，為台灣首家同時擁有 Microsoft CSP、LSP、MSP、ASP </div>
+</div>
+<div class="card" onclick="window.location='../reports/3147.html'">
+  <div class="card-top">
+    <span class="ticker">3147</span>
+    <span class="company-name">大綜</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>19.49</strong> P/E</div>
+    <div class="metric"><strong>4.23</strong> P/B</div>
+  </div>
+  <div class="card-summary">大綜電腦 (Jetwell Computer) 是台灣南部最具規模的 系統整合商 (SI)。 公司專長於提供一站式的 IT 基礎建設服務、雲端運算 (Azure/AWS) 導入、資訊安全及大型軟硬體整合專案。 核心優勢與成長動能： 1. 半導體供應鏈出海: 緊隨 2330_台積電|台積電 等大廠腳步</div>
+</div>
+<div class="card" onclick="window.location='../reports/8099.html'">
+  <div class="card-top">
+    <span class="ticker">8099</span>
+    <span class="company-name">大世科</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>6B</strong> 市值</div>
+    <div class="metric"><strong>23.61</strong> P/E</div>
+    <div class="metric"><strong>3.51</strong> P/B</div>
+  </div>
+  <div class="card-summary">大世科 (8099，Tatung System Technologies) 成立於 2000 年，隸屬大同集團，為專業資通信系統整合商。公司定位為「ACE SI」(AI、Cloud、ESG) 服務供應商，核心產品「OneAI」全方位 AI 解決方案整合 MLOps、大型語言模型 (LLM) 與 RA</div>
+</div>
+<div class="card" onclick="window.location='../reports/2453.html'">
+  <div class="card-top">
+    <span class="ticker">2453</span>
+    <span class="company-name">凌群</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>17.52</strong> P/E</div>
+    <div class="metric"><strong>2.42</strong> P/B</div>
+  </div>
+  <div class="card-summary">凌群電腦 (2453) 成立於 1975 年，為台灣老牌資訊系統整合商，提供從基礎建設、網路架構到應用軟體開發之全方位 ICT 解決方案。凌群深耕金融、政府、醫療及電信領域，主要產品與服務涵蓋伺服器、儲存設備、網路通訊建置，以及自行研發之智慧服務機器人 Ayuda。近年積極佈局 AI、雲端服務及 5</div>
+</div>
+<div class="card" onclick="window.location='../reports/5209.html'">
+  <div class="card-top">
+    <span class="ticker">5209</span>
+    <span class="company-name">新鼎</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>10.95</strong> P/E</div>
+    <div class="metric"><strong>4.26</strong> P/B</div>
+  </div>
+  <div class="card-summary">新鼎系統 (CTCI ASI / CTCI Advanced Systems) 隸屬於 中鼎集團 (CTCI Group)，為台灣領先的 系統整合 (SI) 廠商。 專注於工廠自動化、智慧製造與交通控制系統。 核心業務： 1. 智慧製造 (Smart Manufacturing): 製程控制 (DC</div>
+</div>
+<div class="card" onclick="window.location='../reports/6221.html'">
+  <div class="card-top">
+    <span class="ticker">6221</span>
+    <span class="company-name">晉泰</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>11.30</strong> P/E</div>
+    <div class="metric"><strong>1.41</strong> P/B</div>
+  </div>
+  <div class="card-summary">晉泰科技 (6221，Genesis Technology) 成立於 1994 年，深耕資訊科技系統整合服務領域，全球設有 15 個營運據點，擁有逾 350 位 ICT 專業人員。公司核心業務包含企業網路整合 (約佔四成)、系統平台建置 (佔兩成多) 及儲存設備規劃 (佔兩成多)，並涵蓋資安管理、雲</div>
+</div>
+<div class="card" onclick="window.location='../reports/6614.html'">
+  <div class="card-top">
+    <span class="ticker">6614</span>
+    <span class="company-name">資拓宏宇</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>20.65</strong> P/E</div>
+    <div class="metric"><strong>2.02</strong> P/B</div>
+  </div>
+  <div class="card-summary">資拓宏宇 (6614，IISI) 成立於 2008 年，由中華電信與研華兩大科技巨頭策略投資，擁有逾 30 年軟體開發與專業資訊系統建置經驗。公司於 2025 年 11 月正式掛牌上市，專注於推動企業與政府機關的數位轉型及永續發展解決方案。核心業務涵蓋應用系統開發建置、雲端服務 (SaaS)、資安代</div>
+</div>
+<div class="card" onclick="window.location='../reports/3158.html'">
+  <div class="card-top">
+    <span class="ticker">3158</span>
+    <span class="company-name">嘉實</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>13.48</strong> P/E</div>
+    <div class="metric"><strong>2.61</strong> P/B</div>
+  </div>
+  <div class="card-summary">嘉實資訊 (3158，SysJust) 成立於 1988 年，為台灣最具規模的金融資訊服務商。旗艦產品「XQ 全球贏家」為市場領導者，整合台灣、中國、香港、美國、日本、韓國六大金融市場之即時報價、財報分析與量化交易功能，為台灣首個本土開發之量化交易平台。核心業務涵蓋三大區塊：(1) B2B 券商系統</div>
+</div>
+<div class="card" onclick="window.location='../reports/2468.html'">
+  <div class="card-top">
+    <span class="ticker">2468</span>
+    <span class="company-name">華經</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>30.04</strong> P/E</div>
+    <div class="metric"><strong>2.10</strong> P/B</div>
+  </div>
+  <div class="card-summary">華經資訊企業股份有限公司 (Fortune Information Systems Corp.) 成立於 1977 年，總部位於台灣台北。公司為台灣老牌系統整合商 (SI)，專注於金融、保險、政府及企業之資訊系統整合服務。業務範疇涵蓋雲端解決方案、儲存備份、資安防護及影像代工服務。華經亦代理多項國際</div>
+</div>
+<div class="card" onclick="window.location='../reports/2471.html'">
+  <div class="card-top">
+    <span class="ticker">2471</span>
+    <span class="company-name">資通</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>14.44</strong> P/E</div>
+    <div class="metric"><strong>2.62</strong> P/B</div>
+  </div>
+  <div class="card-summary">資通電腦股份有限公司 (Ares International Corp.) 成立於 1980 年，總部位於台灣台北。公司為台灣首家上市軟體公司，專注於金融科技、智慧製造 (MES) 及 ERP 系統整合。資通以自有產品 (如 eAresBank, ciMes) 及代理 Oracle/Swift 產品</div>
+</div>
+<div class="card" onclick="window.location='../reports/6906.html'">
+  <div class="card-top">
+    <span class="ticker">6906</span>
+    <span class="company-name">現觀科</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>36.65</strong> P/E</div>
+    <div class="metric"><strong>3.05</strong> P/B</div>
+  </div>
+  <div class="card-summary">現觀科技 (6906，Groundhog Technologies) 於 2024 年 1 月掛牌上市，為全球領先的行動網路大數據分析與 AI 定位軟體服務公司。核心產品「CovMo」優化平台不須借助手機 GPS，僅靠基地台電信信令數據與專利演算法，即可精準掌握行動用戶軌跡，協助電信營運商進行 5G</div>
+</div>
+<div class="card" onclick="window.location='../reports/1416.html'">
+  <div class="card-top">
+    <span class="ticker">1416</span>
+    <span class="company-name">廣豐</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>14.32</strong> P/E</div>
+    <div class="metric"><strong>0.50</strong> P/B</div>
+  </div>
+  <div class="card-summary">廣豐實業 (1416) 創立於 1968 年，早期以紡織品牌產銷起家，近年成功轉型為營建開發、資產管理及數位科技服務之多元企業集團。營建事業涵蓋住宅及商用不動產開發與銷售，曾於桃園八德斥資 30 億元興建「廣豐新天地」購物中心 (現為置地生活廣場)。數位科技事業透過轉投資子公司發展金融科技與智能投資</div>
+</div>
+<div class="card" onclick="window.location='../reports/6997.html'">
+  <div class="card-top">
+    <span class="ticker">6997</span>
+    <span class="company-name">博弘</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>16.29</strong> P/E</div>
+    <div class="metric"><strong>2.93</strong> P/B</div>
+  </div>
+  <div class="card-summary">博弘雲端科技 (6997，Nextlink Technology) 為遠傳電信旗下之雲端託管服務商 (Cloud MSP)，隸屬遠東集團。公司為 AWS 大中華區少數頂級合作夥伴 (Premier Tier Services Partner)，專注於多雲公有雲架構之諮詢、搬遷、託管及 AI 加值服務</div>
+</div>
+<div class="card" onclick="window.location='../reports/6697.html'">
+  <div class="card-top">
+    <span class="ticker">6697</span>
+    <span class="company-name">東捷資訊</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>15.00</strong> P/E</div>
+    <div class="metric"><strong>1.98</strong> P/B</div>
+  </div>
+  <div class="card-summary">東捷資訊 (6697，ITTS) 為專業資訊委外服務商，早期由東元電機集團投資成立。東捷資訊為 SAP 台灣金級合作夥伴，專注於 SAP ERP (如 S/4HANA) 解決方案之導入、升級與雲端維護。除 ERP 建置外，東捷亦推動「ACE 計畫」(AI、Cloud、ESG)，提供雲平台託管遷移、物</div>
+</div>
+<div class="card" onclick="window.location='../reports/6751.html'">
+  <div class="card-top">
+    <span class="ticker">6751</span>
+    <span class="company-name">智聯服務</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>9.96</strong> P/E</div>
+    <div class="metric"><strong>1.19</strong> P/B</div>
+  </div>
+  <div class="card-summary">智聯服務 (6751) 隸屬於宏碁 (Acer) 集團，是一家專攻半導體產業的資訊系統整合服務商。公司以「全方位服務經理人」自居，提供 IT 基礎架構與 OT 邊緣運算的軟硬體建置、維運與工程規劃。七至八成營收高度集中於台灣半導體供應鏈，深獲晶圓代工龍頭台積電及 IC 設計大廠信任，協助客戶建置高穩</div>
+</div></div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>

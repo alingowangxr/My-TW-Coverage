@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Electrical Equipment & Parts | TW Coverage</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#1a2744;--accent:#c0392b;--blue:#2980b9;--bg:#f0f2f5;--card:#fff;--text:#2c3e50;--muted:#7f8c8d;--border:#e0e4ea}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+/* Header */
+header{background:var(--primary);color:#fff;padding:0 24px;height:52px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+header .logo{font-size:16px;font-weight:700;white-space:nowrap;color:#fff;text-decoration:none}
+header .logo span{color:#e8a;font-size:11px;margin-left:6px;font-weight:400}
+header .search-wrap{flex:1;max-width:480px;position:relative}
+header .search-wrap input{width:100%;padding:7px 12px 7px 34px;border:1px solid #345;border-radius:6px;background:#243256;color:#fff;font-size:13px;outline:none}
+header .search-wrap input::placeholder{color:#889}
+header .search-wrap input:focus{border-color:#5af;background:#1e3060}
+header .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#667;font-size:13px}
+header nav a{color:#aad;font-size:13px;padding:4px 8px;border-radius:4px}
+header nav a:hover{background:#243256;color:#fff}
+/* Layout */
+.container{max-width:1400px;margin:0 auto;padding:20px 24px}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+/* Sidebar */
+.sidebar{position:sticky;top:70px}
+.sidebar-box{background:var(--card);border-radius:8px;padding:16px;border:1px solid var(--border);margin-bottom:12px}
+.sidebar-box h3{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sidebar-box label{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0;cursor:pointer}
+.sidebar-box input[type=checkbox]{cursor:pointer;accent-color:var(--blue)}
+.sidebar-box select{width:100%;padding:5px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:#fff;cursor:pointer}
+/* Toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar select{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:12px;background:#fff;cursor:pointer}
+.toolbar .count-badge{background:#eef;color:#446;padding:3px 10px;border-radius:12px;font-size:12px}
+/* Cards grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+/* Company card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:box-shadow .15s,transform .1s}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-1px)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ticker{background:var(--accent);color:#fff;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0}
+.company-name{font-size:15px;font-weight:600;line-height:1.2}
+.sector-tag{font-size:10px;color:var(--muted);background:#eef;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.metrics{display:flex;gap:12px;margin:6px 0;flex-wrap:wrap}
+.metric{font-size:11px;color:var(--muted)}
+.metric strong{color:var(--text);font-size:12px}
+.card-summary{font-size:11px;color:#666;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wl-chips{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.wl-chip{font-size:10px;background:#e8f0fe;color:#2563eb;padding:1px 6px;border-radius:3px;cursor:pointer}
+.wl-chip:hover{background:#d0e2fd}
+/* Pagination */
+.pagination{display:flex;gap:6px;align-items:center;margin-top:20px;justify-content:center}
+.pagination button{padding:5px 12px;border:1px solid var(--border);border-radius:4px;background:#fff;cursor:pointer;font-size:12px}
+.pagination button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.pagination button:hover:not(.active){background:#f0f4ff}
+/* Report page */
+.report-layout{display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:start}
+.report-content h2{font-size:17px;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--primary);color:var(--primary)}
+.report-content h3{font-size:14px;font-weight:600;margin:14px 0 6px;color:#345}
+.report-content p{font-size:13px;margin-bottom:10px;line-height:1.65}
+.report-content ul,.report-content ol{margin:6px 0 10px 20px;font-size:13px;line-height:1.7}
+.report-content table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;overflow-x:auto;display:block}
+.report-content th{background:var(--primary);color:#fff;padding:6px 10px;text-align:right;white-space:nowrap}
+.report-content th:first-child{text-align:left}
+.report-content td{padding:5px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.report-content td:first-child{text-align:left;font-weight:500}
+.report-content tr:nth-child(even) td{background:#f8f9fc}
+.report-content a.wl{background:#e8f0fe;color:#1a56db;padding:1px 4px;border-radius:3px;font-size:0.95em}
+.report-content a.wl:hover{background:#c7d7fd}
+.report-meta{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px}
+.report-meta .meta-item{display:flex;flex-direction:column;margin-bottom:12px}
+.report-meta .meta-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.report-meta .meta-value{font-size:14px;font-weight:600;margin-top:2px}
+.report-meta .val-table{width:100%;border-collapse:collapse;margin-top:6px}
+.report-meta .val-table td{font-size:12px;padding:3px 0}
+.report-meta .val-table td:last-child{font-weight:600;text-align:right}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px}
+.toc h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.toc a{display:block;font-size:12px;padding:3px 0;color:#456;border-left:2px solid transparent;padding-left:8px}
+.toc a:hover{border-color:var(--blue);color:var(--blue)}
+.related-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.related-box h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.related-item{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px;border-bottom:1px solid #f0f2f5}
+.related-item:last-child{border-bottom:none}
+/* Sector page */
+.sector-header{background:var(--primary);color:#fff;padding:20px 24px;margin-bottom:20px;border-radius:0 0 8px 8px}
+.sector-header h1{font-size:22px;font-weight:700}
+.sector-header .subtitle{font-size:13px;color:#aad;margin-top:4px}
+/* Utility */
+.no-results{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px}
+.tag-tech{background:#e0f0ff;color:#1a6ab0}
+.tag-mat{background:#fff3e0;color:#b05c00}
+.badge-mc{background:#f0f4f8;color:#456;padding:2px 7px;border-radius:3px;font-size:11px}
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .report-layout{grid-template-columns:1fr}
+  header nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<header>
+  <a class="logo" href="../index.html">TW Coverage <span>1,735 台灣上市公司</span></a>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="global-search" placeholder="搜尋公司、ticker、技術名稱..." autocomplete="off">
+  </div>
+  <nav>
+    <a href="../index.html">首頁</a>
+  </nav>
+</header>
+
+<div class="sector-header">
+  <h1>Electrical Equipment & Parts</h1>
+  <div class="subtitle">76 家公司 | 按市值排序</div>
+</div>
+<div class="container">
+  <div style="margin-bottom:12px;font-size:12px;color:var(--muted)">
+    <a href="../index.html">← 返回首頁</a>
+  </div>
+  <div class="cards-grid">
+<div class="card" onclick="window.location='../reports/3665.html'">
+  <div class="card-top">
+    <span class="ticker">3665</span>
+    <span class="company-name">貿聯-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>352B</strong> 市值</div>
+    <div class="metric"><strong>37.32</strong> P/E</div>
+    <div class="metric"><strong>7.55</strong> P/B</div>
+  </div>
+  <div class="card-summary">貿聯-KY (BizLink) 是全球領先的客製化 連接線束 (Harness) 與 連接器 (Connector) 解決方案領導者。 公司具備全球化的生產基地 (38 個據點) 與研發中心，產品線跨足工業、數據中心、車用與醫療四大領域。 核心優勢與亮點： 1. AI 伺服器 (HPC) 引領成長:</div>
+</div>
+<div class="card" onclick="window.location='../reports/1519.html'">
+  <div class="card-top">
+    <span class="ticker">1519</span>
+    <span class="company-name">華城</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>293B</strong> 市值</div>
+    <div class="metric"><strong>66.24</strong> P/E</div>
+    <div class="metric"><strong>27.64</strong> P/B</div>
+  </div>
+  <div class="card-summary">華城電機 (1519，Fortune Electric) 為台灣重電產業龍頭，全球變壓器供應鏈重要一員，具備生產 500kV 級超高壓變壓器能力。受惠全球電網更新、AI 伺服器資料中心用電激增及綠能轉型，外銷美國營收大幅攀升，已成為美國 17 家電力公司核心供應商。獲「星際之門」(Stargate)</div>
+</div>
+<div class="card" onclick="window.location='../reports/1503.html'">
+  <div class="card-top">
+    <span class="ticker">1503</span>
+    <span class="company-name">士電</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>103B</strong> 市值</div>
+    <div class="metric"><strong>31.55</strong> P/E</div>
+    <div class="metric"><strong>2.84</strong> P/B</div>
+  </div>
+  <div class="card-summary">士林電機廠股份有限公司 (Shihlin Electric & Engineering Corp.) 成立於 1955 年，總部位於台灣台北，為仰德集團核心企業。士電為台灣重電設備龍頭之一，與三菱電機 (Mitsubishi Electric) 長期技術合作。業務範疇涵蓋電力配電、車輛零件、自動化設</div>
+</div>
+<div class="card" onclick="window.location='../reports/6781.html'">
+  <div class="card-top">
+    <span class="ticker">6781</span>
+    <span class="company-name">AES-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>96B</strong> 市值</div>
+    <div class="metric"><strong>30.30</strong> P/E</div>
+    <div class="metric"><strong>6.30</strong> P/B</div>
+  </div>
+  <div class="card-summary">AES-KY (6781) 為新普科技子公司，台灣AI BBU龍頭。已打入AWS、Meta、Microsoft三大CSP (經NVIDIA GB200)。2025年營收160億+。電芯來自Panasonic。另供歐洲電動自行車。 ## 供應鏈位置 上游: Panasonic 電芯 中游: AES-K</div>
+</div>
+<div class="card" onclick="window.location='../reports/7750.html'">
+  <div class="card-top">
+    <span class="ticker">7750</span>
+    <span class="company-name">新代</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>91B</strong> 市值</div>
+    <div class="metric"><strong>37.03</strong> P/E</div>
+    <div class="metric"><strong>7.78</strong> P/B</div>
+  </div>
+  <div class="card-summary">新代科技 (7750，Syntec) 為亞洲領先CNC控制器廠，中國市佔逾20% (第三，僅次FANUC、Siemens)。產品含CNC控制器、伺服馬達及機器人。營收九成中國。市值逾880億。 ## 供應鏈位置 上游: MCU/DSP/IGBT/編碼器 中游: 新代 (CNC控制器/伺服/機器人) </div>
+</div>
+<div class="card" onclick="window.location='../reports/6409.html'">
+  <div class="card-top">
+    <span class="ticker">6409</span>
+    <span class="company-name">旭隼</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>66B</strong> 市值</div>
+    <div class="metric"><strong>18.48</strong> P/E</div>
+    <div class="metric"><strong>6.96</strong> P/B</div>
+  </div>
+  <div class="card-summary">旭隼科技股份有限公司 (6409) 是全球最大的不斷電系統(UPS)及太陽能逆變器純代工廠，被業界譽為「不斷電界的台積電」。旭隼採取「不建自有品牌、專注DMS/ODM代工」的獨特商業模式，成功避免與客戶競爭，贏得全球一線UPS品牌商的長期釋單。其產品涵蓋離線式/在線式UPS及各類逆變器，終端應用遍及</div>
+</div>
+<div class="card" onclick="window.location='../reports/6121.html'">
+  <div class="card-top">
+    <span class="ticker">6121</span>
+    <span class="company-name">新普</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>64B</strong> 市值</div>
+    <div class="metric"><strong>11.76</strong> P/E</div>
+    <div class="metric"><strong>1.71</strong> P/B</div>
+  </div>
+  <div class="card-summary">新普科技股份有限公司 (6121) 是全球最大的筆記型電腦鋰離子電池模組製造商，市佔率極高(約每三台筆電就有一台使用新普電池)。除了穩固的IT(筆電/平板/手機)電池業務，新普近年積極推動『非IT』領域轉型，透過持股過半的子公司AES-KY深耕高功率的電動自行車(LEV)及資料中心伺服器備援電池(B</div>
+</div>
+<div class="card" onclick="window.location='../reports/3211.html'">
+  <div class="card-top">
+    <span class="ticker">3211</span>
+    <span class="company-name">順達</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>54B</strong> 市值</div>
+    <div class="metric"><strong>35.10</strong> P/E</div>
+    <div class="metric"><strong>5.33</strong> P/B</div>
+  </div>
+  <div class="card-summary">順達科技 (3211，Dynapack International) 為全球前三大筆電電池模組廠 (與新普、加百裕並列)。核心成長動能為伺服器備援電池 (BBU)，受惠AI 伺服器功耗大增，BBU 需求強勁。2025 年 BBU 以 3KW 為主，2026 年升至 5.5KW，8KW/12KW 開始</div>
+</div>
+<div class="card" onclick="window.location='../reports/6282.html'">
+  <div class="card-top">
+    <span class="ticker">6282</span>
+    <span class="company-name">康舒</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>41B</strong> 市值</div>
+    <div class="metric"><strong>319.33</strong> P/E</div>
+    <div class="metric"><strong>1.75</strong> P/B</div>
+  </div>
+  <div class="card-summary">康舒科技股份有限公司 (6282，AcBel) 是全球知名的電源供應器製造商。康舒的電源產品線極為廣泛，涵蓋消費性電子(如PC、智慧家庭)、企業伺服器、網通設備(如5G基地台)、以及醫療設備。近年來，為降低對傳統消費性電子的依賴，康舒積極轉型跨足新能源與車用電子領域，不僅併購了ABB的電源轉換事業部</div>
+</div>
+<div class="card" onclick="window.location='../reports/6290.html'">
+  <div class="card-top">
+    <span class="ticker">6290</span>
+    <span class="company-name">良維</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>37B</strong> 市值</div>
+    <div class="metric"><strong>26.11</strong> P/E</div>
+    <div class="metric"><strong>4.53</strong> P/B</div>
+  </div>
+  <div class="card-summary">良維科技股份有限公司 (6290) 是全球領先的電源傳輸線組與充電器專業製造商。良維早年從家電及消費性電子(如電視電源線)起家，並擁有極高的市場佔有率。近年來，公司積極優化產品組合，逐漸退出低毛利市場，轉而重兵佈局AI雲端資料中心的高階/大電流電源線及電動車充電解決方案。這項轉型使良維成功切入亞馬遜</div>
+</div>
+<div class="card" onclick="window.location='../reports/1514.html'">
+  <div class="card-top">
+    <span class="ticker">1514</span>
+    <span class="company-name">亞力</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>31B</strong> 市值</div>
+    <div class="metric"><strong>35.45</strong> P/E</div>
+    <div class="metric"><strong>4.89</strong> P/B</div>
+  </div>
+  <div class="card-summary">亞力電機 (1514，Allis Electric) 為台灣重電設備領導廠商，產品涵蓋變壓器 (含模塑型)、高低壓配電盤、氣封型開關及真空斷路器。電力電子事業含UPS、太陽能逆變器、電動巴士充電樁及微電網。亦為軌道工業 (高鐵、台鐵、台北捷運) 提供電力/號誌/監控系統機電統包。受惠台電強韌電網計畫</div>
+</div>
+<div class="card" onclick="window.location='../reports/6412.html'">
+  <div class="card-top">
+    <span class="ticker">6412</span>
+    <span class="company-name">群電</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>31B</strong> 市值</div>
+    <div class="metric"><strong>14.65</strong> P/E</div>
+    <div class="metric"><strong>2.03</strong> P/B</div>
+  </div>
+  <div class="card-summary">群光電能科技股份有限公司 (6412，群電) 隸屬於群光集團，是全球前三大、台灣頂尖的交換式電源供應器製造商。群電的電源產品被廣泛應用於筆記型電腦、遊戲機及AIoT設備。近年來，公司積極朝高瓦數、高附加價值領域轉型，重兵佈署AI 伺服器電源、電信電源以及低軌衛星(Starlink)的地面接收站電源模</div>
+</div>
+<div class="card" onclick="window.location='../reports/1609.html'">
+  <div class="card-top">
+    <span class="ticker">1609</span>
+    <span class="company-name">大亞</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>26B</strong> 市值</div>
+    <div class="metric"><strong>20.65</strong> P/E</div>
+    <div class="metric"><strong>1.51</strong> P/B</div>
+  </div>
+  <div class="card-summary">大亞電線電纜 (1609，Ta Ya Electric Wire & Cable) 為台灣老牌電線電纜大廠，近年轉型「能源串接」領導品牌。核心業務：(1) 電力電纜 (佔約 71%) — 含 161kV/345kV 高壓；(2) 漆包線 (佔約 11%) — 成功開發電動車用平角漆包線 (供應富田電</div>
+</div>
+<div class="card" onclick="window.location='../reports/2489.html'">
+  <div class="card-top">
+    <span class="ticker">2489</span>
+    <span class="company-name">瑞軒</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>20B</strong> 市值</div>
+    <div class="metric"><strong>26.08</strong> P/E</div>
+    <div class="metric"><strong>1.49</strong> P/B</div>
+  </div>
+  <div class="card-summary">瑞軒科技 (2489，Amtran Technology) 為知名顯示器及電視ODM/OEM組裝廠，生產基地主要位於越南海防。電視客戶涵蓋Vizio (現轉為Walmart自有品牌)、小米、Sharp。電競螢幕成為主要成長動能，OEM 客戶涵蓋Samsung、華碩、MSI、Gigabyte。上游面板</div>
+</div>
+<div class="card" onclick="window.location='../reports/3617.html'">
+  <div class="card-top">
+    <span class="ticker">3617</span>
+    <span class="company-name">碩天</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>16B</strong> 市值</div>
+    <div class="metric"><strong>11.93</strong> P/E</div>
+    <div class="metric"><strong>1.71</strong> P/B</div>
+  </div>
+  <div class="card-summary">碩天科技 (3617，CyberPower) 全球領先UPS品牌，北美20kVA以下市佔約15% (第二，僅次APC/Schneider Electric)。零售含Best Buy、Walmart、Costco、Home Depot。經銷含Ingram Micro、TD Synnex。電信含AT&T</div>
+</div>
+<div class="card" onclick="window.location='../reports/6788.html'">
+  <div class="card-top">
+    <span class="ticker">6788</span>
+    <span class="company-name">華景電</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>16B</strong> 市值</div>
+    <div class="metric"><strong>23.26</strong> P/E</div>
+    <div class="metric"><strong>5.56</strong> P/B</div>
+  </div>
+  <div class="card-summary">華景電通 (6788) 為半導體AMC微汙染防治設備廠 (佔營收90%+)。與台積電合作逾20年 (最大客戶)。另供聯電、旺宏、Micron、中芯國際。 ## 供應鏈位置 上游: 化學過濾網/控制閥 中游: 華景電 (AMC防治設備) 下游: 台積電、聯電、旺宏、Micron、中芯國際 ## 主要客</div>
+</div>
+<div class="card" onclick="window.location='../reports/4576.html'">
+  <div class="card-top">
+    <span class="ticker">4576</span>
+    <span class="company-name">大銀微系統</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>15B</strong> 市值</div>
+    <div class="metric"><strong>59.17</strong> P/E</div>
+    <div class="metric"><strong>3.77</strong> P/B</div>
+  </div>
+  <div class="card-summary">大銀微系統 (4576，Hiwin Mikrosystem) 為上銀科技集團高階機電廠，核心含線性馬達/力矩馬達/奈米定位平台。客戶含ASML、Applied Materials、KLA、Tokyo Electron。 ## 供應鏈位置 上游: 稀土磁石/矽鋼片/編碼器 中游: 大銀 (線性馬達/奈</div>
+</div>
+<div class="card" onclick="window.location='../reports/1608.html'">
+  <div class="card-top">
+    <span class="ticker">1608</span>
+    <span class="company-name">華榮</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>14B</strong> 市值</div>
+    <div class="metric"><strong>5.89</strong> P/E</div>
+    <div class="metric"><strong>1.43</strong> P/B</div>
+  </div>
+  <div class="card-summary">華榮電線電纜 (1608，Hua Eng Wire & Cable) 為台灣極少數具備 345kV 超高壓電纜設計/製造/鋪設統包能力之合格供應商。主要產品涵蓋超高壓電力電纜 (161kV/345kV)、中低壓電纜、裸銅線及通信電纜。受惠台電強韌電網計畫，在手訂單逾 80 億元 (其中超高壓累計 1</div>
+</div>
+<div class="card" onclick="window.location='../reports/3078.html'">
+  <div class="card-top">
+    <span class="ticker">3078</span>
+    <span class="company-name">僑威</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>13B</strong> 市值</div>
+    <div class="metric"><strong>9.58</strong> P/E</div>
+    <div class="metric"><strong>1.78</strong> P/B</div>
+  </div>
+  <div class="card-summary">僑威科技 (3078，Channelwell Technology / CWT) 為全球最大電競 PC 電源供應器代工廠，逾 30 年經驗。主要替全球電競品牌代工ATX 3.1中高階電源，客戶涵蓋Corsair、MSI、Cooler Master、華碩、Thermaltake。垂直整合自製變壓器與線</div>
+</div>
+<div class="card" onclick="window.location='../reports/1623.html'">
+  <div class="card-top">
+    <span class="ticker">1623</span>
+    <span class="company-name">大東電</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>13B</strong> 市值</div>
+    <div class="metric"><strong>14.09</strong> P/E</div>
+    <div class="metric"><strong>3.96</strong> P/B</div>
+  </div>
+  <div class="card-summary">大東電業 (1623，Ta Tun Electric) 為台灣少數具備 345kV 特高壓電纜生產能力之四家廠商之一 (2015 年取得台電認證)。2023-2025 年以 154 億元得標金額成為台電電纜得標王。2025 年營收首破 60 億元達 66 億元 (年增逾兩成)。產品涵蓋PVC/XLP</div>
+</div>
+<div class="card" onclick="window.location='../reports/7788.html'">
+  <div class="card-top">
+    <span class="ticker">7788</span>
+    <span class="company-name">松川精密</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>12B</strong> 市值</div>
+    <div class="metric"><strong>38.60</strong> P/E</div>
+    <div class="metric"><strong>2.07</strong> P/B</div>
+  </div>
+  <div class="card-summary">松川精密 (7788) 為台灣繼電器霸主 (品牌Song Chuan)。已打入Tesla供應鏈。與台達電、光寶科技合作AI伺服器特規接觸器。自製率80%。客戶2000+家。 ## 供應鏈位置 上游: 紅銅/鈹銅/漆包線 (80%自製) 中游: 松川 (繼電器/高壓接觸器) 下游: Tesla、台達電</div>
+</div>
+<div class="card" onclick="window.location='../reports/2457.html'">
+  <div class="card-top">
+    <span class="ticker">2457</span>
+    <span class="company-name">飛宏</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>11B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.28</strong> P/B</div>
+  </div>
+  <div class="card-summary">飛宏科技 (2457，Phihong Technology) 為全球前十大電源供應器製造商，近年積極轉型至電動車充電樁領域。子公司馳諾瓦 (Zerova Technologies) 提供 AC 及 DC 直流快充樁。EV 充電樁客戶涵蓋Shell (全球採購協議)、Audi (台灣超快充站)、Vol</div>
+</div>
+<div class="card" onclick="window.location='../reports/1612.html'">
+  <div class="card-top">
+    <span class="ticker">1612</span>
+    <span class="company-name">宏泰</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>11B</strong> 市值</div>
+    <div class="metric"><strong>12.91</strong> P/E</div>
+    <div class="metric"><strong>1.32</strong> P/B</div>
+  </div>
+  <div class="card-summary">宏泰電工 (1612，Hong Tai Electric) 為專業電線電纜廠，以XLPE電力電纜為主力 (佔銷售 70%)、PVC建築用線佔 17%。在手訂單逾 50 億元。規劃 2028 年完成 345kV 超高壓線纜認證切入更高階市場。已切入AI 伺服器資料中心及台積電供應鏈之中高壓電纜。台電強</div>
+</div>
+<div class="card" onclick="window.location='../reports/1537.html'">
+  <div class="card-top">
+    <span class="ticker">1537</span>
+    <span class="company-name">廣隆</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>10B</strong> 市值</div>
+    <div class="metric"><strong>15.70</strong> P/E</div>
+    <div class="metric"><strong>2.33</strong> P/B</div>
+  </div>
+  <div class="card-summary">廣隆光電科技 (1537，Kung Long Batteries) 為亞洲UPS蓄電池產能最大製造商，自有品牌「LONG」行銷逾 100 國。亞洲首家通過德國 VdS 認證之鉛酸電池廠。產品涵蓋密閉式鉛酸電池 (VRLA)、機車啟動電池及電動輪椅電池。生產以越南為主 (濱瀝/德和廠)。UPS 電池佔</div>
+</div>
+<div class="card" onclick="window.location='../reports/4931.html'">
+  <div class="card-top">
+    <span class="ticker">4931</span>
+    <span class="company-name">新盛力</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>10B</strong> 市值</div>
+    <div class="metric"><strong>46.10</strong> P/E</div>
+    <div class="metric"><strong>8.09</strong> P/B</div>
+  </div>
+  <div class="card-summary">新盛力科技 (STL Technology) 前身為 Sony 台灣鋰電池模組廠，後由 金山電 (GP Batteries) 按股投資成立。 主要從事 鋰離子電池模組 (Li-ion Battery Pack) 之研發與製造，專注於高功率與儲能應用。 主要產品應用領域： 1. 電動手工具 (Powe</div>
+</div>
+<div class="card" onclick="window.location='../reports/3015.html'">
+  <div class="card-top">
+    <span class="ticker">3015</span>
+    <span class="company-name">全漢</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>10B</strong> 市值</div>
+    <div class="metric"><strong>27.33</strong> P/E</div>
+    <div class="metric"><strong>0.76</strong> P/B</div>
+  </div>
+  <div class="card-summary">全漢企業 (3015，FSP Group / FSP Technology) 為全球前十大電源供應器製造商，逾 600 人研發團隊，600+ 機種通過80 PLUS認證。產品涵蓋 PC 電源 (ATX 3.1)、電競電源 (FSP 自有品牌)、工業電腦電源、雲端伺服器 Redundant Power</div>
+</div>
+<div class="card" onclick="window.location='../reports/1615.html'">
+  <div class="card-top">
+    <span class="ticker">1615</span>
+    <span class="company-name">大山</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>9B</strong> 市值</div>
+    <div class="metric"><strong>9.62</strong> P/E</div>
+    <div class="metric"><strong>2.04</strong> P/B</div>
+  </div>
+  <div class="card-summary">大山電線電纜 (1615，Dah San Electric) 為中南部知名電線電纜廠，主要生產中低壓電力電纜、通信電纜及電子線。近年拓展北部市場 (桃園據點)，參與台電 161kV 交連 PE 電纜大標 (總金額逾 193 億元)。受惠台電強韌電網及北部營建需求，2025 Q2 獲利創歷史新高。建築</div>
+</div>
+<div class="card" onclick="window.location='../reports/6115.html'">
+  <div class="card-top">
+    <span class="ticker">6115</span>
+    <span class="company-name">鎰勝</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>9B</strong> 市值</div>
+    <div class="metric"><strong>16.53</strong> P/E</div>
+    <div class="metric"><strong>1.69</strong> P/B</div>
+  </div>
+  <div class="card-summary">鎰勝工業股份有限公司 (6115) 是全球知名的電源線供應大廠。主要產品為附連接器接頭的電源傳輸線、電子訊號線及網路線，廣泛應用於電腦設備、家電及消費性電子。為分散區域風險並貼近客戶，鎰勝在全球(含台灣、中國、越南、巴西等地)佈建了完善的生產基地。近年來因應PC產業成長放緩，公司積極將產品線延伸至遊</div>
+</div>
+<div class="card" onclick="window.location='../reports/8109.html'">
+  <div class="card-top">
+    <span class="ticker">8109</span>
+    <span class="company-name">博大</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>8B</strong> 市值</div>
+    <div class="metric"><strong>16.40</strong> P/E</div>
+    <div class="metric"><strong>2.67</strong> P/B</div>
+  </div>
+  <div class="card-summary">博大科技 (8109，P-Duke) 專注DC-DC 轉換器/AC-DC 電源供應器，主攻鐵道 (EN 50155)、醫療 (IEC 60601-1)、軍工 (MIL-STD-810F)。毛利率48%。 ## 供應鏈位置 上游: 磁性元件/MOSFET/IGBT 中游: 博大 (P-DUKE DC-</div>
+</div>
+<div class="card" onclick="window.location='../reports/2420.html'">
+  <div class="card-top">
+    <span class="ticker">2420</span>
+    <span class="company-name">新巨</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>8B</strong> 市值</div>
+    <div class="metric"><strong>13.49</strong> P/E</div>
+    <div class="metric"><strong>2.02</strong> P/B</div>
+  </div>
+  <div class="card-summary">新巨企業 (2420，Zippy Technology) 為利基型電源供應器及微動開關專業廠。電源品牌「EMACS」提供伺服器用電源 (涵蓋CRPS模組/1U/2U 冗餘式/醫療級，1400W-2700W)，已切入AI 伺服器電源市場，供應白牌伺服器廠及雲端業者如Amazon (AWS)、HP、De</div>
+</div>
+<div class="card" onclick="window.location='../reports/3003.html'">
+  <div class="card-top">
+    <span class="ticker">3003</span>
+    <span class="company-name">健和興</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>8B</strong> 市值</div>
+    <div class="metric"><strong>51.11</strong> P/E</div>
+    <div class="metric"><strong>1.24</strong> P/B</div>
+  </div>
+  <div class="card-summary">健和興端子 (3003，K.S. Terminals / KST) 為亞洲知名端子與連接器製造商，近年成功轉型至電動車與綠能市場。產品涵蓋 EV 高壓連接器、充電槍、充電樁連接器、太陽能/風電/儲能系統高壓連接器及車用電子端子。為Tesla充電槍及Tesla Powerwall儲能系統之綠能連接器供</div>
+</div>
+<div class="card" onclick="window.location='../reports/1597.html'">
+  <div class="card-top">
+    <span class="ticker">1597</span>
+    <span class="company-name">直得</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>8B</strong> 市值</div>
+    <div class="metric"><strong>97.36</strong> P/E</div>
+    <div class="metric"><strong>3.21</strong> P/B</div>
+  </div>
+  <div class="card-summary">直得科技 (1597，Chieftek Precision) 為全球微型線性滑軌領導廠商，自有品牌「cpc」。產品涵蓋微型至大型線性滑軌、滾珠螺桿、線性模組、線性馬達及驅動器。主要應用於半導體製程設備 (最大領域)、醫療精密儀器及自動化設備。半導體設備客戶涵蓋Applied Materials、AS</div>
+</div>
+<div class="card" onclick="window.location='../reports/8249.html'">
+  <div class="card-top">
+    <span class="ticker">8249</span>
+    <span class="company-name">菱光</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>12.66</strong> P/E</div>
+    <div class="metric"><strong>0.72</strong> P/B</div>
+  </div>
+  <div class="card-summary">菱光科技 (8249) 為全球CIS模組龍頭 (技術源自Toshiba)。三大事業：CIS模組 (事務機)、隱形雷射晶圓切割 (MEMS/RFID)、LWIR紅外線熱像 (安防/無人機/國防)。 ## 供應鏈位置 上游: 光學元件/CMOS/雷射源/紅外線偵測器 中游: 菱光 (CIS/雷射切割/L</div>
+</div>
+<div class="card" onclick="window.location='../reports/3504.html'">
+  <div class="card-top">
+    <span class="ticker">3504</span>
+    <span class="company-name">揚明光</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>7B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.36</strong> P/B</div>
+  </div>
+  <div class="card-summary">揚明光學 (Young Optics) 為 中強光電 (Coretronic) 集團旗下之光學模組廠。 核心技術為 微投影光機 (Micro-projection) 與 精密光學鏡頭。 主要產品包括 微投影模組、3D 列印機、車用 HUD (抬頭顯示器) 與 AR/VR 光學模組。 與 德州儀器 (</div>
+</div>
+<div class="card" onclick="window.location='../reports/6940.html'">
+  <div class="card-top">
+    <span class="ticker">6940</span>
+    <span class="company-name">格斯科技</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>6B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.55</strong> P/B</div>
+  </div>
+  <div class="card-summary">格斯科技 (6940) 專注鈦酸鋰 (LTO) 及NCM軟包電池芯，台灣唯一具產業規模LTO廠。最大客戶中油 (儲能標案)。與中央研究院合作固態電池。仍虧損。 ## 供應鏈位置 上游: 鈦酸鋰/高鎳正極/電解液 中游: 格斯 (LTO/NCM軟包電池芯) 下游: 中油 — 儲能；電動巴士/國防 ##</div>
+</div>
+<div class="card" onclick="window.location='../reports/3501.html'">
+  <div class="card-top">
+    <span class="ticker">3501</span>
+    <span class="company-name">維熹</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>6B</strong> 市值</div>
+    <div class="metric"><strong>15.93</strong> P/E</div>
+    <div class="metric"><strong>0.81</strong> P/B</div>
+  </div>
+  <div class="card-summary">維熹 (Well Shin) 為全球主要 電源傳輸線 製造商之一，隸屬於 正崴集團 (Foxlink Group)。 主要產品涵蓋 家電電源線 (占營收最大)、3C 電子線材 與 電動車充電線/槍。 在美國家電市場市佔率高，主要客戶為 GE 與 Whirlpool。 電動車領域透過母公司正崴切入 T</div>
+</div>
+<div class="card" onclick="window.location='../reports/6895.html'">
+  <div class="card-top">
+    <span class="ticker">6895</span>
+    <span class="company-name">宏碩系統</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>6B</strong> 市值</div>
+    <div class="metric"><strong>45.00</strong> P/E</div>
+    <div class="metric"><strong>5.19</strong> P/B</div>
+  </div>
+  <div class="card-summary">宏碩系統 (6895) 為高真空微波元件隱形冠軍 (技術源自國防)。供應ASML EUV微波加熱模組及台積電。為旭暉應材子公司。2025年營收年增121%。 ## 供應鏈位置 上游: 高純度無氧銅/陶瓷 中游: 宏碩 (微波管/半導體微波加熱) 下游: ASML、台積電、國防軍方 ## 主要客戶及供</div>
+</div>
+<div class="card" onclick="window.location='../reports/1616.html'">
+  <div class="card-top">
+    <span class="ticker">1616</span>
+    <span class="company-name">億泰</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>5B</strong> 市值</div>
+    <div class="metric"><strong>15.68</strong> P/E</div>
+    <div class="metric"><strong>2.08</strong> P/B</div>
+  </div>
+  <div class="card-summary">億泰電線電纜 (1616，Evertop Wire Cable) 主要生產 25kV 以下中低壓電力電纜、通信電纜、光纖光纜及特殊線纜 (耐熱耐燃/低煙無毒/5G線/電動車充電線/水下ROV電纜)。台電訂單貢獻約五成營收。2024 年營收突破 51 億元創歷史新高。受惠台電強韌電網 (4,000 億</div>
+</div>
+<div class="card" onclick="window.location='../reports/5013.html'">
+  <div class="card-top">
+    <span class="ticker">5013</span>
+    <span class="company-name">強新</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>18.17</strong> P/E</div>
+    <div class="metric"><strong>1.05</strong> P/B</div>
+  </div>
+  <div class="card-summary">強新工業 (New Best Wire) 為台灣領先的 特殊鋼線材 製造商。 主要業務分為兩大類： 1. 線材 (Wire): 碳鋼線、合金鋼線、不鏽鋼線。是下游螺絲螺帽廠 (如 Samsung, 華祺) 的關鍵原料供應商。 2. 電解拋光 (EP) 管件: 超潔淨 (Ultra High Puri</div>
+</div>
+<div class="card" onclick="window.location='../reports/1529.html'">
+  <div class="card-top">
+    <span class="ticker">1529</span>
+    <span class="company-name">樂事綠能</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>25.35</strong> P/E</div>
+    <div class="metric"><strong>2.19</strong> P/B</div>
+  </div>
+  <div class="card-summary">樂事綠能科技 (1529，Luxe Green Energy，前身樂士電機) 近年從重電設備積極轉型再生能源。三大業務：(1) 太陽能電廠投資/建置/營運 (EPC統包)；(2) 售電 (台電躉購及企業綠電轉供)；(3) 傳統重電設備 (配電盤/變壓器)。太陽能模組來自聯合再生、元晶，變流器來自SM</div>
+</div>
+<div class="card" onclick="window.location='../reports/3290.html'">
+  <div class="card-top">
+    <span class="ticker">3290</span>
+    <span class="company-name">東浦</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>21.53</strong> P/E</div>
+    <div class="metric"><strong>1.78</strong> P/B</div>
+  </div>
+  <div class="card-summary">東浦精密光電 (3290) 為精密塑膠模具與射出成型服務商，核心成長來自電動車ADAS鏡頭殼件 (間接供應Tesla) 及Harman高階耳機機構件。 ## 供應鏈位置 上游: PC/ABS 工程塑膠粒 中游: 東浦 (射出/塗裝/模組組裝) 下游: Tesla (間接)、Harman ## 主要客</div>
+</div>
+<div class="card" onclick="window.location='../reports/3323.html'">
+  <div class="card-top">
+    <span class="ticker">3323</span>
+    <span class="company-name">加百裕</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.44</strong> P/B</div>
+  </div>
+  <div class="card-summary">加百裕 (3323，Celxpert) 為鋰電池模組三雄之一 (與新普、順達並列)。核心成長為AI 伺服器BBU，獲系統電策略入股。IT 客戶含Dell、HP、Lenovo。電芯來自Samsung SDI、LG Energy Solution。另供電動自行車及儲能。 ## 供應鏈位置 上游: Sam</div>
+</div>
+<div class="card" onclick="window.location='../reports/3484.html'">
+  <div class="card-top">
+    <span class="ticker">3484</span>
+    <span class="company-name">崧騰</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>4B</strong> 市值</div>
+    <div class="metric"><strong>11.37</strong> P/E</div>
+    <div class="metric"><strong>1.11</strong> P/B</div>
+  </div>
+  <div class="card-summary">崧騰 (Solteam) 為全球最大 電動工具開關 製造商。 主要產品包含電源開關、插座、變頻控制器等機電整合元件。 核心應用領域為 電動工具 (占營收大宗) 與 白色家電。 近年積極轉型 車用電子 (電動車 充電槍/座、高壓連接器) 與 醫療設備，試圖降低對消費性市場的依賴。 ## 供應鏈位置 上</div>
+</div>
+<div class="card" onclick="window.location='../reports/3092.html'">
+  <div class="card-top">
+    <span class="ticker">3092</span>
+    <span class="company-name">鴻碩</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.26</strong> P/B</div>
+  </div>
+  <div class="card-summary">鴻碩精密電工 (3092，Hotron Precision Electronic) 為全球最大顯示器訊號線製造商，主力產品涵蓋HDMI、DisplayPort、USB傳輸線。垂直整合抽銅/加工/組裝。近年轉型車用及新能源：(1) 車用線束 — 供應Tesla Model 3/Y 中控台/影音線束；(</div>
+</div>
+<div class="card" onclick="window.location='../reports/3071.html'">
+  <div class="card-top">
+    <span class="ticker">3071</span>
+    <span class="company-name">協禧</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>50.09</strong> P/E</div>
+    <div class="metric"><strong>2.14</strong> P/B</div>
+  </div>
+  <div class="card-summary">協禧電機 (3071，ADDA Corporation) 為全球知名散熱風扇製造商，自有品牌 ADDA。近年轉型聚焦：(1) 車用電子 — 獲歐美 Tier 1 認證，應用於車燈/座椅通風/電池散熱，間接供應Tesla、GM、Ford；(2) AI 伺服器散熱 — 高效能風扇與液冷散熱模組，供應廣達</div>
+</div>
+<div class="card" onclick="window.location='../reports/3628.html'">
+  <div class="card-top">
+    <span class="ticker">3628</span>
+    <span class="company-name">盈正</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>16.61</strong> P/E</div>
+    <div class="metric"><strong>1.79</strong> P/B</div>
+  </div>
+  <div class="card-summary">盈正豫順 (Ablerex) 為專業的 電力品質 與 能源管理 解決方案供應商。 核心業務聚焦於不斷電系統 (UPS) 以及近年蓬勃發展的 儲能系統 (ESS) 與太陽能逆變器。 主要技術與應用： 1. 不斷電系統 (UPS): 提供工業級與資料中心等級 UPS，並引進 碳化矽 (碳化矽) 技術提升</div>
+</div>
+<div class="card" onclick="window.location='../reports/3226.html'">
+  <div class="card-top">
+    <span class="ticker">3226</span>
+    <span class="company-name">龍鋒</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>50.00</strong> P/E</div>
+    <div class="metric"><strong>1.59</strong> P/B</div>
+  </div>
+  <div class="card-summary">龍鋒科技 (3226，LFA，原名至寶電) 為專業 AM 車燈製造商，與Eagle Eyes品牌有深厚淵源。主要產品涵蓋LED頭燈、霧燈、尾燈、角燈及改裝車燈，主攻全球 AM 售後維修及改裝市場。產品透過歐美 AM 通路及 eBay、Amazon等電商平台銷售。 ## 供應鏈位置 上游 (材料): </div>
+</div>
+<div class="card" onclick="window.location='../reports/6558.html'">
+  <div class="card-top">
+    <span class="ticker">6558</span>
+    <span class="company-name">興能高</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.03</strong> P/B</div>
+  </div>
+  <div class="card-summary">興能高 (6558) 為客製化鋰聚合物電池廠，藍牙耳機電池全球市佔約12%。客戶含Jabra、Plantronics、Sennheiser、Bose、Beats。轉型儲能/BMS。 ## 供應鏈位置 上游: 鋰電池材料 中游: 興能高 (客製鋰聚合物電池) 下游: Jabra、Plantronics</div>
+</div>
+<div class="card" onclick="window.location='../reports/6133.html'">
+  <div class="card-top">
+    <span class="ticker">6133</span>
+    <span class="company-name">金橋</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>42.55</strong> P/E</div>
+    <div class="metric"><strong>1.88</strong> P/B</div>
+  </div>
+  <div class="card-summary">金橋科技股份有限公司 (6133) 是台灣主要的電子連接線組與RF高頻無線傳輸線供應商。產品涵蓋高頻高速線材、極細同軸線、醫療/車載用線以及各類電源線。在全球AI[[伺服器]]、雲端運算及低軌衛星發展的趨勢下，金橋其高頻高速大數據傳輸線材的開發能力成為極具競爭力的優勢。公司並採行高度客製化的生產模式</div>
+</div>
+<div class="card" onclick="window.location='../reports/3332.html'">
+  <div class="card-top">
+    <span class="ticker">3332</span>
+    <span class="company-name">幸康</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>15.97</strong> P/E</div>
+    <div class="metric"><strong>1.49</strong> P/B</div>
+  </div>
+  <div class="card-summary">幸康電子 (3332，Cincon) 品牌 CINCON 專注DC-DC 轉換器/AC-DC 電源供應器，主攻醫療 (IEC 60601-1)、鐵道及工業利基。佈局碳化矽/氮化鎵新世代功率。 ## 供應鏈位置 上游: 磁性材料、MOSFET/碳化矽/氮化鎵 中游: 幸康 (CINCON DC-DC </div>
+</div>
+<div class="card" onclick="window.location='../reports/8038.html'">
+  <div class="card-top">
+    <span class="ticker">8038</span>
+    <span class="company-name">長園科</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>46.25</strong> P/E</div>
+    <div class="metric"><strong>5.66</strong> P/B</div>
+  </div>
+  <div class="card-summary">長園科技 (8038) 為磷酸鋰鐵電池先驅 (2005年專利)。最大客戶台積電 (高階鋰鐵UPS)。切入AI BBU與天宇結盟。2025年營收5.97億 (年增237%)，轉盈。 ## 供應鏈位置 上游: 鋰/鐵/磷化工/電池芯代工 中游: 長園科 (LiFePO4正極/鋰鐵模組) 下游: 台積電 </div>
+</div>
+<div class="card" onclick="window.location='../reports/4588.html'">
+  <div class="card-top">
+    <span class="ticker">4588</span>
+    <span class="company-name">玖鼎電力</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>18.40</strong> P/E</div>
+    <div class="metric"><strong>2.77</strong> P/B</div>
+  </div>
+  <div class="card-summary">玖鼎電力 (4588) 為智慧電表廠 (技術源自工研院)，台電 AMI 標案供應商 (90萬具訂單)。已完成美規認證拓展東南亞。 ## 供應鏈位置 上游: 計量晶片/通訊模組 中游: 玖鼎 (智慧電表) 下游: 台電 — AMI 智慧電表 ## 主要客戶及供應商 ### 主要客戶 - 台電 — AM</div>
+</div>
+<div class="card" onclick="window.location='../reports/6835.html'">
+  <div class="card-top">
+    <span class="ticker">6835</span>
+    <span class="company-name">圓裕</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>3B</strong> 市值</div>
+    <div class="metric"><strong>41.28</strong> P/E</div>
+    <div class="metric"><strong>1.37</strong> P/B</div>
+  </div>
+  <div class="card-summary">圓裕企業 (6835) 為FPC與線組整合方案商。已切入美系電動車Tier 1 (電池感測FPC)。上游FCCL來自台虹。 ## 供應鏈位置 上游: 台虹 — FCCL 中游: 圓裕 (FPC/線組) 下游: 美系EV品牌、工控/筆電代工 ## 主要客戶及供應商 ### 主要客戶 - 美系EV — </div>
+</div>
+<div class="card" onclick="window.location='../reports/3537.html'">
+  <div class="card-top">
+    <span class="ticker">3537</span>
+    <span class="company-name">堡達</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>16.98</strong> P/E</div>
+    <div class="metric"><strong>1.93</strong> P/B</div>
+  </div>
+  <div class="card-summary">堡達 (3537) 代理Panasonic全線被動元件及主動元件。下游含廣達、仁寶、華碩。另供應Google台灣 CO2 熱泵。 ## 供應鏈位置 上游: Panasonic (主要原廠) 中游: 堡達 (代理/技術支援) 下游: 廣達、仁寶、華碩、Google ## 主要客戶及供應商 ### 主要</div>
+</div>
+<div class="card" onclick="window.location='../reports/1617.html'">
+  <div class="card-top">
+    <span class="ticker">1617</span>
+    <span class="company-name">榮星</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>21.54</strong> P/E</div>
+    <div class="metric"><strong>1.07</strong> P/B</div>
+  </div>
+  <div class="card-summary">榮星電線 (1617，Jung Shing Wire) 為台灣漆包線產業龍頭，國內唯一線材應用最齊全之漆包線大廠。主要產品涵蓋一般漆包線、耐熱漆包線、特種漆包線、鍍錫銅線及電子線。裸銅線約佔成本 85%，向華榮、華新麗華、大亞等具煉銅能力之大廠採購。下游客戶涵蓋台達電、光寶科技 (變壓器線圈)、東元</div>
+</div>
+<div class="card" onclick="window.location='../reports/2483.html'">
+  <div class="card-top">
+    <span class="ticker">2483</span>
+    <span class="company-name">百容</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>34.75</strong> P/E</div>
+    <div class="metric"><strong>0.87</strong> P/B</div>
+  </div>
+  <div class="card-summary">百容電子 (2483，Excel Cell Electronic / ECE) 為多元化電子零組件製造商。2024 年營收結構：半導體導線架 47%、電子零組件 (連接器/端子台/程式開關) 27%、步進馬達 15%、繼電器 11%。近年擴大高密度導線架產能，已通過車用電源模組及車用高功率導線架認證</div>
+</div>
+<div class="card" onclick="window.location='../reports/6292.html'">
+  <div class="card-top">
+    <span class="ticker">6292</span>
+    <span class="company-name">迅德</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>21.98</strong> P/E</div>
+    <div class="metric"><strong>1.84</strong> P/B</div>
+  </div>
+  <div class="card-summary">迅德興業 (6292) 為磁性元件廠 (變壓器/電感器)，客製化少量多樣。客戶含Toshiba、OSRAM、Mitsubishi Electric。拓展電動車充電及太陽能逆變器。 ## 供應鏈位置 上游: 矽鋼片/鐵氧體磁芯/漆包銅線 中游: 迅德 (高頻變壓器/電感器) 下游: Toshiba、O</div>
+</div>
+<div class="card" onclick="window.location='../reports/3002.html'">
+  <div class="card-top">
+    <span class="ticker">3002</span>
+    <span class="company-name">歐格</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>53.11</strong> P/E</div>
+    <div class="metric"><strong>1.55</strong> P/B</div>
+  </div>
+  <div class="card-summary">歐格電子 (3002，Ahoku Electronic) 以旅遊轉接頭/延長線起家，近年成功轉型至高階機房PDU (電源分配單元) 及智慧家庭物聯網產品。Smart PDU 具備 LCD 觸控/遠端監控，已切入AI 伺服器資料中心供應鏈，取得跨型 IEC Socket 專利。另提供 WiFi 智慧插</div>
+</div>
+<div class="card" onclick="window.location='../reports/2440.html'">
+  <div class="card-top">
+    <span class="ticker">2440</span>
+    <span class="company-name">太空梭</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.26</strong> P/B</div>
+  </div>
+  <div class="card-summary">太空梭高傳真資訊科技 (2440，Space Shuttle Hi-Tech) 專注銅材二次加工及資訊傳輸線材製造，產品涵蓋USB/HDMI電腦線、CAT-6/CAT-8 通訊線、遊戲機線材及醫療用線。具備極細銅線抽絲能力，取得 UL/CSA/Sony Green Partner 等國際認證。客戶涵</div>
+</div>
+<div class="card" onclick="window.location='../reports/4523.html'">
+  <div class="card-top">
+    <span class="ticker">4523</span>
+    <span class="company-name">永彰</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>1.37</strong> P/E</div>
+    <div class="metric"><strong>0.88</strong> P/B</div>
+  </div>
+  <div class="card-summary">永彰科技 (4523，原與Marelli合資) 專注汽車空調 (冷凝器/蒸發器)。延伸至伺服器水冷散熱及儲能熱管理。客戶含裕隆、中華汽車。 ## 供應鏈位置 上游: 鋁材/銅材 中游: 永彰 (汽車空調/伺服器水冷/儲能熱管理) 下游: 裕隆、中華汽車 ## 主要客戶及供應商 ### 主要客戶 - </div>
+</div>
+<div class="card" onclick="window.location='../reports/3625.html'">
+  <div class="card-top">
+    <span class="ticker">3625</span>
+    <span class="company-name">西勝</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>3.41</strong> P/B</div>
+  </div>
+  <div class="card-summary">西勝國際 (C-Tech) 原為筆電電池模組廠，近年積極 轉型 綠能與非 IT 領域。 策略方向： 1. 淡出 NB: 降低低毛利筆電電池比重 (目標降至 20% 以下)。 2. LEV (輕型電動載具): 佈局電動自行車 (E-bike)、電動機車、AGV/AMR 電池模組。 3. 儲能/BBU:</div>
+</div>
+<div class="card" onclick="window.location='../reports/3058.html'">
+  <div class="card-top">
+    <span class="ticker">3058</span>
+    <span class="company-name">立德</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.17</strong> P/B</div>
+  </div>
+  <div class="card-summary">立德電子 (3058，Leader Electronics / LEI) 為交換式電源供應器及磁性元件製造商。營收結構：交換式電源 42%、磁性元件 28%、OEM/ODM 代工 20%、Type-C充電器 8%。積極轉型新能源：(1) 電動車充電樁 — AC 7kW-22kW 及 DC 30kW/</div>
+</div>
+<div class="card" onclick="window.location='../reports/3550.html'">
+  <div class="card-top">
+    <span class="ticker">3550</span>
+    <span class="company-name">聯穎</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.27</strong> P/B</div>
+  </div>
+  <div class="card-summary">聯穎科技 (3550) 為訊號線材廠，產品含HDMI/USB/車用線 (通過IATF 16949)。車用客戶含吉利、比亞迪。 ## 供應鏈位置 上游: 銅材/PVC 中游: 聯穎 (HDMI/USB/車用/工控線材) 下游: 吉利、比亞迪 — 車用線 ## 主要客戶及供應商 ### 主要客戶 - 吉</div>
+</div>
+<div class="card" onclick="window.location='../reports/5227.html'">
+  <div class="card-top">
+    <span class="ticker">5227</span>
+    <span class="company-name">立凱-KY</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>9.54</strong> P/E</div>
+    <div class="metric"><strong>2.32</strong> P/B</div>
+  </div>
+  <div class="card-summary">立凱-KY (5227，Aleees) 為磷酸鋰鐵 (LFP) 專利技術 IP 授權商。被授權商ICL在美國建 4 億美元 LFP 廠 (美國首座，獲兩黨基建法案唯一 LFP 補貼)。另授權Freyr (挪威)、Avenira (澳洲)。 ## 供應鏈位置 上游: 碳酸鋰/鐵/磷 中游: 立凱 (L</div>
+</div>
+<div class="card" onclick="window.location='../reports/7704.html'">
+  <div class="card-top">
+    <span class="ticker">7704</span>
+    <span class="company-name">明遠精密</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>2B</strong> 市值</div>
+    <div class="metric"><strong>21.93</strong> P/E</div>
+    <div class="metric"><strong>1.30</strong> P/B</div>
+  </div>
+  <div class="card-summary">明遠精密 (7704) 自主研發半導體RPS電漿源/AOS臭氧系統。與京三製作所合作ACME射頻電源，被台積電列為全廠標配。日揚科技董事長為大股東。 ## 供應鏈位置 上游: 電源模組/石英陶瓷/RF零組件 中游: 明遠 (RPS/AOS/ACME) 下游: 台積電 — 標配; Applied Ma</div>
+</div>
+<div class="card" onclick="window.location='../reports/2438.html'">
+  <div class="card-top">
+    <span class="ticker">2438</span>
+    <span class="company-name">翔耀</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>4.19</strong> P/B</div>
+  </div>
+  <div class="card-summary">翔耀實業股份有限公司 (Aerowin Industrial Co., Ltd.) 成立於 1982 年 (原名英誌企業)，總部位於台灣新北。公司早期業務較為多元 (如照明、五金)，近年積極轉型進軍 AI 算力服務 (AICC) 及光電事業。2024 年與美超微 (Supermicro) 及是方電訊</div>
+</div>
+<div class="card" onclick="window.location='../reports/6833.html'">
+  <div class="card-top">
+    <span class="ticker">6833</span>
+    <span class="company-name">太康精密</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>4.52</strong> P/B</div>
+  </div>
+  <div class="card-summary">太康精密 (6833，T-Conn Precision) 為電源連接器及精密結構連接器製造商，產品涵蓋HDMI、USB、Mini DisplayPort、Mini PCIe、SATA、RJ、BTB 連接器、ECU 連接器及電動機車連接器。應用於資料中心伺服器、工業自動化、消費電子及智慧交通。 ## </div>
+</div>
+<div class="card" onclick="window.location='../reports/3308.html'">
+  <div class="card-top">
+    <span class="ticker">3308</span>
+    <span class="company-name">聯德</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>31.32</strong> P/E</div>
+    <div class="metric"><strong>1.15</strong> P/B</div>
+  </div>
+  <div class="card-summary">聯德電子 (3308，Bestec) 為交換式電源廠，長期替HP、Dell代工桌機/筆電電源。轉型物聯網伺服器電源及電競電源。 ## 供應鏈位置 上游: 被動元件、MOSFET 中游: 聯德 (電源設計組裝) 下游: HP、Dell ## 主要客戶及供應商 ### 主要客戶 - HP、Dell ##</div>
+</div>
+<div class="card" onclick="window.location='../reports/6164.html'">
+  <div class="card-top">
+    <span class="ticker">6164</span>
+    <span class="company-name">華興</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>1B</strong> 市值</div>
+    <div class="metric"><strong>180.71</strong> P/E</div>
+    <div class="metric"><strong>1.16</strong> P/B</div>
+  </div>
+  <div class="card-summary">華興電子 (6164) 為 LED 照明方案廠，低溫照明供應Coca-Cola、Pepsi北美冷凍櫃。另開發 ESG 智慧照明。 ## 供應鏈位置 上游: LED晶粒/導線架 中游: 華興 (LED低溫照明/ESG智慧照明) 下游: Coca-Cola、Pepsi — 冷凍櫃 ## 主要客戶及供應商</div>
+</div>
+<div class="card" onclick="window.location='../reports/2061.html'">
+  <div class="card-top">
+    <span class="ticker">2061</span>
+    <span class="company-name">風青</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>958M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.58</strong> P/B</div>
+  </div>
+  <div class="card-summary">風青實業 (2061，Feng Ching Metal) 為專業漆包線及銅線製造商，產品涵蓋一般漆包線、三層絕緣線 (TIW)、FIW 線、聚醯亞胺薄膜包覆線、鐵氟龍線、絞線及無框線圈。生產據點橫跨台灣、中國、越南及泰國。產品應用於繼電器、微型馬達、變壓器、電感器及車用線圈。上游裸銅線來自華新麗華等</div>
+</div>
+<div class="card" onclick="window.location='../reports/6648.html'">
+  <div class="card-top">
+    <span class="ticker">6648</span>
+    <span class="company-name">斯其大</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>955M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.48</strong> P/B</div>
+  </div>
+  <div class="card-summary">豐祥-KY (6648，斯其大) 為越南精密金屬加工廠 (20年+)。機車客戶含Honda、Yamaha、Piaggio、三陽工業。休閒車含Polaris、Harley-Davidson。 ## 供應鏈位置 上游: 鋼/鋁/鋅 中游: 豐祥 (沖壓/鍛造/壓鑄/CNC) 下游: Honda、Yama</div>
+</div>
+<div class="card" onclick="window.location='../reports/5488.html'">
+  <div class="card-top">
+    <span class="ticker">5488</span>
+    <span class="company-name">松普</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>939M</strong> 市值</div>
+    <div class="metric"><strong>93.18</strong> P/E</div>
+    <div class="metric"><strong>1.10</strong> P/B</div>
+  </div>
+  <div class="card-summary">松普科技 (5488) 成立於1983年，專注銅線抽製及電線電纜製造，產品涵蓋HDMI線、USB線、通訊線 (CAT-6)、網路線及消費電子線材。生產基地台灣桃園及中國 (東莞/龍華)。近年轉型綠能線材 (太陽能光電系統線/風電線)，以高精度銅線規格提升附加價值。 ## 供應鏈位置 上游: 銅條/銅</div>
+</div>
+<div class="card" onclick="window.location='../reports/6109.html'">
+  <div class="card-top">
+    <span class="ticker">6109</span>
+    <span class="company-name">亞元</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>839M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>1.38</strong> P/B</div>
+  </div>
+  <div class="card-summary">亞元科技股份有限公司 (6109) 是一家專注於電子通訊與電源零組件的製造商。核心產品涵蓋通訊用變壓器、可攜式電子產品之電源供應器、磁性元件(包含電源與EMI零組件)以及藍牙/WiFi無線通訊模組。亞元科技憑藉其在磁性材料與電源轉換領域的專業，為廣大的網通設備、消費性電子及通訊終端產品提供穩定可靠的</div>
+</div>
+<div class="card" onclick="window.location='../reports/3043.html'">
+  <div class="card-top">
+    <span class="ticker">3043</span>
+    <span class="company-name">科風</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>803M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>0.99</strong> P/B</div>
+  </div>
+  <div class="card-summary">科風股份有限公司 (3043，Powercom) 為台灣老牌UPS (不斷電系統) 製造商，自有品牌 PCM 行銷全球。產品涵蓋離線式、在線互動式及在線式 UPS，應用於伺服器、資料中心、醫療及政府單位。亦佈局太陽能逆變器。以 OEM/ODM 模式供應全球經銷通路。上游採用MOSFET/IGBT功率</div>
+</div>
+<div class="card" onclick="window.location='../reports/3432.html'">
+  <div class="card-top">
+    <span class="ticker">3432</span>
+    <span class="company-name">台端</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>728M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.31</strong> P/B</div>
+  </div>
+  <div class="card-summary">台端興業 (3432) 創立於1988年，起家於精密模具與連接器製造，長期為Dell、HP等品牌提供USB/HDMI連接器 OEM。近年積極轉型為電動自行車整車與鋰電池系統銷售商，搭配自有BMS技術。2025年營收年增逾216%，電動二輪新事業放量。 ## 供應鏈位置 上游: 金屬沖壓/鋰電池芯 中</div>
+</div>
+<div class="card" onclick="window.location='../reports/6559.html'">
+  <div class="card-top">
+    <span class="ticker">6559</span>
+    <span class="company-name">研晶</span>
+  </div>
+  <div class="metrics">
+    <div class="metric"><strong>691M</strong> 市值</div>
+    <div class="metric"><strong>—</strong> P/E</div>
+    <div class="metric"><strong>2.93</strong> P/B</div>
+  </div>
+  <div class="card-summary">研晶光電 (6559) 為高功率特殊波段LED封裝廠 (UVA/UVC/IR/SWIR)。與光鋐合資百鴻生醫佈局UVC LED殺菌。 ## 供應鏈位置 上游: LED磊晶 (含光鋐) 中游: 研晶 (UV/IR LED封裝) 下游: UV固化設備、PCB曝光、UVC LED殺菌 ## 主要客戶及供應</div>
+</div></div>
+</div>
+<script>
+// Global search redirects to index with ?q= param
+document.getElementById('global-search').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const q = this.value.trim();
+    if (q) window.location.href = '../index.html?q=' + encodeURIComponent(q);
+  }
+});
+</script>
+</body>
+</html>
