@@ -20,60 +20,25 @@ import sys
 from collections import defaultdict
 from datetime import date
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from utils import parse_number, extract_summary
+
 REPORTS_DIR = os.path.join(os.path.dirname(__file__), "..", "Pilot_Reports")
 THEMES_DIR = os.path.join(os.path.dirname(__file__), "..", "themes")
 
 
-# ─── Financial data extraction ────────────────────────────────────────────────
+# ─── Unified scan ─────────────────────────────────────────────────────────────
 
-def _parse_num(s):
-    try:
-        return float(str(s).replace(",", "").strip())
-    except Exception:
-        return None
+def scan_reports_unified():
+    """Single pass over all reports — returns (wl_map, company_financials).
 
+    wl_map: {wikilink: [{ticker, company, sector, role}]}
+    company_financials: {(ticker, company): {sector, market_cap, pe_ttm,
+                          pe_fwd, pb, ev_ebitda, summary}}
+    """
+    wl_map = defaultdict(list)
+    company_financials = {}
 
-def extract_report_financials(filepath):
-    """Extract market_cap, pe_ttm, pb, ev_ebitda, summary from a report."""
-    with open(filepath, "r", encoding="utf-8") as f:
-        content = f.read()
-
-    result = {}
-
-    mc_m = re.search(r"\*\*市值:\*\*\s*([\d,]+)", content)
-    result["market_cap"] = int(mc_m.group(1).replace(",", "")) if mc_m else 0
-
-    # 估值指標 table: header row → separator → values row
-    val_m = re.search(
-        r"估值指標.*?\n\|[^\n]+\|\n\|[-\s|]+\|\n\|([^\n]+)\|",
-        content,
-        re.DOTALL,
-    )
-    if val_m:
-        vals = [v.strip() for v in val_m.group(1).split("|") if v.strip()]
-        if len(vals) >= 5:
-            result["pe_ttm"] = _parse_num(vals[0])
-            result["pe_fwd"] = _parse_num(vals[1])
-            result["pb"] = _parse_num(vals[3])
-            result["ev_ebitda"] = _parse_num(vals[4])
-
-    # Summary (first ~80 chars of description prose)
-    desc_m = re.search(r"\*\*企業價值:\*\*[^\n]*\n+(.{1,300})", content, re.DOTALL)
-    if desc_m:
-        raw = desc_m.group(1).strip()
-        raw = re.sub(r"\[\[([^\]]+)\]\]", r"\1", raw)
-        raw = re.sub(r"\*+", "", raw)
-        raw = re.sub(r"\s+", " ", raw).strip()
-        result["summary"] = raw[:80]
-    else:
-        result["summary"] = ""
-
-    return result
-
-
-def collect_company_financials():
-    """Build {(ticker, company): financials} for all reports."""
-    meta = {}
     for sector_dir in os.listdir(REPORTS_DIR):
         sector_path = os.path.join(REPORTS_DIR, sector_dir)
         if not os.path.isdir(sector_path):
@@ -83,14 +48,68 @@ def collect_company_financials():
             if not m:
                 continue
             ticker, company = m.group(1), m.group(2)
-            fp = os.path.join(sector_path, f)
+            filepath = os.path.join(sector_path, f)
             try:
-                fin = extract_report_financials(fp)
-                fin["sector"] = sector_dir
-                meta[(ticker, company)] = fin
+                with open(filepath, "r", encoding="utf-8") as fh:
+                    full = fh.read()
             except Exception:
-                pass
-    return meta
+                continue
+
+            parts = full.split("## 財務概況")
+            content_part = parts[0]
+            finance_part = parts[1] if len(parts) > 1 else ""
+
+            # ── wikilink scan ──────────────────────────────────────────────
+            sections = {"desc": "", "supply_chain": "", "customers": ""}
+            for section in re.split(r"## ", content_part):
+                if section.startswith("業務簡介"):
+                    sections["desc"] = section
+                elif section.startswith("供應鏈位置"):
+                    sections["supply_chain"] = section
+                elif section.startswith("主要客戶及供應商"):
+                    sections["customers"] = section
+
+            text = sections["desc"] + sections["supply_chain"] + sections["customers"]
+            for wl in set(re.findall(r"\[\[([^\]]+)\]\]", text)):
+                role = "related"
+                ctx = sections["supply_chain"].split(wl)[0][-100:] if wl in sections["supply_chain"] else ""
+                if "上游" in ctx:
+                    role = "upstream"
+                elif "下游" in ctx:
+                    role = "downstream"
+                elif "中游" in ctx:
+                    role = "midstream"
+                wl_map[wl].append({"ticker": ticker, "company": company, "sector": sector_dir, "role": role})
+
+            # ── financial data ─────────────────────────────────────────────
+            mc_m = re.search(r"\*\*市值:\*\*\s*([\d,]+)", content_part)
+            market_cap = int(mc_m.group(1).replace(",", "")) if mc_m else 0
+
+            val_m = re.search(
+                r"估值指標.*?\n\|[^\n]+\|\n\|[-\s|]+\|\n\|([^\n]+)\|",
+                finance_part,
+                re.DOTALL,
+            )
+            pe_ttm = pe_fwd = pb = ev_ebitda = None
+            if val_m:
+                vals = [v.strip() for v in val_m.group(1).split("|") if v.strip()]
+                if len(vals) >= 5:
+                    pe_ttm = parse_number(vals[0])
+                    pe_fwd = parse_number(vals[1])
+                    pb = parse_number(vals[3])
+                    ev_ebitda = parse_number(vals[4])
+
+            company_financials[(ticker, company)] = {
+                "sector": sector_dir,
+                "market_cap": market_cap,
+                "pe_ttm": pe_ttm,
+                "pe_fwd": pe_fwd,
+                "pb": pb,
+                "ev_ebitda": ev_ebitda,
+                "summary": extract_summary(content_part),
+            }
+
+    return wl_map, company_financials
 
 
 # ─── Screener HTML template ───────────────────────────────────────────────────
@@ -584,63 +603,6 @@ THEME_DEFINITIONS = {
 }
 
 
-def scan_wikilinks():
-    """Scan all reports, return {wikilink: [(ticker, company, sector, context)]}."""
-    wl_map = defaultdict(list)
-
-    for sector_dir in os.listdir(REPORTS_DIR):
-        sector_path = os.path.join(REPORTS_DIR, sector_dir)
-        if not os.path.isdir(sector_path):
-            continue
-        for f in os.listdir(sector_path):
-            if not f.endswith(".md"):
-                continue
-            m = re.match(r"^(\d{4})_(.+)\.md$", f)
-            if not m:
-                continue
-            ticker, company = m.group(1), m.group(2)
-            filepath = os.path.join(sector_path, f)
-            with open(filepath, "r", encoding="utf-8") as fh:
-                content = fh.read()
-
-            # Split content into sections for context
-            sections = {
-                "desc": "",
-                "supply_chain": "",
-                "customers": "",
-            }
-            parts = re.split(r"## ", content)
-            for part in parts:
-                if part.startswith("業務簡介"):
-                    sections["desc"] = part
-                elif part.startswith("供應鏈位置"):
-                    sections["supply_chain"] = part
-                elif part.startswith("主要客戶及供應商"):
-                    sections["customers"] = part
-
-            # Find all wikilinks in non-financial sections
-            text = sections["desc"] + sections["supply_chain"] + sections["customers"]
-            for wl in set(re.findall(r"\[\[([^\]]+)\]\]", text)):
-                # Determine role from context
-                role = "related"
-                if wl in sections["supply_chain"]:
-                    if "上游" in sections["supply_chain"].split(wl)[0][-100:]:
-                        role = "upstream"
-                    elif "下游" in sections["supply_chain"].split(wl)[0][-100:]:
-                        role = "downstream"
-                    elif "中游" in sections["supply_chain"].split(wl)[0][-100:]:
-                        role = "midstream"
-
-                wl_map[wl].append(
-                    {
-                        "ticker": ticker,
-                        "company": company,
-                        "sector": sector_dir,
-                        "role": role,
-                    }
-                )
-
-    return wl_map
 
 
 def build_theme_page(theme_tag, theme_def, wl_map):
@@ -795,14 +757,9 @@ def main():
             print(f"  {tag}: {defn['name']}")
         return
 
-    print("Scanning wikilinks across all reports...")
-    wl_map = scan_wikilinks()
-    print(f"Found {len(wl_map)} unique wikilinks.\n")
-
-    # Collect financial data for all companies (used in screener)
-    print("Collecting company financials...")
-    company_financials = collect_company_financials()
-    print(f"  Loaded financials for {len(company_financials)} companies\n")
+    print("Scanning reports (wikilinks + financials)...")
+    wl_map, company_financials = scan_reports_unified()
+    print(f"  {len(wl_map)} unique wikilinks, {len(company_financials)} companies\n")
 
     # Load discovery-sourced themes
     discovery_themes = load_discovery_themes()

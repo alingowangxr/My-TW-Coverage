@@ -21,37 +21,24 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from utils import (
     REPORTS_DIR, setup_stdout,
     classify_wikilink, CATEGORY_COLORS, CATEGORY_LABELS,
+    extract_summary,
 )
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NETWORK_DIR = os.path.join(PROJECT_ROOT, "network")
 
 
-def extract_company_meta(filepath, sector):
-    """Extract metadata from a single report file."""
+def extract_company_meta(content, filepath, sector):
+    """Extract metadata from pre-read report content (pre-財務概況 portion)."""
     rel_path = os.path.relpath(filepath, PROJECT_ROOT).replace("\\", "/")
-    with open(filepath, "r", encoding="utf-8") as fh:
-        content = fh.read().split("## 財務概況")[0]
-
     sector_en_m = re.search(r"\*\*板塊:\*\*\s*(.+)", content)
     industry_en_m = re.search(r"\*\*產業:\*\*\s*(.+)", content)
-
-    # Extract first ~80 chars of prose after the metadata block
-    summary = ""
-    desc_m = re.search(r"\*\*企業價值:\*\*[^\n]*\n+(.{1,300})", content, re.DOTALL)
-    if desc_m:
-        raw = desc_m.group(1).strip()
-        raw = re.sub(r"\[\[([^\]]+)\]\]", r"\1", raw)  # strip wikilinks
-        raw = re.sub(r"\*+", "", raw)
-        raw = re.sub(r"\s+", " ", raw).strip()
-        summary = raw[:80]
-
     return {
         "file_path": rel_path,
         "sector": sector,
         "sector_en": sector_en_m.group(1).strip() if sector_en_m else "",
         "industry_en": industry_en_m.group(1).strip() if industry_en_m else "",
-        "summary": summary,
+        "summary": extract_summary(content),
     }
 
 
@@ -81,7 +68,7 @@ def scan_graph(min_weight=5, top_n=None):
                 node_counts[wl] += 1
 
             # Store metadata keyed by company name (matches wikilink text)
-            meta = extract_company_meta(filepath, sector)
+            meta = extract_company_meta(content, filepath, sector)
             meta["ticker"] = ticker
             company_meta[company_name] = meta
 

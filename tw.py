@@ -20,6 +20,9 @@ from pathlib import Path
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 SCRIPTS_DIR = os.path.join(PROJECT_ROOT, "scripts")
+sys.path.insert(0, SCRIPTS_DIR)
+from utils import extract_summary as _extract_summary  # noqa: E402
+
 REPORTS_DIR = os.path.join(PROJECT_ROOT, "Pilot_Reports")
 TASK_FILE = os.path.join(PROJECT_ROOT, "task.md")
 LOGS_DIR = os.path.join(PROJECT_ROOT, "logs")
@@ -90,14 +93,7 @@ def read_company_preview(ticker: str, name: str, sector: str) -> dict:
         m = re.search(rf"\*\*{field}:\*\*\s*(.+)", content)
         if m:
             info[field] = m.group(1).strip()
-    # Extract summary
-    desc_m = re.search(r"\*\*企業價值:\*\*[^\n]*\n+(.{1,400})", content, re.DOTALL)
-    if desc_m:
-        raw = desc_m.group(1).strip()
-        raw = re.sub(r"\[\[([^\]]+)\]\]", r"\1", raw)
-        raw = re.sub(r"\*+", "", raw)
-        raw = re.sub(r"\s+", " ", raw).strip()
-        info["簡介"] = raw[:200]
+    info["簡介"] = _extract_summary(content, max_chars=200)
     return info
 
 

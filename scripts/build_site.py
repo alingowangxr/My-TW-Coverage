@@ -26,7 +26,7 @@ import time
 from collections import defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from utils import REPORTS_DIR, PROJECT_ROOT, setup_stdout
+from utils import REPORTS_DIR, PROJECT_ROOT, setup_stdout, parse_number
 
 SITE_DIR = os.path.join(PROJECT_ROOT, "site")
 
@@ -138,14 +138,6 @@ header nav a:hover{background:#243256;color:#fff}
 """
 
 # ─── Parsing ──────────────────────────────────────────────────────────────────
-
-def parse_number(s):
-    """Parse a number string, return float or None."""
-    try:
-        return float(str(s).replace(",", "").strip())
-    except Exception:
-        return None
-
 
 def parse_report(filepath):
     """Extract all metadata and content from a report .md file."""

@@ -111,6 +111,54 @@ def setup_stdout():
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 
+def parse_number(s):
+    """Parse a numeric string to float, returning None on failure."""
+    try:
+        return float(str(s).replace(",", "").strip())
+    except Exception:
+        return None
+
+
+def extract_summary(content, max_chars=80):
+    """Extract a plain-text summary from report content.
+
+    Grabs the first prose paragraph after the 企業價值 metadata line,
+    strips wikilinks and markdown formatting, and truncates to max_chars.
+    Content should be the pre-財務概況 portion of the file.
+    """
+    desc_m = re.search(r"\*\*企業價值:\*\*[^\n]*\n+(.{1,400})", content, re.DOTALL)
+    if not desc_m:
+        return ""
+    raw = desc_m.group(1).strip()
+    raw = re.sub(r"\[\[([^\]]+)\]\]", r"\1", raw)
+    raw = re.sub(r"\*+", "", raw)
+    raw = re.sub(r"\s+", " ", raw).strip()
+    return raw[:max_chars]
+
+
+def extract_financial_metrics(finance_content):
+    """Parse the 估值指標 table from the 財務概況 section.
+
+    Returns dict with keys: pe_ttm, pe_fwd, ps, pb, ev_ebitda (floats or None).
+    finance_content should be the text *after* '## 財務概況'.
+    """
+    val_m = re.search(
+        r"估值指標.*?\n\|[^\n]+\|\n\|[-\s|]+\|\n\|([^\n]+)\|",
+        finance_content,
+        re.DOTALL,
+    )
+    result = {"pe_ttm": None, "pe_fwd": None, "ps": None, "pb": None, "ev_ebitda": None}
+    if val_m:
+        vals = [v.strip() for v in val_m.group(1).split("|") if v.strip()]
+        if len(vals) >= 5:
+            result["pe_ttm"] = parse_number(vals[0])
+            result["pe_fwd"] = parse_number(vals[1])
+            result["ps"] = parse_number(vals[2])
+            result["pb"] = parse_number(vals[3])
+            result["ev_ebitda"] = parse_number(vals[4])
+    return result
+
+
 # =============================================================================
 # Wikilink Normalization
 # =============================================================================
