@@ -32,8 +32,9 @@ jobs:
         run: python scripts/build_site.py
 
       - name: Install Pagefind (optional full-text index)
+        continue-on-error: true
         run: |
-          curl -L https://github.com/CloudCannon/pagefind/releases/latest/download/pagefind-x86_64-unknown-linux-musl.tar.gz | tar xz
+          curl -fL https://github.com/CloudCannon/pagefind/releases/latest/download/pagefind-x86_64-unknown-linux-musl.tar.gz | tar xz
           ./pagefind --source site/ || echo "Pagefind indexing failed (non-fatal)"
 
       - name: Deploy to GitHub Pages
