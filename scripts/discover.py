@@ -27,9 +27,12 @@ import re
 import sys
 import subprocess
 from collections import defaultdict
+from datetime import date
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from utils import REPORTS_DIR, PROJECT_ROOT, setup_stdout
+
+DISCOVERIES_DIR = os.path.join(PROJECT_ROOT, "discoveries")
 
 # Sector groups for smart filtering
 TECH_SECTORS = {
@@ -250,6 +253,50 @@ def print_report(results, buzzword):
                 print(f"    → {ctx}")
 
 
+def save_discovery(buzzword, results, mode, applied):
+    """Save discovery results to discoveries/YYYY-MM-DD_{keyword}.md."""
+    os.makedirs(DISCOVERIES_DIR, exist_ok=True)
+    today = date.today().strftime("%Y-%m-%d")
+    safe_name = re.sub(r'[\\/:*?"<>|]', "_", buzzword)
+    filepath = os.path.join(DISCOVERIES_DIR, f"{today}_{safe_name}.md")
+
+    lines = []
+    lines.append(f"# Discovery: {buzzword}")
+    lines.append("")
+    lines.append(f"**日期:** {today}")
+    lines.append(f"**搜尋模式:** {'smart' if mode == 'smart' else 'basic'}")
+    lines.append(f"**命中公司數:** {len(results)}")
+    lines.append(f"**已套用 wikilink:** {'是' if applied else '否'}")
+    lines.append("")
+
+    if results:
+        lines.append("## 相關公司")
+        lines.append("")
+        lines.append("| Ticker | 公司名 | 產業 | 角色 | 匹配片段 |")
+        lines.append("|---|---|---|---|---|")
+        for r in sorted(results, key=lambda x: x["ticker"]):
+            snippet = r["contexts"][0].replace("|", "｜") if r["contexts"] else ""
+            lines.append(f"| {r['ticker']} | {r['company']} | {r['sector']} | {r['role']} | {snippet} |")
+        lines.append("")
+
+    # Wikilink suggestion
+    linked = sum(1 for r in results if r["linked"] > 0)
+    unlinked = sum(1 for r in results if r["bare"] > 0 and r["linked"] == 0)
+    if unlinked > 0:
+        lines.append("## 建議新增 Wikilinks")
+        lines.append("")
+        lines.append(f"- `[[{buzzword}]]` → 適用於以下 {unlinked} 份報告（尚未標記）")
+        for r in sorted(results, key=lambda x: x["ticker"]):
+            if r["bare"] > 0 and r["linked"] == 0:
+                lines.append(f"  - {r['ticker']} {r['company']}")
+        lines.append("")
+
+    with open(filepath, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+
+    return filepath
+
+
 def main():
     setup_stdout()
 
@@ -326,6 +373,13 @@ def main():
     unlinked = sum(1 for r in results if r["bare"] > 0 and r["linked"] == 0)
     print(f"\n總結：{len(results)} 家公司提及「{buzzword}」")
     print(f"  已標記：{linked} | 未標記：{unlinked}")
+
+    # Auto-save results
+    if results:
+        mode = "smart" if smart else "basic"
+        saved_path = save_discovery(buzzword, results, mode, applied=do_apply)
+        rel = os.path.relpath(saved_path, PROJECT_ROOT)
+        print(f"  已儲存：{rel}")
 
 
 if __name__ == "__main__":

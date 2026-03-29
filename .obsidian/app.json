@@ -1,0 +1,12 @@
+{
+  "legacyEditor": false,
+  "defaultViewMode": "preview",
+  "newLinkFormat": "shortest",
+  "useMarkdownLinks": false,
+  "showUnsupportedFiles": false,
+  "promptDelete": true,
+  "trashOption": "system",
+  "alwaysUpdateLinks": true,
+  "foldHeading": false,
+  "foldIndent": true
+}

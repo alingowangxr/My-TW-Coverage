@@ -9,3 +9,13 @@ venv/
 _temp_fix_*.py
 enrichment*.json
 .claude/settings.local.json
+
+# Obsidian 個人工作區
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# 操作日誌
+logs/
+
+# 靜態網站輸出 (由 CI 產生)
+site/
