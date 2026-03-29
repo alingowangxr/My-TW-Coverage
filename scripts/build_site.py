@@ -480,7 +480,7 @@ function filterWl(wl) {{
   activeWl = decodeURIComponent(wl);
   const tag = document.getElementById("wl-filter-tag");
   tag.style.display = "inline";
-  tag.textContent = `[[${activeWl}]] ×`;
+  tag.textContent = `[[${{activeWl}}]] ×`;
   tag.onclick = () => {{ activeWl=""; tag.style.display="none"; applyFilters(); }};
   // Update URL
   const url = new URL(window.location);
@@ -497,7 +497,7 @@ if (params.wl) {{
   activeWl = decodeURIComponent(params.wl);
   const tag = document.getElementById("wl-filter-tag");
   tag.style.display = "inline";
-  tag.textContent = `[[${activeWl}]] ×`;
+  tag.textContent = `[[${{activeWl}}]] ×`;
   tag.onclick = () => {{ activeWl=""; tag.style.display="none"; applyFilters(); }};
 }}
 
