@@ -399,3 +399,7 @@ Current audit: **1,733/1,733 (100%)** pass all checks.
 MIT. See [LICENSE](LICENSE).
 
 Financial data sourced from Yahoo Finance via yfinance. Business descriptions are original research.
+
+## Attribution
+
+This repository is forked from [Timeverse/My-TW-Coverage](https://github.com/Timeverse/My-TW-Coverage). Original work by Timeverse, used and modified under the MIT License.
