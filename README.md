@@ -403,3 +403,29 @@ Financial data sourced from Yahoo Finance via yfinance. Business descriptions ar
 ## Attribution
 
 This repository is forked from [Timeverse/My-TW-Coverage](https://github.com/Timeverse/My-TW-Coverage). Original work by Timeverse, used and modified under the MIT License.
+
+### Enhancements Over Original
+
+The following features were added in this fork:
+
+#### New Tools & Interfaces
+- **`tw.py` — Interactive CLI**: Unified entry point with an interactive menu covering all operations; no need to remember script names or arguments.
+- **Static Search Website** (`scripts/build_site.py`): Fuse.js full-text search, sector filter, wikilink filter, valuation sort, individual report pages, and auto-deploy to GitHub Pages via CI.
+- **Thematic Screener** (`scripts/build_themes.py`): 21 curated supply chain themes with interactive HTML screener — side-by-side company comparison (up to 5), CSV export, and role badges (上游/中游/下游).
+- **Wikilink Network Graph** (`scripts/build_network.py`): D3.js force-directed graph with hover preview, sector filter, category type filter, and shortest-path finder between any two companies.
+- **Obsidian Integration** (`scripts/setup_obsidian.py`): One-command vault setup with sector color groups for Graph View.
+- **`/discover` skill**: Reverse search — enter a buzzword (e.g. 液冷散熱) to find related companies across all reports; falls back to web research and auto-enriches reports if no local results found.
+
+#### Data Enhancements
+- **Valuation multiples** added to all 1,735 tickers: P/E (TTM), Forward P/E, P/S, P/B, EV/EBITDA with period dates.
+- **`update_valuation.py`**: Fast valuation-only refresh (~3× faster than full financials update).
+- **WIKILINKS.md**: Auto-generated index of 4,900+ unique wikilinks, categorized by Taiwan companies, foreign companies, technologies, and materials.
+- **Wikilink standardization**: Merged 313 English aliases to canonical Chinese forms; added 768 missing wikilinks across 298 files; normalized write pipeline to prevent future duplicates.
+
+#### Quality & Reliability
+- Achieved **1,733/1,733 (100%) audit pass** across all 8 quality rules.
+- Fixed NaN values in financial tables across 778 files.
+- Fixed financial table formatting (column order, alignment, separator widths).
+- Fixed CAPEX and G&A derivation when Yahoo Finance fields are missing.
+- Shared utility consolidation (`scripts/utils.py`) — eliminated duplicate file reads and logic across scripts.
+- GitHub Actions CI (`build-site.yml`) for automatic static site deployment on push.
